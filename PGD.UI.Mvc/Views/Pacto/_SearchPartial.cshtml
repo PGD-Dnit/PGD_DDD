@@ -32,11 +32,16 @@
                 @Html.DropDownListCGUFor(m => m.UnidadeId, new SelectList(Model.lstUnidade, "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize()
 
                 <div class="form-check">
-                    <label class="form-check-label">
-                        @Html.CheckBoxCGUFor(m => m.ObterPactosUnidadesSubordinadas, new { @class = "form-check-input" })
-                        Incluir Planos de Trabalho de Unidades Subordinadas
-                    </label>
-                </div>
+                    @if (!user.IsSolicitante)
+                    {
+                        <label class="form-check-label">
+
+                            @Html.CheckBoxCGUFor(m => m.ObterPactosUnidadesSubordinadas, new { @class = "form-check-input" })
+                            Incluir Planos de Trabalho de Unidades Subordinadas
+                           
+                        </label>
+                    }
+                    </div>
             </div>
         </div>
         <div class="row">
