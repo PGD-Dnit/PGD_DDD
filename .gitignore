@@ -26,4 +26,6 @@ LoadTests/
 scriptpgd.sql
 azure-pipelines.yml
 ckeditor/
+/PGD.UI.Mvc/Web.config
+
 
