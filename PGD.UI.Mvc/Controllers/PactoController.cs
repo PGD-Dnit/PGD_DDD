@@ -217,7 +217,7 @@ namespace PGD.UI.Mvc.Controllers
                 //VER AQUI COMO FAZER UM SELECT P PEGAR A COORDENAÇÃO E E SUAS SUBORDINADAS VER SELECT EM PACTOREPOSITORY LINHA 99
                 unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade).ToList();
                 
-
+                //
                 //unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade ).ToList();              
                 //var unidadesSubordinadas = _unidadeService.ObterUnidades().Where(x => x.IdUnidadeSuperior == IdUnidade).ToList();
                 //unidades = (List<Unidade>)unidades.Concat(unidadesSubordinadas); 
