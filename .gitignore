@@ -26,7 +26,7 @@ LoadTests/
 scriptpgd.sql
 azure-pipelines.yml
 ckeditor/
-/PGD.UI.Mvc/Web.config
-/PGD.UI.Mvc/Web.Release.config
-.gitignore
+PGD.UI.Mvc/Web.config
+PGD.UI.Mvc/Web.Release.config
+/.gitignore
 
