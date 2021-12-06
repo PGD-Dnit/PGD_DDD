@@ -37,12 +37,17 @@ namespace PGD.Domain.Services
                 return listaTodasUnidades;
             }
         }
+        //csa comentei e implementei abaixo
+        //public IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai)
+        //{
+        //    var lista = new List<Unidade>();
+
+        //    return lista;
+        //}
 
         public IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai)
         {
-            var lista = new List<Unidade>();
-
-            return lista;
+            return _unidadeRepository.ObterUnidadesSubordinadas(idUnidadePai);
         }
 
         public Unidade ObterUnidade(int idUnidade)

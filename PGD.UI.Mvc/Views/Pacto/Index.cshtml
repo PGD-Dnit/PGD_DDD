@@ -71,11 +71,11 @@
                             {
                                 <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" id=@("Deletar" + index) class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove" aria-hidden="true" onclick="if (confirm('@PGD.Domain.Constantes.Mensagens.MD_002')) { showLoading(); return true; } else return false;"></span></a>
                             }
-                            /*
+                           
                             if (pacto.podeAssinar)
                             {
-                                //<a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" class="btn btn-xs btn-primary"><span title="Assinar" class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span></a>
-                            }*/
+                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" class="btn btn-xs btn-primary"><span title="Assinar" class="glyphicon glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+                            }
 
                             if (pacto.podeSuspender)
                             {

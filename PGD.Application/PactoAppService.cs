@@ -503,6 +503,7 @@ namespace PGD.Application
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
+            //return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeEditar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
             return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeEditar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
         public bool PodeEditarEmAndamento(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
@@ -530,14 +531,17 @@ namespace PGD.Application
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeDeletar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            //return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeDeletar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeDeletar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeAssinar(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
             var pactoVM = Mapper.Map<PactoViewModel, Pacto>(pacto);
             var usr = Mapper.Map<UsuarioViewModel, Usuario>(usuariologado);
-            return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeAssinar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            //csa testanto alterar o !IsDirigente p Isdirigente
+            //return (!isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeAssinar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
+            return (isDirigente || pacto.UnidadeExercicio == usuariologado.IdUnidadeSelecionada) && _pactoService.PodeAssinar(pactoVM, usr, isDirigente, unidadePactoEhSubordinadaUnidadeUsuario);
         }
 
         public bool PodeInterromper(PactoViewModel pacto, UsuarioViewModel usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)

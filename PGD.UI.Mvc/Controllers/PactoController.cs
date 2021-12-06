@@ -184,9 +184,9 @@ namespace PGD.UI.Mvc.Controllers
             Unidade retornoUnidade;
             var user = getUserLogado();
             bool dirigente = true;
+            var IdUnidade = 0;
 
-            //////PAREI AQUI
-            if (user.IsSolicitante)
+           if (user.IsSolicitante)
             {
 
                 // List<Unidade> unidadeUsuario = _unidadeService.Buscar(new UnidadeFiltro { IdUsuario = user.IdUsuario }).Lista.FirstOrDefault()?.Nome;
@@ -198,12 +198,33 @@ namespace PGD.UI.Mvc.Controllers
             }
             else if (user.IsDirigente)
             {
+                
                 var idUsuarioPerfilUnidade = _UsuarioPerfilUnidadeService.Buscar(new UsuarioPerfilUnidadeFiltro
                 {
                     IdUsuario = user.IdUsuario
                 }).Lista ?? new List<UsuarioPerfilUnidade>();
-                /////////
-                unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == unidade.IdUnidade || x.IdUnidadeSuperior == 15).ToList();
+
+                foreach (var item in idUsuarioPerfilUnidade)
+                {
+                    //perfil Dirigente ou Chefia IdPerfil = 2
+                    if (item .IdPerfil == (int)Domain.Enums.Perfil.Dirigente) {
+                        IdUnidade = item.IdUnidade;
+                    }  
+                
+                }
+                //VER AQUI A POSSIBILIDADE DE UTILIZAR IDUNIDADESELECIONA QUE JÁ VEM PREENCHIDA EM USER.IDUNIDADESELECIONA, AO INVES idUsuarioPerfilUnidade E O FOREACH ACIMA
+                var IdUnidadeSuperior = IdUnidade;
+                //VER AQUI COMO FAZER UM SELECT P PEGAR A COORDENAÇÃO E E SUAS SUBORDINADAS VER SELECT EM PACTOREPOSITORY LINHA 99
+                unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade).ToList();
+                
+
+                //unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade ).ToList();              
+                //var unidadesSubordinadas = _unidadeService.ObterUnidades().Where(x => x.IdUnidadeSuperior == IdUnidade).ToList();
+                //unidades = (List<Unidade>)unidades.Concat(unidadesSubordinadas); 
+                var  unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();
+                unidades = unidades.Concat(unidadesSubordinadas).ToList();
+
+
             }
             else
             {
@@ -237,18 +258,26 @@ namespace PGD.UI.Mvc.Controllers
             if (user.IsSolicitante)
             {
                 PactoCompleto.Searchpacto.NomeServidor = user.Nome;
+                //csa aqui tenho que melhorar a consulta p obter pactos por cpf e não obter todos e usar o where p filtar depois 
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas).Where(x => x.CpfUsuario == user.CPF);
-                
+
+            }
+            else if (user.IsDirigente)
+            {
+                pactoViewModel.UnidadeExercicio = IdUnidade;
+                pactoViewModel.CpfUsuario = user.CPF;                
+                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas);
             }
             else
             {
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas);
-            }            
 
+            }
             dirigente = user.IsDirigente;
 
             if (retorno != null)
-            {             
+            {
+                // aqui o retorno com a lista de pactos são atribuídos a variavel pactoViewModels e posteriomente, cada pacto e atribuido a item e submetido a podePermissoes()
                 var pactoViewModels = retorno.ToList();
                 foreach (var item in pactoViewModels)
                 {
@@ -630,11 +659,14 @@ namespace PGD.UI.Mvc.Controllers
         private void podePermissoes(PactoViewModel _pactoVM, UsuarioViewModel user, bool isDirigente)
         {
             bool unidadePactoESubordinadaUnidadeUsuario = UnidadePactoESubordinadaUnidadeUsuario(_pactoVM, user);
+            //Se _pactVM.PodeRestringirVisualidadePacto = false --> podeVisualizar = true
             _pactoVM.podeVisualizar = _Pactoservice.PodeVisualizar(_pactoVM, user, user.IsDirigente, unidadePactoESubordinadaUnidadeUsuario);
 
             // OBS.: pediram para liberar para qualquer unidade, sendo chefe, paliativamente, 
             // até que seja resolvido o bug que o substituto nao consegue acessar pactos da unidade do chefe.
-            unidadePactoESubordinadaUnidadeUsuario = true;
+            //
+            //csa vou comentar linha abaixo p ver como transcorre com unidadePactoESubordinadaUnidadeUsuario não setada
+            //unidadePactoESubordinadaUnidadeUsuario = true;
 
             if (unidadePactoESubordinadaUnidadeUsuario)
             {
@@ -659,11 +691,33 @@ namespace PGD.UI.Mvc.Controllers
                     p.PodeVisualizarPactuadoAvaliado = _pactoVM.podeVisualizarPactuadoAvaliado;
                 });
             }
-            else
-            {
+            else if (user.IsSolicitante) {
+                _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+               // unidadePactoESubordinadaUnidadeUsuario = true;
+                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);               
+               _pactoVM.podeInterromper = _Pactoservice.PodeInterromper(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeNegar = _Pactoservice.PodeNegar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeSuspender = _Pactoservice.PodeSuspender(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeEditarAndamento = _Pactoservice.PodeEditarEmAndamento(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeCancelarAvaliacao = _Pactoservice.PodeCancelarAvaliacao(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeVisualizarPactuadoAvaliado = _Pactoservice.PodeVisualizarPactuadoAvaliado(_pactoVM);
+                bool podeEditarObservacaoProduto = _Pactoservice.PodeEditarObservacaoProduto(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                bool podeVisualizadAvaliacaoProduto = _Pactoservice.PodeVisualizarAvaliacaoProduto(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.Produtos?.ForEach(p =>
+                {
+                    p.PodeEditarAndamento = _pactoVM.podeEditarAndamento;
+                    p.PodeEditar = _pactoVM.podeEditar;
+                    p.PodeEditarObservacaoProduto = podeEditarObservacaoProduto;
+                    p.PodeVisualizarAvaliacaoProduto = podeVisualizadAvaliacaoProduto;
+                    p.PodeVisualizarPactuadoAvaliado = _pactoVM.podeVisualizarPactuadoAvaliado;
+                });
+            }
+            else{                
                 _pactoVM.podeAssinar = false;
                 _pactoVM.podeAvaliar = false;
-                _pactoVM.podeDeletar = false;
+                _pactoVM.podeDeletar = false;                
                 _pactoVM.podeEditar = false;
                 _pactoVM.podeInterromper = false;
                 _pactoVM.podeNegar = false;
@@ -685,7 +739,8 @@ namespace PGD.UI.Mvc.Controllers
 
         private IEnumerable<Unidade> ObterUnidadesSubordinadas(UsuarioViewModel user)
         {
-            if (unidadesSubordinadas == null) unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(user.Unidade).ToList();
+            //if (unidadesSubordinadas == null) unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(user.Unidade).ToList();
+            if (unidadesSubordinadas == null) unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas((int)user.IdUnidadeSelecionada).ToList();
             return unidadesSubordinadas;
         }
 

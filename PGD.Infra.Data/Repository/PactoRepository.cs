@@ -111,6 +111,11 @@ namespace PGD.Infra.Data.Repository
                     query = query.Where(x => x.UnidadeExercicio == objFiltro.UnidadeExercicio);
                 }
             }
+            //csa add esse filtro p exluir os planos de trabalho da propria chefia consultante
+            if (!string.IsNullOrEmpty(objFiltro.CpfUsuario))
+            {
+                query = query.Where(x => x.CpfUsuario != objFiltro.CpfUsuario);
+            }
             if (objFiltro.IdSituacaoPacto > 0)
             {
                 query = query.Where(x => x.IdSituacaoPacto == objFiltro.IdSituacaoPacto);

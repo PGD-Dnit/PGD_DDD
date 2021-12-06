@@ -7,6 +7,7 @@ using PGD.Infra.Data.Context;
 using PGD.Infra.Data.Util;
 using System.Linq;
 using PGD.Domain.Entities;
+using System.Collections.Generic;
 
 namespace PGD.Infra.Data.Repository
 {
@@ -84,6 +85,34 @@ namespace PGD.Infra.Data.Repository
             }
 
             return retorno;
+        }
+
+        public IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai)
+        {
+            var a = from u in Db.Set<Unidade>()
+                    where u.IdUnidadeSuperior == idUnidadePai
+                    select u;
+
+            var unidadesSubordinadas = RetornaUnidadesSubordinadas(a);
+            return unidadesSubordinadas;
+
+        }
+
+        private IQueryable<Unidade> RetornaUnidadesSubordinadas(IQueryable<Unidade> lista, bool forcarParada = false)
+        {
+            if (lista.All(x => x.IdUnidadeSuperior == null) || forcarParada)
+                return lista;
+
+            var lista2 = lista;
+
+            var lista3 = Db.Set<Unidade>()
+                .Where(x => lista2.All(y => y.IdUnidade != x.IdUnidade) && lista2.Any(y => y.IdUnidade == x.IdUnidadeSuperior));
+
+            forcarParada = !lista3.Any();
+
+            lista = lista.Concat(lista3);
+
+            return RetornaUnidadesSubordinadas(lista, forcarParada);
         }
     }
 }
