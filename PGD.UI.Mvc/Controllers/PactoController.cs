@@ -668,7 +668,8 @@ namespace PGD.UI.Mvc.Controllers
             //csa vou comentar linha abaixo p ver como transcorre com unidadePactoESubordinadaUnidadeUsuario não setada
             //unidadePactoESubordinadaUnidadeUsuario = true;
 
-            if (unidadePactoESubordinadaUnidadeUsuario)
+            //if (unidadePactoESubordinadaUnidadeUsuario)
+            if (user.IsDirigente)
             {
                 _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
@@ -692,12 +693,12 @@ namespace PGD.UI.Mvc.Controllers
                 });
             }
             else if (user.IsSolicitante) {
+                unidadePactoESubordinadaUnidadeUsuario = true;
                 _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
-                _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
-               // unidadePactoESubordinadaUnidadeUsuario = true;
+                _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);                
                 _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);               
-               _pactoVM.podeInterromper = _Pactoservice.PodeInterromper(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeInterromper = _Pactoservice.PodeInterromper(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeNegar = _Pactoservice.PodeNegar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeSuspender = _Pactoservice.PodeSuspender(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeEditarAndamento = _Pactoservice.PodeEditarEmAndamento(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
@@ -714,18 +715,19 @@ namespace PGD.UI.Mvc.Controllers
                     p.PodeVisualizarPactuadoAvaliado = _pactoVM.podeVisualizarPactuadoAvaliado;
                 });
             }
-            else{                
-                _pactoVM.podeAssinar = false;
-                _pactoVM.podeAvaliar = false;
-                _pactoVM.podeDeletar = false;                
-                _pactoVM.podeEditar = false;
-                _pactoVM.podeInterromper = false;
-                _pactoVM.podeNegar = false;
-                _pactoVM.podeSuspender = false;
-                _pactoVM.podeEditarAndamento = false;
-                _pactoVM.podeVisualizarPactuadoAvaliado = false;
+            else if(user.IsAdmin){                
+                _pactoVM.podeAssinar = true;
+                _pactoVM.podeAvaliar = true;
+                _pactoVM.podeDeletar = true;                
+                _pactoVM.podeEditar = true;
+                _pactoVM.podeInterromper = true;
+                _pactoVM.podeNegar = true;
+                _pactoVM.podeSuspender = true;
+                _pactoVM.podeEditarAndamento = true;
+                _pactoVM.podeVisualizarPactuadoAvaliado = true;
             }
             _pactoVM.podeVoltarSuspensao = _Pactoservice.PodeVoltarSuspensao(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+            // csa ver esse so posso restringir visibilidade se chefe pertencer a msm unidade ta errado, unidades subordinadas deve tb ACREDITO
             _pactoVM.podeRestringirVisibilidadePacto = user.IsDirigente && user.IdUnidadeSelecionada == _pactoVM.UnidadeExercicio;
 
         }
@@ -733,7 +735,8 @@ namespace PGD.UI.Mvc.Controllers
         private bool UnidadePactoESubordinadaUnidadeUsuario(PactoViewModel _pactoVM, UsuarioViewModel user)
         {
             IEnumerable<Unidade> unidadesSubordinadas = ObterUnidadesSubordinadas(user);
-            bool unidadePactoESubordinadaUnidadeUsuario = _pactoVM.UnidadeExercicio == 0 || unidadesSubordinadas.Any(us => us.IdUnidade == _pactoVM.UnidadeExercicio);
+            //Aqui e comparado as unidades susbordinadas que a chefia tem acesso, com a unidade que o pacto pertence
+            bool unidadePactoESubordinadaUnidadeUsuario = _pactoVM.UnidadeExercicio == 0 || unidadesSubordinadas.Any(us => us.IdUnidade == _pactoVM.UnidadeExercicio || user.IdUnidadeSelecionada == _pactoVM.UnidadeExercicio);
             return unidadePactoESubordinadaUnidadeUsuario;
         }
 

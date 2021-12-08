@@ -636,7 +636,7 @@ namespace PGD.Domain.Services
 
         public bool PodeAssinar(Pacto pacto, Usuario usuariologado, bool isDirigente, bool unidadePactoEhSubordinadaUnidadeUsuario)
         {
-            var a = 1;
+            
             #region PERMISSÕES DE AÇÕES DO SOLICITANTE
             if (!isDirigente)
             {
