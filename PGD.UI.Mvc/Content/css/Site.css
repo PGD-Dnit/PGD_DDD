@@ -1,0 +1,123 @@
+﻿.fixed-table-pagination .pagination-detail, .fixed-table-pagination div.pagination {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.danger {
+    color: #b92c28 !important
+}
+
+.success {
+    color: #3e8f3e !important
+}
+
+.warn {
+    color: #e38d13 !important
+}
+
+.footer-azul2 {
+    background: none repeat scroll 0% 0% #1e3b6e;
+    padding: 1em 0px;
+    max-width: 100%;
+    height: 74.96px;
+}
+
+.div-loader {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    z-index: 99999999999999999;
+    top: 0px;
+    left: 0px;
+    width: 105%;
+    height: 105%;
+    background-color: white;
+    vertical-align: bottom;
+    padding-top: 20%;
+    filter: alpha(opacity=75);
+    opacity: 0.75;
+    font-size: large;
+    color: blue;
+    font-style: italic;
+    font-weight: 400;
+    background-image: url("../img/loading-blue-pipe.gif");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 70px;
+}
+
+#menu-navbar {
+    height: 50px;
+}
+
+
+
+#menu-navbar li a:hover, #menuItems div:hover {
+    background: #ccc;
+    color: #052D6F;
+    font-weight: bold;
+}
+
+#menuConfiguracoes {
+    border-bottom: 1px solid #dddddd;
+    border-radius: 4px 4px 0 0;
+    padding: 10px 15px;
+    position: relative;
+}
+
+
+#menuItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 3px 3px 16px #ccc;
+    padding: 8px;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 40px;  
+    z-index: 1000;
+    background: #fff;
+    border-radius: 4px;
+
+}
+
+
+
+#menuConfiguracoesContainer:hover #menuItems {
+    opacity: 1;
+    visibility: visible;
+}
+
+#menuItems div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+
+#menuItems div a {
+    text-decoration: none;
+}
+
+#menuItems div:not(:first-child) {
+    border-top: 1px solid #dddddd;
+}
+
+#tbPlanoTrabalho th{
+    color:#fff;
+    margin: 0 auto;
+}
+#tbPlanoTrabalho th:nth-child(1) {
+    background: #1D8ACB;
+}
+#tbPlanoTrabalho th:nth-child(2) {
+    background: #FCBA61;
+}
+#tbPlanoTrabalho th:nth-child(3) {
+    background: #98A0A7;
+}
