@@ -101,7 +101,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\CGU.Contr
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\CGU.Util.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\Cgu.Util.EntityFramework.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\CsQuery.dll
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\DomainValidation.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\EntityFramework.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
