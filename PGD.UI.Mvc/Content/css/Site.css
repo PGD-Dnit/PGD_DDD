@@ -49,15 +49,23 @@
 
 #menu-navbar {
     height: 50px;
+    margin: -7px 0 0 -50px;
 }
 
+#menu-navbar > li:nth-child(1) {
+    background-color: #eaeaea;
+    border-radius: 6px; 
+    border:none;
+}
 
 
 #menu-navbar li a:hover, #menuItems div:hover {
-    background: #ccc;
+    background: #eaeaea;
     color: #052D6F;
     font-weight: bold;
+    background-color: #ccc;
 }
+
 
 #menuConfiguracoes {
     border-bottom: 1px solid #dddddd;

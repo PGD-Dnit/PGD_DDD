@@ -96,8 +96,8 @@ function formatterPermitePactoExterior(value, row) {
 
 function formatterAcoes(value, row) {
 
-    return `<a href="UnidadeTipoPacto/Create/${row.IdUnidade_TipoPacto}" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
+    return `<a href="UnidadeTipoPacto/Create/${row.IdUnidade_TipoPacto}" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-pencil text-white" aria-hidden="true"></i></a>
             <a href="javascript:void(0)" class="btn btn-xs btn-danger" onclick="excluirUnidadeTipoPactoClick(${row.IdUnidade_TipoPacto})">
-                <i class="glyphicon glyphicon-remove" aria-hidden="true"></i>
+                <i class="glyphicon glyphicon-remove text-white" aria-hidden="true"></i>
             </a>`;
 }

@@ -74,7 +74,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="exampleInputName2">Unidade em exercício: </label>
+                            <label for="exampleInputName2">Unidade em Exercício: </label>
                             @if (Model.IdPacto == 0)
                             {
                                 <!--Cade - Mensagem remivida
@@ -91,14 +91,14 @@
         <div class="panel panel-default" id="dvDescricao">
             <div class="panel-heading bg-lightgray" role="tab" id="pacto_identificacao">
                 <h4 class="panel-title text-gray">
-                    2. DESCRIÇÃO/PLANEJAMENTO
+                    2. DESCRIÇÃO PLANEJAMENTO
                 </h4>
             </div>
             <div role="tabpanel" id="conteudoIdentificacao">
                 <div class="panel-body ">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label>@string.Format("Tabela de Atividades em vigor: {0}", Model.OrdemServico.DescOrdemServico)</label>
+                            <label>@string.Format("Tabela de Atividades em Vigor: {0}", Model.OrdemServico.DescOrdemServico)</label>
                         </div>
                         @if (Model.IdPacto > 0)
                         {
@@ -126,13 +126,13 @@
                     <div class="row">
 
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Servidor tem redução de carga horária? </label>
+                            <label class="text-vertical-line">Servidor Tem Redução de Carga Horária? </label>
                             <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PossuiCargaHoraria.GetValueOrDefault()) Sim</label>
                             <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PossuiCargaHoraria.GetValueOrDefault()) Não</label>
                         </div>
                         <div class="form-group col-md-6">
                             <div id="divCargaHoraria" style="@(Model.PossuiCargaHoraria.GetValueOrDefault() ? "" : "display:none")">
-                                <label class="text-vertical-line">Carga horária:</label>
+                                <label class="text-vertical-line">Carga Horária:</label>
                                 @Html.TextBoxCGUFor(x => x.CargaHorariaDiaria, new { @class = "qtdHoras form-control", @placeholder = "", @type = "text", @onblur = "atualizaCargaHorariaDiaria();", @min = "01:00", @max = "08:00" }).SetReadonly(!Model.podeEditar)
 
                             </div>
@@ -164,7 +164,7 @@
                             @Html.TextBoxCGUFor(x => x.TipoPacto.DescTipoPacto, new { @class = "form-control" }).SetReadonly(true)
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Data prevista de início do plano de trabalho: </label>
+                            <label class="text-vertical-line">Data Prevista de Início do Plano de Trabalho: </label>
                             @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(!Model.podeEditar)
                         </div>
                         <!--
@@ -194,7 +194,7 @@
                 </h4>
                 -->
                     <h4 class="panel-title text-gray">
-                        3. CADASTRAMENTO/ATUALIZAÇÃO  DAS ATIVIDADES DO PLANO DE TRABALHO
+                        3. CADASTRAMENTO ATUALIZAÇÃO  DAS ATIVIDADES DO PLANO DE TRABALHO
                     </h4>
                 </div>
                 <div class="panel panel-body">
@@ -311,9 +311,9 @@
 
                             <p style="font-weight: bold; line-height: 1.5; white-space: wrap; text-align:justify; padding:0 32px;">
                                 Declaro ciência e concordância com a vedação de pagamentos das vantagens a que se refere os artigos 29 a 36 da Instrução Normativa nº65 de 2020.
-                                Declaro ciência quanto à vedação de utilização de terceiros para a execução dos trabalhos acordados como parte das metas.Declaro ciência e concordância
-                                quanto às disposições constantes da Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD).No que couber, e quanto às
-                                orientações da Portaria nº15.543/SEDGG/ME, de 2 de julho de 2020, que divulga o Manual de Conduta do Agente Público Civil do Poder Executivo Federal.
+                                Declaro ciência quanto à vedação de utilização de terceiros para a execução dos trabalhos acordados como parte das metas. Declaro ciência e concordância
+                                quanto às disposições constantes da Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). No que couber, e quanto às
+                                orientações da Portaria nº15.543/SEDGG/ME de 2 de julho de 2020, que divulga o Manual de Conduta do Agente Público Civil do Poder Executivo Federal.
                             </p>
                         </div>
                     </div>

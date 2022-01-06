@@ -41,7 +41,7 @@
 
     <script type="text/javascript" language="javascript">
         var ROOT = '@Url.Content("~")';
-
+        
         if (ROOT == "/")
             ROOT = "";
    
@@ -62,6 +62,7 @@
 </head>
 <body>
     @{var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
+        var lengthURL = controller.ControllerContext.HttpContext.Request.Url.Segments.Length;
         PGD.Application.ViewModels.UsuarioViewModel user = new PGD.Application.ViewModels.UsuarioViewModel();
         PGD.Domain.Enums.Perfil perfil = PGD.Domain.Enums.Perfil.Consulta;
         string versaoSistema = "";
@@ -82,18 +83,21 @@
                 <li><a style="font-family:sans,sans-serif; text-decoration:none; color:white;" href="http://epwg.governoeletronico.gov.br/barra/atualize.html">Atualize sua Barra de Governo</a></li>
             </ul>
         </div>
-        @if (controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login") { 
+        @if (controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login")
+        {
+
+
             <div id="header">
-                <div class="container">
+                <div class="container" id="logo">
+
                     <div class="logo pull-left col-md-12">
                         <!--
                         <a href="@Url.Action("Index", "Home")">PGD</a>
                         <p>PROGRAMA DE GESTÃO DE DEMANDAS</p>
                     -->
+                        @*<a href="@Url.Action("Index", "Home")">
 
-                        <a href="@Url.Action("Index", "Home")">
-                            <img src="~/Imagens/pg_cade_1.png" alt="PG.DNIT" width='100%' height=188>
-                        </a>
+                        </a>*@
                         <!--
                     <a href="@Url.Action("Index", "Home")">
                         <img src="~/Imagens/pg_cade_2.png" alt="some text" width=190 height=100>
@@ -150,10 +154,10 @@
             <div class="menu">
                 <div class="container" style="padding-bottom: 0;">
                     <div class="pull-left">
-                    
 
 
-                
+
+
                     </div>
                 </div>
 
@@ -168,16 +172,17 @@
                         <div>
 
                             <div class="col-md-12">
-                                @if (user != null && !user.IsAdmin) {
+                                @if (user != null && !user.IsAdmin)
+                                {
 
                                     @*<div class="col-md-4">
-                                        <ul class="nav nav-tabs nav-justified">
-                                            <li role="presentation">
-                                                <a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuSolicitar"> Plano de Trabalho</a>
-                                            </li>
-                                        </ul>
-                                  </div>*@
-                                  }
+                                          <ul class="nav nav-tabs nav-justified">
+                                              <li role="presentation">
+                                                  <a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuSolicitar"> Plano de Trabalho</a>
+                                              </li>
+                                          </ul>
+                                    </div>*@
+                                }
 
                                 <div class="col-md-6">
                                     <ul class="nav nav-tabs nav-justified" id="menu-navbar">
@@ -187,63 +192,72 @@
                                                 <a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuSolicitar"> Plano de Trabalho</a>
                                             </li>
                                         }
-                                            <li role="presentation">
-                                                <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" id="menuConsultarPactos">Consultar PGD </a>
-                                            </li>
-                                            <li id="menuConfiguracoesContainer">
+                                        <li role="presentation">
+                                            <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" id="menuConsultarPactos">Consultar PGD </a>
+                                        </li>
+                                        <li id="menuConfiguracoesContainer">
 
-                                                @if (user != null && user.IsAdmin)
-                                                {
-                                                    <a id="menuConfiguracoes" href="#">Configurações</a>
-                                                    <div id="menuItems">
-                                                        <div><a id="menuOrdemServico" onclick="showLoading()" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></div>
-                                                        <div><a id="menuGrupoAtividade" onclick="showLoading()" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></div>
-                                                        <div><a id="menuAtividade" onclick="showLoading()" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></div>
-                                                        <div><a id="menuPerfil" onclick="showLoading()" href="@Url.Action("Index", "Usuario")">Gerenciar Perfil</a></div>
-                                                        <div><a id="menutiposPacto" onclick="showLoading()" href="@Url.Action("Index", "UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></div>
-                                                        <div><a id="menuAvaliacaoDetalhada" onclick="showLoading()" href="@Url.Action("Index", "CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></div>
-                                                        @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
-                                                    </div>
-                                                }
+                                            @if (user != null && user.IsAdmin)
+                                            {
+                                                <a id="menuConfiguracoes" href="#">Configurações</a>
+                                                <div id="menuItems">
+                                                    <div><a id="menuOrdemServico" onclick="showLoading()" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></div>
+                                                    <div><a id="menuGrupoAtividade" onclick="showLoading()" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></div>
+                                                    <div><a id="menuAtividade" onclick="showLoading()" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></div>
+                                                    <div><a id="menuPerfil" onclick="showLoading()" href="@Url.Action("Index", "Usuario")">Gerenciar Perfil</a></div>
+                                                    <div><a id="menutiposPacto" onclick="showLoading()" href="@Url.Action("Index", "UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></div>
+                                                    <div><a id="menuAvaliacaoDetalhada" onclick="showLoading()" href="@Url.Action("Index", "CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></div>
+                                                    @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
+                                                </div>
+                                            }
 
 
-                                            </li>
-                                        </ul>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
-                       
+
                     </nav>
-                 }
-               
-                </div>
+                }
+
+            </div>
             <div class="clearfix"></div>
         }
-        
-        <div class="container" id="@(@controller.ControllerContext.RouteData.Values["controller"].ToString() == "Login" ? "loginContainer" : "")">
-            <div id="Alertas">
-                <div id="Messages">
+
+            <div class="container" id="@(@controller.ControllerContext.HttpContext.Request.Url.Segments[lengthURL - 1] != "SelecionarPerfil" &&
+            @controller.ControllerContext.RouteData.Values["controller"].ToString() == "Login" ? "loginContainer" :
+            @controller.ControllerContext.HttpContext.Request.Url.Segments[lengthURL - 1] == "SelecionarPerfil" ? "selecionarPerfil" : "")">
+                <div id="Alertas">
+                    <div id="Messages">
+                    </div>
+                    @Html.Partial("_AlertaPartial", new PGD.Application.ViewModels.MessageViewModel { })
                 </div>
-                @Html.Partial("_AlertaPartial", new PGD.Application.ViewModels.MessageViewModel { })
+                @RenderBody()
             </div>
-            @RenderBody()
-        </div>
-        @if (controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login") { 
-        
-            <div class="footer">
-                <div class="footer-azul2"></div>
-                <div class="footer-cinza">
-                    @*<div class="center-block container" style="padding-bottom: 0">
-                        <div class="row" style="padding-left: 10px;">
-                            <div class="col-md-12 left">
-                                <p>Sistema Eletrônico do PGD @versaoSistema</p>
-                                Direitos reservados - CGU - 2017
-                            </div>
+       @if (@controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login") { 
+       
+        <div class="footer">
+            <div class="footer-azul2"></div>
+            <div class="footer-cinza">
+                @*<div class="center-block container" style="padding-bottom: 0">
+                    <div class="row" style="padding-left: 10px;">
+                        <div class="col-md-12 left">
+                            <p>Sistema Eletrônico do PGD @versaoSistema</p>
+                            Direitos reservados - CGU - 2017
                         </div>
-                    </div>*@
+                    </div>
+                </div>*@<div class="center-block container" style="padding-bottom: 0">
+                    <div class="row" style="padding-left: 10px;">
+                        <div class="col-md-12 left">
+                            <p></p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        }
+       }
+        </div>
+    }
     </div>
 
 
