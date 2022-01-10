@@ -111,7 +111,7 @@
 
                     @if (user != null && user.IdUsuario > 0)
                     {
-                        <div class="loginpartial pull-right">
+                        <div class="col-md-6 col-lg-6 loginpartial pull-right">
                             <p>
                                 <a href="javascript:void(0)" onclick="alto_contraste();">ALTO CONTRASTE</a>
                             </p>
@@ -136,7 +136,7 @@
 
 
                                 }
-                                <a id="linkSignOut" href="javascript:void(0)"><span onclick="fazerLogOut()" class="btn btn-warning text-white ml-4" style="padding: 2px 24px; border-radius: 8px"> Sair X </span></a>
+                                <a class="pull-right" id="linkSignOut" href="javascript:void(0)"><span onclick="fazerLogOut()" class="btn btn-warning text-white ml-4" style="padding: 2px 24px; border-radius: 8px"> Sair X </span></a>
                             </p>
 
                         </div>
@@ -171,7 +171,7 @@
                     <nav class="navbar navbar-dark bg-primary">
                         <div>
 
-                            <div class="col-md-12">
+                            <div class="col-md-12" style="padding-left: 0">
                                 @if (user != null && !user.IsAdmin)
                                 {
 
@@ -184,7 +184,7 @@
                                     </div>*@
                                 }
 
-                                <div class="col-md-6">
+                                <div class="col-md-6" style="padding-left: 0">
                                     <ul class="nav nav-tabs nav-justified" id="menu-navbar">
                                         @if (user != null && !user.IsAdmin)
                                         {

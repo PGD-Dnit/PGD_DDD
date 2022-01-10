@@ -309,7 +309,7 @@ body {
 }
 
 .container {
-    padding-bottom: 150px;
+    /*padding-bottom: 150px;*/
 }
 
 .text-center, .table-center td {
@@ -349,12 +349,19 @@ body {
 
 #header {
     width: 100%;
-    height: 130px;
+    height: 150px;
     color: #fff;
 }
 
+@media (min-width: 1550px) {
+    #header {
+        height: 250px !important;
+    }
+    
+}
+
 .logo {
-    padding-top: 20px;
+   padding-top: 20px;
 }
 
     .logo p {
@@ -375,7 +382,7 @@ body {
     color: #fff;
 }
 .loginpartial{
-    margin-top:30px;
+    margin-bottom:30px;
 }
 .loginpartial p {    
     padding-top:6px;
@@ -624,6 +631,13 @@ submitLink:focus {
     width: 100%;
     height: 100%;
     background-image: url('../../Imagens/Grupo 411.png');
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
+
+    display: flex;
+    align-items:flex-end;
+    justify-content: flex-end;
+   
 }
+
+

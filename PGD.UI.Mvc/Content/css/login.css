@@ -6,6 +6,20 @@
     box-sizing: border-box;
 }
 
+.left {
+    width: 50%;
+}
+
+.right {
+    display: flex;
+    align-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin-left: -50%;
+    padding-top: 5%;
+}
+
 #loginContainer {
     background: url('../../Imagens/fundo.dnit_v2.png');
     background-repeat: no-repeat;
@@ -17,6 +31,25 @@
     height: 94vh;
     display: flex;
     justify-content: space-between;
+}
+
+@media (max-width: 1240px) {
+    #loginContainer {
+        background: none !important;
+    }
+    .left {
+        display: none;
+    }
+    .right {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 #selecionarPerfil {
@@ -31,20 +64,13 @@
     display: flex;
     justify-content: space-between;
 }
-
-.left {
-    width: 50%;
+@media (max-width: 1240px) {
+    #selecionarPerfil {
+        background: none !important;
+    }
 }
 
-.right {
-    display: flex;
-    align-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    width: 50%;
-    margin-left: -50%;
-    padding-top: 5%;
-}
+
 
 .login-img {
     width: 200px;
@@ -191,6 +217,86 @@
     font-weight: bolder;
 }
 
+/*@media (min-width:320px) {
+    #menu-navbar {
+        height: 50px;
+        margin: 0% 0 0 -3.125em;
+        background-color: red;
+    }
+}
 
+@media (min-width:375px) {
+    #menu-navbar {
+        height: 50px;
+        margin: 0% 0 0 -3.125em;
+        background-color: red;
+    }
+}
+
+@media (min-width:425px) {
+    #menu-navbar {
+        height: 50px;
+        margin: 0% 0 0 -3.125em;
+        background-color: red;
+    }
+}
+
+@media (min-width:768px) {
+    #menu-navbar {
+        height: 50px;
+        margin: 0% 0 0 -3.125em;
+        background-color: red;
+    }
+}
+
+@media (min-width:1024px) {
+    #menu-navbar {
+        height: 50px;
+        margin: 0% 0 0 -3.125em;
+        background-color: red;
+    }
+}
+
+@media (min-width:1360px) {
+    #menu-navbar {
+        height: 50px;
+        margin: 0% 0 0 -3.125em;
+        background-color:white;
+    }
+}
+
+@media (min-width:1920px) {
+    #menu-navbar {
+        height: 50px;
+        margin: -5.2% 0 0 -3.125em !important;
+        background-color: green;
+    }
+
+    .loginpartial {
+        margin-top: 100px;
+        background-color: red;
+    }
+
+    .menu {
+        background: rgba(5,45,111,0) !important;
+    }
+}
+
+@media (min-width:2560px) {
+    #menu-navbar {
+        height: 50px;*/
+      /*  margin: 8% 0 0 -3.125em !important;*/
+        /*background-color: blue;
+    }
+
+    .loginpartial {
+        margin-top: 150px;
+        background-color: red;
+    }
+
+    .menu {
+        background: rgba(5,45,111,0);
+    }
+}*/
 
 
