@@ -152,7 +152,7 @@
                 </div>
             </div>
             <div class="menu">
-                <div class="container" style="padding-bottom: 0;">
+                <div class="container" style="padding-bottom: 0">
                     <div class="pull-left">
 
 
@@ -227,7 +227,7 @@
 
             <div class="container" id="@(@controller.ControllerContext.HttpContext.Request.Url.Segments[lengthURL - 1] != "SelecionarPerfil" &&
             @controller.ControllerContext.RouteData.Values["controller"].ToString() == "Login" ? "loginContainer" :
-            @controller.ControllerContext.HttpContext.Request.Url.Segments[lengthURL - 1] == "SelecionarPerfil" ? "selecionarPerfil" : "")">
+            @controller.ControllerContext.HttpContext.Request.Url.Segments[lengthURL - 1] == "SelecionarPerfil" ? "selecionarPerfil" : "container-wrap")">
                 <div id="Alertas">
                     <div id="Messages">
                     </div>
@@ -237,7 +237,7 @@
             </div>
        @if (@controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login") { 
        
-        <div class="footer">
+        <div class="footer" style="margin-top: 2rem;">
             <div class="footer-azul2"></div>
             <div class="footer-cinza">
                 @*<div class="center-block container" style="padding-bottom: 0">
@@ -255,7 +255,7 @@
                     </div>
                 </div>
             </div>
-       }
+       
         </div>
     }
     </div>

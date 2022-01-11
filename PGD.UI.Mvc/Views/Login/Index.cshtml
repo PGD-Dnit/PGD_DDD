@@ -5,11 +5,11 @@
 
 <div class="left"></div>
 <div class="right">
-    <div>
+    <div class="col-md-8 col-sm-8 col-lg-8 col-xs-8" style="display: flex; justify-content: center">
         <img class="login-img" src="~/Imagens/fundo.dnit_v4.png" />
     </div>
 
-    <div class=" col-md-6 col-xs-12" id="loginMain">
+    <div class=" col-md-8 col-sm-8 col-lg-8 col-xs-8" id="loginMain">
 
         @*<h2 class="col-md-12 text-center">DNIT</h2>*@
         @*<h2 class="col-md-12 text-center">@ViewBag.Title</h2>*@
@@ -18,14 +18,14 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="row col-md-12">
+            <div class="row col-md-12 col-lg-12">
                 <div class="form-group col-md-12">
 
                     @*@Html.Label("Sigla", "Usuário", new { @class = "col-md-12 control-label" })*@
                     <div class="col-md-12 input-group-lg">
 
 
-                        @Html.TextBoxFor(x => x.Sigla, new { @class = "form-control input-login", @type = "text", @placeHolder = "Usuário" })
+                        @Html.TextBoxFor(x => x.Sigla, new { @class = "form-control input-login col-md-12 col-sm-12 col-lg-6 col-xs-6", @type = "text", @placeHolder = "Usuário" })
                         @Html.ValidationMessageFor(c => c.Sigla)
 
                     </div>
@@ -36,26 +36,26 @@
                 <div class="form-group col-md-12">
                     @*@Html.Label("Senha", "Senha", new { @class = "col-md-12 control-label" })*@
                     <div class="col-md-12 input-group-lg">
-                        @Html.TextBoxFor(x => x.Senha, new { @class = "form-control input-login", @type = "password", @placeHolder = "Senha"  })
+                        @Html.TextBoxFor(x => x.Senha, new { @class = "form-control input-login col-md-12 col-sm-12 col-lg-6 col-xs-6", @type = "password", @placeHolder = "Senha"  })
                         @Html.ValidationMessageFor(c => c.Senha)
                     </div>
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row col-md-12 col-sm-12 col-lg-6 col-xs-12">
                 <div class="col text-center">
                     <button class="btn btn-lg  btn-entrar">Entrar</button>
                 </div>
             </div>
         }
     </div>
-    <div class="col-md-6 col-xs-12 clique-aqui">
-        <div>
-            <a href="https://www.gov.br/dnit/pt-br/acesso-a-informacao/servidores/programa-de-gestao-de-demandas" class="btn btn-link active" role="button" aria-pressed="true" target="_blank">  Clique aqui</a> e saiba como participar do PGD.
-        </div>
+    <div class="col-md-8 col-sm-8 col-lg-8 col-xs- clique-aqui text-center">
+      
+        <a href="https://www.gov.br/dnit/pt-br/acesso-a-informacao/servidores/programa-de-gestao-de-demandas" class="btn btn-link active" role="button" aria-pressed="true" target="_blank">  Clique aqui</a> e saiba como participar do PGD.
+        
     </div>
 
-    <div>
+    <div class="footer-container col-md-12 col-sm-12 col-lg-6 col-xs-6">
         <img class="imagem_footer" src="~/Imagens/fundo.dnit_v5.png" />
     </div>
 </div>

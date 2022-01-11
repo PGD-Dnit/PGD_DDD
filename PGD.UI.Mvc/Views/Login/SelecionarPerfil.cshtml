@@ -4,17 +4,17 @@
 
 
 
-<div class="col-md-4 col-md-4 col-xs-5 selecione_perfil_main">
+<div class="col-md-12 col-sm-12 col-lg-6 col-xs-12 selecione_perfil_main">
 
-    <div class="col-12" style="margin-bottom:3rem">
-        <img  width="200"   src="~/Imagens/fundo.dnit_v6.png" /> 
+    <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12" style="margin-bottom:3rem; display: flex; justify-content:center">
+        <img  style="max-width: 100%"  src="~/Imagens/fundo.dnit_v6.png" /> 
     </div>
 
     @using (Html.BeginForm("SelecionarPerfil", "Login", FormMethod.Post, htmlAttributes: new { @class = "form col-md-12 selecione_perfil_container" }))
     {
         @Html.AntiForgeryToken()
-        <div class="panel perfil_body">
-            <div class="panel-body opcoes-item">
+        <div class="panel perfil_body col-md-12 col-sm-12 col-lg-12 col-xs-12">
+            <div class="panel-body opcoes-item col-md-12 col-sm-12 col-lg-12 col-xs-12">
                 <div class="row opcoes_perfil">
                     @foreach (var item in (List<PGD.Domain.Enums.Perfil>)TempData["lstPerfil"])
                     {
@@ -39,9 +39,9 @@
             </div>
 
         </div>
-        <div class="row">
+        <div class="row col-md-12 col-sm-12 col-lg-12 col-xs-12">
             <div class="col text-center">
-                <button class="btn btn-lg btn-entrar" style="transform:scale(0.65); width:350px;">Continuar</button>
+                <button class="btn btn-lg btn-entrar" style="width:350px;">Continuar</button>
             </div>
         </div>
 
