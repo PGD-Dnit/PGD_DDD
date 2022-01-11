@@ -76,6 +76,7 @@
 
 .login-img {
     margin-bottom: 2rem;
+    max-width: 100%;
 
 }
 
@@ -87,7 +88,7 @@
 .imagem_footer {
     position: fixed;
     bottom: 0;
-    width: 950px;
+    width: 350px;
     max-width: 100%;
 }
 
@@ -95,7 +96,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 350px;
+    height: 200px;
     padding: 2rem 1rem;
     background-color: #f5f5f5;
     border-radius: 16px;
@@ -109,15 +110,14 @@
 }
 
 
-    .input-login {
-        /*width: 35.875em;*/
-        height: 58px !important;
-        font-family: 'Montserrat', sans-serif;
-        color: #707070;
-        border-radius: 8px;
-        border: 2px solid #052D6F;
-        box-sizing: border-box;
-    }
+.input-login {
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    color: #707070;
+    border-radius: 8px;
+    border: 2px solid #052D6F;
+    box-sizing: border-box;
+}
 
 .input-login:nth-child(1) {
     margin-bottom: 27px;
@@ -126,11 +126,11 @@
 
 .btn-entrar, .btn-continuar {
     width: 60%;
-   /* height: 2.813em;*/
+
     background: rgb(3,70,181);
     background: linear-gradient(0deg, rgba(3,70,181,1) 0%, rgba(5,48,119,1) 10%, rgba(5,48,119,1) 90%, rgba(3,70,181,1) 100%);
     border-radius: 8px;
-    font-size: 1.563em;
+
     box-shadow: 0 3px 6px white;
     color: white;
     font-weight: normal;
@@ -143,12 +143,10 @@
 }
 
 .clique-aqui {
-  
     text-align: center;
-    margin-top: -2em;
     margin-left: -1em;
     font-size: 1em;
-
+    margin-top: 2rem;
     font-weight: bold;
     color: #ABABAB;
     padding: auto 0px;
