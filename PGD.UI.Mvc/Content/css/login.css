@@ -30,8 +30,8 @@
     background-position: left;*/
     padding: 0;
     margin: 0;
-    width: 100vw;
-    height: 97vh;
+    width: 99vw;
+    height: 94vh;
     display: flex;
     justify-content: space-between;
 }
@@ -88,7 +88,7 @@
 .imagem_footer {
     position: fixed;
     bottom: 0;
-    width: 350px;
+    width: 750px;
     max-width: 100%;
 }
 
@@ -96,17 +96,18 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    height: 200px;
-    padding: 2rem 1rem;
+    height: auto;
+    width: 500px;
     background-color: #f5f5f5;
     border-radius: 16px;
     box-shadow: 1px 8px 8px 3px rgba(0, 0, 0, 0.2);
-    
+    padding: 5rem 0;
 }
 #loginMain form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0;
 }
 
 
@@ -125,7 +126,7 @@
 
 
 .btn-entrar, .btn-continuar {
-    width: 60%;
+    width: 100%;
 
     background: rgb(3,70,181);
     background: linear-gradient(0deg, rgba(3,70,181,1) 0%, rgba(5,48,119,1) 10%, rgba(5,48,119,1) 90%, rgba(3,70,181,1) 100%);
@@ -144,9 +145,9 @@
 
 .clique-aqui {
     text-align: center;
-    margin-left: -1em;
-    font-size: 1em;
-    margin-top: 2rem;
+    width: 500px;
+    font-size: 1.4rem;
+    margin-top: 3rem;
     font-weight: bold;
     color: #ABABAB;
     padding: auto 0px;
@@ -162,8 +163,8 @@
     margin: auto 0px;
     padding: 0px;
     color: #1D8ACB;
-    font-size: 1em;
     font-style: italic;
+    
 }
 
 /*TELA DE PERFIL*/
