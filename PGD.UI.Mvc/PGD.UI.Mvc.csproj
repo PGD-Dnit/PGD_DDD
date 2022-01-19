@@ -745,6 +745,7 @@
     <Content Include="Content\css\footable.bootstrap.css" />
     <Content Include="Content\css\global_escuro.css" />
     <Content Include="Content\css\global.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\selectize.bootstrap3.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\fontawesome5.14.0\css\all.css" />
