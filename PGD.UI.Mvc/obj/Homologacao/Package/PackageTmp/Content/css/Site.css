@@ -46,3 +46,85 @@
     background-position: center;
     background-size: 70px;
 }
+
+#menu-navbar {
+
+}
+
+#menu-navbar > li:nth-child(1) {
+    background-color: #eaeaea;
+    border-radius: 6px; 
+    border:none;
+}
+
+
+#menu-navbar li a:hover, #menuItems div:hover {
+    background: #eaeaea;
+    color: #052D6F;
+    font-weight: bold;
+    background-color: #ccc;
+}
+
+
+#menuConfiguracoes {
+    border-bottom: 1px solid #dddddd;
+    border-radius: 4px 4px 0 0;
+    padding: 10px 15px;
+    position: relative;
+}
+
+
+#menuItems {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 3px 3px 16px #ccc;
+    padding: 8px;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 40px;  
+    z-index: 1000;
+    background: #fff;
+    border-radius: 4px;
+
+}
+
+
+
+#menuConfiguracoesContainer:hover #menuItems {
+    opacity: 1;
+    visibility: visible;
+}
+
+#menuItems div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+
+#menuItems div a {
+    text-decoration: none;
+}
+
+#menuItems div:not(:first-child) {
+    border-top: 1px solid #dddddd;
+}
+
+#tbPlanoTrabalho th{
+    color:#fff;
+    margin: 0 auto;
+}
+#tbPlanoTrabalho th:nth-child(1) {
+    background: #1D8ACB;
+}
+#tbPlanoTrabalho th:nth-child(2) {
+    background: #FCBA61;
+}
+#tbPlanoTrabalho th:nth-child(3) {
+    background: #98A0A7;
+}

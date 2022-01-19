@@ -140,6 +140,7 @@ input {
     input[type="checkbox"], input[type="radio"] {
         box-sizing: border-box;
         padding: 0;
+        transform: scale(1.5);
     }
 
     input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
@@ -309,7 +310,7 @@ body {
 }
 
 .container {
-    padding-bottom: 150px;
+    /*padding-bottom: 150px;*/
 }
 
 .text-center, .table-center td {
@@ -349,13 +350,19 @@ body {
 
 #header {
     width: 100%;
-    background: #1e3b6e;
-    height: 1px;
+    height: 150px;
     color: #fff;
 }
 
+@media (min-width: 1550px) {
+    #header {
+        height: 250px !important;
+    }
+    
+}
+
 .logo {
-    padding-top: 20px;
+   padding-top: 20px;
 }
 
     .logo p {
@@ -376,14 +383,15 @@ body {
     color: #fff;
 }
 .loginpartial{
-    margin-top:10px;
+    margin-bottom:30px;
 }
-.loginpartial p{
+.loginpartial p {    
     padding-top:6px;
 }
 .menu {
     background: #1e3b6e;
-    font-size: 14px;
+    font-size:14px;
+ 
 }
 
     .menu ul {
@@ -573,3 +581,64 @@ submitLink:focus {
 .field-validation-error {
     color: darkred
 }
+
+.teste {
+    width: 500px;
+    height: 400px;
+    background-color: #f5f5f5;
+    border-radius: 15px;
+}
+.d-flex {
+    display: flex;
+}
+.justify-content-center {
+    justify-content: center;
+}
+.justify-content-space-between {
+    justify-content: space-between;
+}
+.justify-content-space-around {
+    justify-content: space-around;
+}
+
+.align-items-center {
+    align-items: center;
+}
+.align-items-end {
+    align-items: flex-end;
+}
+
+.text-white {
+    color:#fff;
+    
+}
+
+.text-blue {
+    color: #052D6F
+}
+
+.text-gray {
+    color:#757575;
+}
+
+.bg-lightgray {
+    color:#E3E3E3;
+}
+
+.ml-4 {
+    margin-left: 20px;
+}
+#logo {
+    width: 100%;
+    height: 100%;
+    background-image: url('../../Imagens/Grupo 411.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items:flex-end;
+    justify-content: flex-end;
+   
+}
+
+

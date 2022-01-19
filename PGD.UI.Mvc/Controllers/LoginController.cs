@@ -62,7 +62,7 @@ namespace PGD.UI.Mvc.Controllers
         {
             try
             {
-                if (ConfigurationManager.AppSettings["ambiente"] != "Desenvolvimento")
+                if (ConfigurationManager.AppSettings["ambiente"] != "Homologacao")
                 {
                     AutenticarLDAP(loginViewModel);
                 }

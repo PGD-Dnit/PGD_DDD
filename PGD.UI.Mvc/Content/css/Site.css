@@ -128,3 +128,33 @@
 #tbPlanoTrabalho th:nth-child(3) {
     background: #98A0A7;
 }
+
+.divpai {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.img-dnit {
+    width:19%;
+    margin:1em 0;
+}
+
+.panel-conteudo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 290px;
+    border-radius: 50px;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 18%);
+    background-color:#F5F5F5;
+}
+.corpodopainel {
+    width:100%;
+    text-align:left;
+}
+
+.input-form {
+    margin-bottom:1em;
+}

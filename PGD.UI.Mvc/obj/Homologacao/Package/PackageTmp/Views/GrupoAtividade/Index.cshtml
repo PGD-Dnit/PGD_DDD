@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Grupo Atividade";
 }
-<h1 class="">
+<h1 class="text-blue">
     Grupo de Atividades <div class="col-md-2 pull-right no-padding">
     </div>
 </h1>
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-3">
             <label>&nbsp;</label>
-            <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search"></span> Consultar</button>
+            <button type="submit" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-search text-white"></span> Consultar</button>
         </div>
         <div class="col-md-2">
             <label>&nbsp;</label>
@@ -45,8 +45,8 @@ else
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse_@obj.IdGrupoAtividade" aria-expanded="true" aria-controls="collapse_@obj.IdGrupoAtividade">
                             @obj.NomGrupoAtividade
                             <div class="pull-right">
-                                <a href="@Url.Action("Create", new { id = @obj.IdGrupoAtividade })" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-pencil" aria-hidden="true"></i></a>
-                                <a href="@Url.Action("Delete", new { id = @obj.IdGrupoAtividade })" class="btn btn-xs btn-danger" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"><i class="glyphicon glyphicon-remove" aria-hidden="true" ></i></a>
+                                <a href="@Url.Action("Create", new { id = @obj.IdGrupoAtividade })" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-pencil text-white" aria-hidden="true"></i></a>
+                                <a href="@Url.Action("Delete", new { id = @obj.IdGrupoAtividade })" class="btn btn-xs btn-danger" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"><i class="glyphicon glyphicon-remove text-white" aria-hidden="true" ></i></a>
                             </div>
                         </a>
                     </h4>
@@ -55,11 +55,11 @@ else
                     <div class="panel-body no-padding ">
                         <table class="table table-stripe table-center">
                             <thead>
-                                <tr style="background-color: #7f7f7f; color: #fff">
-                                    <th class="text-center">Atividade</th>
-                                    <th class="text-center">Nível de Complexidade / Esforço</th>
-                                    <th class="text-center">Tempo Atividade PGD</th>
-                                    <th class="text-center">Tempo Atividade Presencial</th>
+                                <tr style="background-color: #FCBA61; ">
+                                    <th class="text-center text-white">Atividade</th>
+                                    <th class="text-center text-white">Nível de Complexidade / Esforço</th>
+                                    <th class="text-center text-white">Tempo Atividade PGD</th>
+                                    <th class="text-center text-white">Tempo Atividade Presencial</th>
                                 </tr>
                             </thead>
                             <tbody>
