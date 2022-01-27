@@ -745,6 +745,7 @@
     <Content Include="Content\css\footable.bootstrap.css" />
     <Content Include="Content\css\global_escuro.css" />
     <Content Include="Content\css\global.css" />
+    <Content Include="Content\css\login.css" />
     <Content Include="Content\css\selectize.bootstrap3.css" />
     <Content Include="Content\css\Site.css" />
     <Content Include="Content\fontawesome5.14.0\css\all.css" />
@@ -2390,6 +2391,13 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Imagens\fundo.dnit_v2.png" />
+    <Content Include="Imagens\fundo.dnit_v3.png" />
+    <Content Include="Imagens\fundo.dnit_v4.png" />
+    <Content Include="Imagens\fundo.dnit_v5.png" />
+    <Content Include="Imagens\fundo.dnit_v6.png" />
+    <Content Include="Imagens\Grupo 411.png" />
+    <Content Include="Imagens\Grupo 520.svg" />
     <Content Include="Imagens\pg_cade_1.png" />
     <Content Include="Imagens\pg_cade_2.png" />
     <Content Include="Imagens\pg_cade_3.png" />

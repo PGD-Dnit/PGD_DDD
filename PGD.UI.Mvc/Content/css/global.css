@@ -573,3 +573,57 @@ submitLink:focus {
 .field-validation-error {
     color: darkred
 }
+d-flex {
+    display: flex;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-space-between {
+    justify-content: space-between;
+}
+
+.justify-content-space-around {
+    justify-content: space-around;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.text-blue {
+    color: #052D6F
+}
+
+.text-gray {
+    color: #757575;
+}
+
+.bg-lightgray {
+    color: #E3E3E3;
+}
+
+.ml-4 {
+    margin-left: 20px;
+}
+
+#logo {
+    width: 100%;
+    height: 100%;
+    background-image: url('../../Imagens/Grupo 411.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
