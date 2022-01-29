@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Tabela de Atividades";
 }
-<h1 class="col-md-12">Tabela de Atividades </h1>
+<h1 class="text-blue">Tabela de Atividades </h1>
 
 <div class="clearfix"></div>
 @Html.Partial("_SearchPartial", new PGD.Application.ViewModels.SearchOrdemServicoViewModel())
@@ -27,9 +27,9 @@ else
                                 @*Desabilitado até decidir se pode editar ou não OS - Work Item 3819*@
                                 @*@if (os.DatInicioSistema > ov.DatInicioSistema || os.IdOrdemServico == ov.IdOrdemServico)
                                     {
-                                        <a href="@Url.Action("Create", "OrdemServico", new { id = os.IdOrdemServico })" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                        <a href="@Url.Action("Create", "OrdemServico", new { id = os.IdOrdemServico })" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil text-white"></span></a>
                                     }*@
-                                <a href="@Url.Action("Delete",new { id = @os.IdOrdemServico })" class="btn btn-xs btn-danger" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"><span class="glyphicon glyphicon-remove"></span></a>
+                                <a href="@Url.Action("Delete",new { id = @os.IdOrdemServico })" class="btn btn-xs btn-danger" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"><span class="glyphicon glyphicon-remove text-white"></span></a>
                             </div>
                         </a>
                     </h4>
@@ -38,12 +38,12 @@ else
                     <div class="panel-body no-padding ">
                         <table class="table table-stripe table-center">
                             <thead>
-                                <tr style="background-color: #7f7f7f; color: #fff">
-                                    <th class="text-center">Grupo de Atividade</th>
-                                    <th class="text-center">Atividade</th>
-                                    <th class="text-center">Nível de Complexidade / Esforço</th>
-                                    <th class="text-center">Tempo Atividade PGD</th>
-                                    <th class="text-center">Tempo Atividade Presencial</th>
+                                <tr style="background-color: #FCBA61; ">
+                                    <th class="text-white text-center">Grupo de Atividade</th>
+                                    <th class="text-white text-center">Atividade</th>
+                                    <th class="text-white text-center">Nível de Complexidade / Esforço</th>
+                                    <th class="text-white text-center">Tempo Atividade PGD</th>
+                                    <th class="text-white text-center">Tempo Atividade Presencial</th>
                                 </tr>
                             </thead>
                             <tbody>

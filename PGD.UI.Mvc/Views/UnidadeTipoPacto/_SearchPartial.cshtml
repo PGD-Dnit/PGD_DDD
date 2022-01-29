@@ -26,11 +26,11 @@
                 @Html.DropDownListCGUFor(model => model.IdTipoPacto, new SelectList((List<TipoPacto>)TempData["lstTipos"], "IdTipoPacto", "DescTipoPacto"), new { @class = "form-control" }).Selectize()
             </div>
             <div class="col-md-3 col-xs-12">
-                <button type="button" class="btn btn-primary btn-block" onclick="buscarUnidadesTipoPacto()"><span class="glyphicon glyphicon-search"></span> Consultar</button>
+                <button type="button" class="btn btn-primary btn-block" onclick="buscarUnidadesTipoPacto()"><span class="glyphicon glyphicon-search text-white"></span> Consultar</button>
             </div>
             <div class="col-md-3 col-xs-12">
                 <label>&nbsp;</label>
-                <a id="btnNovo" href="@Url.Action("Create")" class="btn btn-primary btn-block ">Novo</a>
+                <a id="btnNovo" href="@Url.Action("Create")" class="btn btn-primary btn-block text-white">Novo</a>
             </div>
         </div>
     }

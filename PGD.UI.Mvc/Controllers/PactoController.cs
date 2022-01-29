@@ -693,7 +693,7 @@ namespace PGD.UI.Mvc.Controllers
                 });
             }
             else if (user.IsSolicitante) {
-                unidadePactoESubordinadaUnidadeUsuario = true;
+                //unidadePactoESubordinadaUnidadeUsuario = true;
                 _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);                
