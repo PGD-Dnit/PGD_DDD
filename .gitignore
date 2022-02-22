@@ -25,5 +25,5 @@ BD_Scripts/
 LoadTests/
 scriptpgd.sql
 azure-pipelines.yml
-/PGD.UI.Mvc/Web.config
+PGD.UI.Mvc/Web.config
 /PGD.UI.Mvc/Web.Release.config
