@@ -222,7 +222,8 @@ namespace PGD.UI.Mvc.Controllers
                 //var unidadesSubordinadas = _unidadeService.ObterUnidades().Where(x => x.IdUnidadeSuperior == IdUnidade).ToList();
                 //unidades = (List<Unidade>)unidades.Concat(unidadesSubordinadas); 
                 var  unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();
-                unidades = unidades.Concat(unidadesSubordinadas).ToList();
+                //unidades = unidades.Concat(unidadesSubordinadas).ToList();
+                unidades = unidadesSubordinadas;
 
 
             }
@@ -605,7 +606,8 @@ namespace PGD.UI.Mvc.Controllers
 
         private void ConfigurarNomesServidoresPesquisa()
         {
-           TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();
+             TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();            
+            //TempData["NomesSubordinados"] = ListarNomesPorUnidade();
         }
 
         private List<IniciativaPlanoOperacionalViewModel> ConfigurarIniciativasPlanoOperacional()
@@ -674,7 +676,7 @@ namespace PGD.UI.Mvc.Controllers
                 _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
-                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);                
                 _pactoVM.podeInterromper = _Pactoservice.PodeInterromper(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeNegar = _Pactoservice.PodeNegar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeSuspender = _Pactoservice.PodeSuspender(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
@@ -1300,7 +1302,7 @@ namespace PGD.UI.Mvc.Controllers
         
         public ActionResult AvaliarProduto(int idPacto, int idOrigemAcao)
         {
-            var pactoVM = _Pactoservice.BuscarPorId(idPacto);
+        	var pactoVM = _Pactoservice.BuscarPorId(idPacto);
 
             ConfigurarJustificativas();
             ConfigurarNiveisAvaliacao();

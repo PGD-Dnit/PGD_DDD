@@ -316,3 +316,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\obj\Debug\PGD.UI.Mvc.cs
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\obj\Debug\PGD.UI.Mvc.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\obj\Debug\PGD.UI.Mvc.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\obj\Debug\PGD.UI.Mvc.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\bin\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\bin\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UI.Mvc\obj\Debug\PGD.UI.Mvc.dll.config

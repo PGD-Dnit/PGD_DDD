@@ -554,8 +554,11 @@ namespace PGD.Domain.Services
 
                 if (pacto.IdSituacaoPacto != (int)PGD.Domain.Enums.eSituacaoPacto.Suspenso)
                 {
-                    List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado };
-                    if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio > DateTime.Now)
+                    //List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado };
+                    List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)eSituacaoPacto.PendenteDeAvaliacao, (int)eSituacaoPacto.AvaliadoParcialmente };
+                    //csa
+                    //if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio > DateTime.Now)
+                    if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio >= DateTime.Today)
                     {
                             possuiPermissoesDirigente = true;
                     }
@@ -578,9 +581,11 @@ namespace PGD.Domain.Services
 
                 if (pacto.IdSituacaoPacto != (int)PGD.Domain.Enums.eSituacaoPacto.Suspenso)
                 {
-                    List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado };
-
-                    if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio > DateTime.Now) 
+                    //List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado };
+                    List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)eSituacaoPacto.PendenteDeAvaliacao, (int)eSituacaoPacto.AvaliadoParcialmente };
+                    //csa
+                    //if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio >= DateTime.Now)
+                    if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio >= DateTime.Today)
                     {
                         possuiPermissoesSolicitante = true;
                     }
@@ -600,7 +605,9 @@ namespace PGD.Domain.Services
                 //mesmo após início do pacto(RN059).
 
                 if (!unidadePactoEhSubordinadaUnidadeUsuario) return false;
-                List<int> situacoesInvalidasEditarEmAndamento = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)PGD.Domain.Enums.eSituacaoPacto.Suspenso };
+                //csa
+                //List<int> situacoesInvalidasEditarEmAndamento = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)PGD.Domain.Enums.eSituacaoPacto.Suspenso };
+                List<int> situacoesInvalidasEditarEmAndamento = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)PGD.Domain.Enums.eSituacaoPacto.Suspenso, (int)eSituacaoPacto.PendenteDeAvaliacao, (int)eSituacaoPacto.AvaliadoParcialmente };
                 if (!situacoesInvalidasEditarEmAndamento.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio <= DateTime.Now)
                 {
                     return true;

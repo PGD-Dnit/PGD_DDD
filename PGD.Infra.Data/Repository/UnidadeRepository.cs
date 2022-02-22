@@ -91,6 +91,8 @@ namespace PGD.Infra.Data.Repository
         {
             var a = from u in Db.Set<Unidade>()
                     where u.IdUnidadeSuperior == idUnidadePai
+                    //csa acrescentei a propria unidade
+                    || u.IdUnidade == idUnidadePai
                     select u;
 
             var unidadesSubordinadas = RetornaUnidadesSubordinadas(a);

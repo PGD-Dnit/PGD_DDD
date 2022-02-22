@@ -24,10 +24,19 @@ namespace PGD.Application.ViewModels
         public bool? EntregueNoPrazo { get; set; }
         public int? IdJustificativa { get; set; }
         public DateTime? DataTerminoReal { get; set; }
-        public int Avaliacao { get; set; }
+        //public int Avaliacao { get; set; }
+        public decimal Avaliacao { get; set; }
         [AllowHtml]
         public string LocalizacaoProduto { get; set; }
         public int TipoAvaliacao { get; set; }
+
+        //csa add para incluir Itens de avaliação
+        public bool? Formato { get; set; }
+        public int UsodeVocabulario { get; set; }         
+        public bool? AtendeSolicitado { get; set; }
+        public bool? Requisitos { get; set; }
+        public int AnaliseFundamentada { get; set; }
+        public bool? NecessidadeCorrecao { get; set; }
 
         //controle de tela
         public bool HabilitarCampos { get; set; }

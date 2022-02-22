@@ -172,3 +172,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\De
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.dll.config

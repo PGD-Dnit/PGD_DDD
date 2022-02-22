@@ -31,7 +31,7 @@
         .SetDisabled(!Model.PodeEditar && !Model.PodeEditarAndamento))
             </div>
             <div class="form-group col-md-6">
-                <label for="@Html.IdFor(m => m.IdGrupoAtividade)" class="text-vertical-line">Grupo de atividade:</label>
+                <label for="@Html.IdFor(m => m.IdGrupoAtividade)" class="text-vertical-line">Grupo de Atividade:</label>
                 @(Html.DropDownListCGUFor(m => m.IdGrupoAtividade, new SelectList((List<GrupoAtividadeViewModel>)TempData["GruposAtividades"], "IdGrupoAtividade", "NomGrupoAtividade"),
         new Dictionary<string, object>() { { "class", "form-control" } })
         .OnChangeAtualizaDropDownContextual("Pacto", "GetAtividades",
@@ -64,7 +64,7 @@
 
         <div class="row ">
             <div class="col-md-6">
-                <label class="text-vertical-line">Nível de Complexidade / Esforço:</label>
+                <label class="text-vertical-line">Nível de Complexidade Esforço:</label>
                 @(Html.DropDownListCGUFor(m => m.IdTipoAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object> { { "class", "form-control" } })
         .OnChangeAtualizaExecutaCallback("Pacto", "GetFaixaValor",
             new Dictionary<string, string>()
@@ -78,7 +78,7 @@
         .SetReadonly(!Model.PodeEditar && !Model.PodeEditarAndamento))
             </div>
             <div class="col-md-4">
-                <label class="text-vertical-line">Quantidade de produtos a serem entregues:</label>
+                <label class="text-vertical-line">Quantidade de Produtos a Serem Entregues:</label>
                 @(Html.TextBoxCGUFor(m => m.QuantidadeProduto, "",
         new Dictionary<string, object>()
                     {
@@ -92,12 +92,13 @@
                             {"idGrupo", Html.IdFor(m => m.IdGrupoAtividade).ToString()},
                             {"idAtividade", Html.IdFor(m => m.IdAtividade).ToString()},
                             {"idFaixa", Html.IdFor(m => m.IdTipoAtividade).ToString()},
+                            {"adesao", Html.IdFor(m => m.IdModalidade).ToString() },
                             {"idOrdemServico", "hdn-id-ordem-servico"}
                         }, "calcularCargaHoraria")
         .SetReadonly((!Model.PodeEditar && !Model.PodeEditarAndamento)))
             </div>
             <div class="col-md-2">
-                <label class="text-vertical-line">Carga horária:</label>
+                <label class="text-vertical-line">Carga Horária:</label>
                 @Html.TextBoxFor(m => m.CargaHorariaTotalProdutoFormatada, new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
                 @Html.HiddenFor(m => m.CargaHorariaProduto)
 
@@ -136,7 +137,7 @@
         {
             <div class="row">
                 <div class="form-group col-md-12 text-right">
-                    <button id="btnOk" type="submit" class="btn btn-primary" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")>Cadastrar Atividade</button>
+                    <button id="btnOk" type="submit" class="btn btn-primary" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")> Prosseguir </button>
                 </div>
             </div>
         }
@@ -314,6 +315,5 @@
         $("#b1").html("<div class='row'> <div class='form-group col-md-12 text-right'><button id='btnOk' type='submit' class='btn btn-primary' @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")>Cadastrar Atividade</button></div></div> ");
        // LimpaFormProdutos(); nao colocar aqui#######
     }
-
-
+    
 </script>

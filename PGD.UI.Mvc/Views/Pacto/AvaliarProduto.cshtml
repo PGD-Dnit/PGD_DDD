@@ -1,9 +1,7 @@
 ﻿@model PGD.Application.ViewModels.PactoViewModel
 @using PGD.Application.ViewModels;
 
-@{
-    ViewBag.Title = "Avaliar plano de trabalho";
-}
+@{ ViewBag.Title = "Avaliar plano de trabalho"; }
 
 
 <div>
@@ -31,12 +29,10 @@
             <div class="col-md-6">
                 @if (Model.IdOrigemAcao == (int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto)
                 {
-                    <a href="@Url.Action("Solicitar", "Pacto", new { id = Model.IdPacto, idOrigemAcao = Model.IdOrigemAcao })" onclick="showLoading()" class='btn btn-md btn-primary pull-left'>Voltar</a>
-                }
+    <a href="@Url.Action("Solicitar", "Pacto", new { id = Model.IdPacto, idOrigemAcao = Model.IdOrigemAcao })" onclick="showLoading()" class='btn btn-md btn-primary pull-left'>Voltar</a> }
                 else
                 {
-                    <a href="@Url.Action("Index", "Pacto", new { idOrigemAcao = Model.IdOrigemAcao })" onclick="showLoading()" class='btn btn-md btn-primary pull-left'>Voltar</a>
-                }
+    <a href="@Url.Action("Index", "Pacto", new { idOrigemAcao = Model.IdOrigemAcao })" onclick="showLoading()" class='btn btn-md btn-primary pull-left'>Voltar</a>}
             </div>
         </div>
 
@@ -56,7 +52,7 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {            
+        $(document).ready(function () {
             $('#tblHistoricoAvaliacoes').dataTable({
                 "bFilter": false,
                 "bLengthChange": false,
@@ -95,17 +91,21 @@
         });
 
         function preparaAvaliacaoProdutoSuccess() {
+            
             $('#containerRealizarAvaliacao').show();
+            //csa           
+            $('#containerExibirAvaliacao').hide();            
             hideLoading();
         }
 
         function preparaExibicaoAvaliacaoProdutoSuccess() {
             $('#containerExibirAvaliacao').show();
+			$('#divFormatoCorreto').show();
             hideLoading();
         }
 
     function cancelarAvaliacaoSuccess() {
-            
+
              for (instance in CKEDITOR.instances) {
                     $('#' + instance).val(CKEDITOR.instances[instance].getData());
             }

@@ -204,3 +204,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\obj\Debug\PGD.Appl
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\obj\Debug\PGD.Application.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\obj\Debug\PGD.Application.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\obj\Debug\PGD.Application.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Application\obj\Debug\PGD.Application.dll.config

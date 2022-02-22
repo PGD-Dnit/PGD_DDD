@@ -60,8 +60,7 @@
                     <div class="col-md-7">
                         @if (Model.IdAvaliacaoProduto == 0)
                         {
-                            <span>Pendente de Homologação:</span><span style="color: red">@Html.DisplayFor(m => m.CargaHorariaPendenteFormatada)</span>
-                        }
+            <span>Pendente de Homologação:</span><span style="color: red">@Html.DisplayFor(m => m.CargaHorariaPendenteFormatada)</span>}
                     </div>
                 </div>
             </div>
@@ -72,7 +71,7 @@
 
     </div>
 
-    @Html.Partial("_AvaliarItensLegendaPartial", Model)
+    @* @Html.Partial("_AvaliarItensLegendaPartial", Model) *@
 
 </div>
 
@@ -86,7 +85,7 @@
         else txtCargaHorariaAHomologar.val(hourTohhmm(cargaHorariaProduto * quantidadeProdutos));
     }
 
-    function atualizarQualidade(cmbJustificativa) {
+    function atualizarQualidadej(cmbJustificativa) {
         if (cmbJustificativa.value > 0) {
             var cmbQualidade = $('#@Html.IdFor(m => m.Avaliacao)');
             cmbQualidade.val('@((int)PGD.Domain.Enums.eAvaliacao.NaoEntregue)');
