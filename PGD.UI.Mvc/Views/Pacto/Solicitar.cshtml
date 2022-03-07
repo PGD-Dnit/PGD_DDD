@@ -22,9 +22,9 @@
         </div>
     </div>
 </div>
-
-<h1 class="">Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
-<div class="clearfix"></div>
+ 
+<h1 class="text-blue"> Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
+<div class="clearfix"></div> 
 
 <div class="panel-group" role="tablist">
     @using (Html.BeginForm("Solicitar", "Pacto", FormMethod.Post, new { @id = "frmPacto" }))
@@ -52,8 +52,8 @@
         @Html.HiddenFor(model => Model.IdTipoPacto)
 
         <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="pacto_identificacao">
-                <h4 class="panel-title">
+            <div class="panel-heading bg-lightgray" role="tab" id="pacto_identificacao">
+                <h4 class="panel-title text-gray">
                     1. IDENTIFICAÇÃO DO SERVIDOR
                 </h4>
             </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
-                            <label for="exampleInputName2">Unidade em exercício: </label>
+                            <label for="exampleInputName2">Unidade em Exercício: </label>
                             @if (Model.IdPacto == 0)
                             {
                                 <!--Cade - Mensagem remivida
@@ -82,7 +82,6 @@
                                 -->
                             }
                             @Html.DropDownListCGUFor(m => m.UnidadeExercicio, new SelectList((List<PGD.Domain.Entities.RH.Unidade>)TempData[PactoController.GetNomeVariavelTempData("Unidades", Model.IdPacto)], "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize().SetDisabled(!Model.podeEditar)
-                        
                         </div>
                     </div>
                 </div>
@@ -90,16 +89,16 @@
         </div>
         <br />
         <div class="panel panel-default" id="dvDescricao">
-            <div class="panel-heading" role="tab" id="pacto_identificacao">
-                <h4 class="panel-title">
-                    2. DESCRIÇÃO/PLANEJAMENTO
+            <div class="panel-heading bg-lightgray" role="tab" id="pacto_identificacao">
+                <h4 class="panel-title text-gray">
+                    2. DESCRIÇÃO PLANEJAMENTO
                 </h4>
             </div>
             <div role="tabpanel" id="conteudoIdentificacao">
                 <div class="panel-body ">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label>@string.Format("Tabela de Atividades em vigor: {0}", Model.OrdemServico.DescOrdemServico)</label>
+                            <label>@string.Format("Tabela de Atividades em Vigor: {0}", Model.OrdemServico.DescOrdemServico)</label>
                         </div>
                         @if (Model.IdPacto > 0)
                         {
@@ -127,13 +126,13 @@
                     <div class="row">
 
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Servidor tem redução de carga horária? </label>
-                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PossuiCargaHoraria.GetValueOrDefault()) Sim</label>
+                            <label class="text-vertical-line">Servidor Tem Redução de Carga Horária? </label>
+                            <label style="margin: auto 1rem;">@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PossuiCargaHoraria.GetValueOrDefault()) Sim</label>
                             <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PossuiCargaHoraria.GetValueOrDefault()) Não</label>
                         </div>
                         <div class="form-group col-md-6">
                             <div id="divCargaHoraria" style="@(Model.PossuiCargaHoraria.GetValueOrDefault() ? "" : "display:none")">
-                                <label class="text-vertical-line">Carga horária:</label>
+                                <label class="text-vertical-line">Carga Horária:</label>
                                 @Html.TextBoxCGUFor(x => x.CargaHorariaDiaria, new { @class = "qtdHoras form-control", @placeholder = "", @type = "text", @onblur = "atualizaCargaHorariaDiaria();", @min = "01:00", @max = "08:00" }).SetReadonly(!Model.podeEditar)
 
                             </div>
@@ -165,7 +164,7 @@
                             @Html.TextBoxCGUFor(x => x.TipoPacto.DescTipoPacto, new { @class = "form-control" }).SetReadonly(true)
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Data prevista de início do plano de trabalho: </label>
+                            <label class="text-vertical-line">Data Prevista de Início do Plano de Trabalho: </label>
                             @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(!Model.podeEditar)
                         </div>
                         <!--
@@ -186,118 +185,136 @@
         </div>
     }
     <br />
-    <div class="panel panel-default" id="dvAcompanhamento">
-        <div class="panel-heading" role="tab" id="pacto_identificacao">
-            <!--
-            <h4 class="panel-title">
-                3. ACOMPANHAMENTO DE ATIVIDADE(S) NO PROGRAMA DE GESTÃO DE DEMANDAS
-            </h4>
-            -->
-            <h4 class="panel-title">
-                3. CADASTRAMENTO/ATUALIZAÇÃO  DAS ATIVIDADES DO PLANO DE TRABALHO
-            </h4>
-        </div>
-        <div class="panel panel-body">
-            <div id="containerProdutosFormPartial">
-                @Html.Partial("_ProdutosFormPartial",
-         new ProdutoViewModel()
-         {
-             PodeEditar = Model.podeEditar,
-             PodeEditarAndamento = Model.podeEditarAndamento,
-             QuantidadeProduto = 1,
-             IdOrdemServico = Model.IdOrdemServico,
-             IdPacto = Model.IdPacto,
-             IdTipoPacto = Model.IdTipoPacto,
-
-         })
-            </div>
-            <br />
-            <div class="panel-heading" role="tab" id="pacto_identificacao">
+        <div id="dvAcompanhamento">
+            <div class="panel panel-default" >
+                <div class="panel-heading bg-lightgray" role="tab" id="pacto_identificacao">
+                    <!--
                 <h4 class="panel-title">
-                    4. ACOMPANHAMENTO DO PLANO DE TRABALHO
+                    3. ACOMPANHAMENTO DE ATIVIDADE(S) NO PROGRAMA DE GESTÃO DE DEMANDAS
                 </h4>
-            </div>
-            <div id="containerProdutosTablePartial">
-                @Html.Partial("_ProdutosTablePartial", Model.Produtos)
-            </div>
-            <div class="panel panel-body">
-
-                <div class="form-group col-md-12 text-left">
-                    <label for="exampleInputName2">Data prevista de término do plano de trabalho: </label>
-                    @Html.TextBoxFor(m => m.DataPrevistaTermino, "dd/MM/yyyy", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
+                -->
+                    <h4 class="panel-title text-gray">
+                        3. CADASTRAMENTO ATUALIZAÇÃO  DAS ATIVIDADES DO PLANO DE TRABALHO
+                    </h4>
                 </div>
+                <div class="panel panel-body">
+                    <div id="containerProdutosFormPartial">
+                        @Html.Partial("_ProdutosFormPartial",
+                 new ProdutoViewModel()
+                 {
+                     PodeEditar = Model.podeEditar,
+                     PodeEditarAndamento = Model.podeEditarAndamento,
+                     QuantidadeProduto = 1,
+                     IdOrdemServico = Model.IdOrdemServico,
+                     IdPacto = Model.IdPacto,
+                     IdTipoPacto = Model.IdTipoPacto,
 
-                <div class="form-group col-md-12 text-left" id="divCargaHorariaTotal">
-                    <label for="exampleInputName2">Carga horária total: </label>
-                    @*@Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" }, { "onchange", "$('#HorasTotais').val(this.value)" } })*@
-                    @Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
-
+                 })
+                    </div>
                 </div>
+                </div>
+     
+                <br />
+            
+            <div class="panel panel-default">
+                <div class="panel-heading bg-lightgray"  role="tab" id="pacto_identificacao">
+                    <h4 class="panel-title text-gray">
+                        4. RESUMO DO PLANO DE TRABALHO
+                    </h4>
+                </div>
+       
 
-                <div class="form-group col-md-12 text-left">
-                    @using (Ajax.BeginForm("ExibirCronograma", "Cronograma", null, new AjaxOptions()
-                    {
-                        HttpMethod = "Post",
-                        UpdateTargetId = "divConteudoCronograma",
-                        OnSuccess = "exibirPopupCronograma",
-                        OnFailure = "defaultFailureHandler"
-                    }, new { @id = "frmExibirCronograma" }))
-                    {
+                <div id="containerProdutosTablePartial">
+                    @Html.Partial("_ProdutosTablePartial", Model.Produtos)
+                </div>
+                <div class="panel panel-body">
 
-                        @Html.Hidden("DataInicial", Model.DataPrevistaInicio.ToShortDateString(), new { })
-                        @Html.Hidden("HorasTotais", "0", new { })
-                        @Html.Hidden("HorasDiarias", Model.CargaHorariaDiaria, new { })
-                        @Html.Hidden("PodeEditar", Model.podeEditar || Model.podeEditarAndamento, new { })
-                        @Html.Hidden("DataInicioSuspensao", Model.SuspensoAPartirDe?.ToShortDateString(), new { })
-                        @Html.Hidden("DataFimSuspensao", Model.SuspensoAte?.ToShortDateString(), new { })
-                        @Html.Hidden("FecharCallbackFunction", "atualizaCargaHorariaTotal", new { })
-                        @Html.Hidden("SalvarCallbackFunction", "atualizaCargaHorariaTotal", new { })
-                        @Html.Hidden("CPFUsuario", Model.CpfUsuario, new { })
-                        @Html.Hidden("IdPacto", Model.IdPacto, new { })
-                        @Html.Hidden("idOrigemAcao", (int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto, new { })
-
-
-                        <button type="submit" class="btn btn-primary">Ver/Ajustar cronograma</button>
-                    }
-                    <div class="modal fade" id="modalCronograma" data-backdrop="static" data-keyboard="false">
-                        <div id="divConteudoCronograma">
+                        <div class="form-group col-md-12 text-left">
+                            <label for="exampleInputName2">Data Prevista de Término do Plano de Trabalho: </label>
+                            @Html.TextBoxFor(m => m.DataPrevistaTermino, "dd/MM/yyyy", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
                         </div>
+
+                        <div class="form-group col-md-12 text-left" id="divCargaHorariaTotal">
+                            <label for="exampleInputName2">Carga Horária Total: </label>
+                            @*@Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" }, { "onchange", "$('#HorasTotais').val(this.value)" } })*@
+                            @Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
+
+                        </div>
+
+                        <div class="form-group col-md-12 text-left">
+                            @using (Ajax.BeginForm("ExibirCronograma", "Cronograma", null, new AjaxOptions()
+                            {
+                                HttpMethod = "Post",
+                                UpdateTargetId = "divConteudoCronograma",
+                                OnSuccess = "exibirPopupCronograma",
+                                OnFailure = "defaultFailureHandler"
+                            }, new { @id = "frmExibirCronograma" }))
+                            {
+
+                                @Html.Hidden("DataInicial", Model.DataPrevistaInicio.ToShortDateString(), new { })
+                                @Html.Hidden("HorasTotais", "0", new { })
+                                @Html.Hidden("HorasDiarias", Model.CargaHorariaDiaria, new { })
+                                @Html.Hidden("PodeEditar", Model.podeEditar || Model.podeEditarAndamento, new { })
+                                @Html.Hidden("DataInicioSuspensao", Model.SuspensoAPartirDe?.ToShortDateString(), new { })
+                                @Html.Hidden("DataFimSuspensao", Model.SuspensoAte?.ToShortDateString(), new { })
+                                @Html.Hidden("FecharCallbackFunction", "atualizaCargaHorariaTotal", new { })
+                                @Html.Hidden("SalvarCallbackFunction", "atualizaCargaHorariaTotal", new { })
+                                @Html.Hidden("CPFUsuario", Model.CpfUsuario, new { })
+                                @Html.Hidden("IdPacto", Model.IdPacto, new { })
+                                @Html.Hidden("idOrigemAcao", (int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto, new { })
+
+
+                                <button type="submit" class="btn" style="background: #fff; color: #06901f; font-weight: bold; box-shadow: 3px 3px 16px #ccc;"> Editar Cronograma do PGD </button>
+
+                            }
+
+                            <div class="modal fade" id="modalCronograma" data-backdrop="static" data-keyboard="false">
+                                <div id="divConteudoCronograma">
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (Model.IdPacto > 0 && Model.podeAvaliar)
+                        {
+                            <div class="form-group col-md-2 text-left btn-group pull-right" role="group" aria-label="...">
+                                <input type="button"
+                                       class="btn btn-primary btn-block"
+                                       value="Ver Avaliações"
+                                       onclick="location.href='@Url.Action("AvaliarProduto", "Pacto", new { idPacto = Model.IdPacto, idOrigemAcao=(int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto})'" />
+                            </div>
+                        }
+
+                        <div class="panel panel-body" id="divMensagemPactosConcorrentes" style="display:none">
+                            <div class="form-group col-md-12 alert alert-warning small">
+                                Existem planos registrados para este mesmo período. Por favor, verifique a distribuição de horas no cronograma antes de submeter o plano.
+                            </div>
+                        </div>
+
                     </div>
-                </div>
-
-                @if (Model.IdPacto > 0 && Model.podeAvaliar)
-                {
-                    <div class="form-group col-md-2 text-left btn-group pull-right" role="group" aria-label="...">
-                        <input type="button"
-                               class="btn btn-primary btn-block"
-                               value="Ver Avaliações"
-                               onclick="location.href='@Url.Action("AvaliarProduto", "Pacto", new { idPacto = Model.IdPacto, idOrigemAcao=(int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto})'" />
-                    </div>
-                }
-
-                <div class="panel panel-body" id="divMensagemPactosConcorrentes" style="display:none">
-                    <div class="form-group col-md-12 alert alert-warning small">
-                        Existem planos registrados para este mesmo período. Por favor, verifique a distribuição de horas no cronograma antes de submeter o plano.
-                    </div>
-
-                </div>
-
-            </div>
+             </div>
         </div>
-
+       
+        <br>
         <div class="panel panel-default" id="dvDeclaracao">
-            <div class="panel-heading" role="tab" id="pacto_identificacao">
-                <h4 class="panel-title">
+            <div class="panel-heading bg-lightgray" role="tab" id="pacto_identificacao">
+                <h4 class="panel-title text-gray">
+
                     5. TERMO DE CIÊNCIA E RESPONSABILIDADE - PROGRAMA DE GESTÃO DO DNIT
                 </h4>
             </div>
-            <div role="tabpanel" id="conteudoIdentificacao" style="margin-top:1px;">
+            <div role="tabpanel" id="conteudoIdentificacao" style="margin-top:24px;">
                 <div class="panel-body ">
                     <div class="row">
-                        <div class="form-group col-md-12" style="font-weight: bold; line-height: 1.5; white-space: pre-wrap; text-align: left;">
+                        <div class="form-group col-md-12 px-4 mt-4">
 
-                            O participante do programa de gestão acima qualificado declara que:
-                            <i>Texto DNIT...</i>
+
+
+                            <p style="font-weight: bold; line-height: 1.5; white-space: wrap; text-align:justify; padding:0 32px;">
+                                Declaro ciência e concordância com a vedação de pagamentos das vantagens a que se refere os artigos 29 a 36 da Instrução Normativa nº65 de 2020.
+                                Declaro ciência quanto à vedação de utilização de terceiros para a execução dos trabalhos acordados como parte das metas. Declaro ciência e concordância
+                                quanto às disposições constantes da Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). No que couber, e quanto às
+                                orientações da Portaria nº15.543/SEDGG/ME de 2 de julho de 2020, que divulga o Manual de Conduta do Agente Público Civil do Poder Executivo Federal.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -313,25 +330,25 @@
                     </div>
                 </div>
             </div>
-            <div class="panel panel-body">
-                <div class="form-group col-md-2">
-                    <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" class="btn btn-primary btn-block">Voltar</a>
+            <div class="panel panel-body d-flex justify-content-space-between">
+                <div class="form-group col-md-3">
+                    <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" class="btn btn-default btn-block">Voltar</a>
                 </div>
-                <div class="form-group col-md-6">
-                </div>
-                <div class="form-group col-md-2">
-                    @if (Model.podeEditar || Model.podeEditarAndamento )
+                @*<div class="form-group col-md-6">
+                </div>*@
+                <div class="form-group col-md-3">
+                    @if (Model.podeEditar || Model.podeEditarAndamento)
                     {
                         if (Model.IdSituacaoPacto != 3)
                         {
-                            <button id="btnSalvar" type="button" name="btnSalvar" value="Salvar" class="btn btn-primary btn-block" onclick="SubmeterPacto('Salvando')">Salvar Plano</button>
+                            <button id="btnSalvar" type="button" name="btnSalvar" value="Salvar" class="btn btn-primary btn-block" onclick="SubmeterPacto('Salvando')">Salvar Rascunho</button>
                         }
                     }
                 </div>
                 @if (Model.podeAssinar)
                 {
-                    <div class="btn-group pull-right" role="group" aria-label="...">
-                        <button type="submit" class="btn btn-primary btn-block" title="Assinar" id="btnAssinar" name="btnAssinar" onclick="SubmeterPacto('Assinando')">
+                    <div class="form-group col-md-3" role="group" aria-label="...">
+                        <button type="submit" class="btn btn-success btn-block" title="Assinar" id="btnAssinar" name="btnAssinar" onclick="SubmeterPacto('Assinando')">
                             Assinar
                         </button>
                     </div>
@@ -339,7 +356,7 @@
                 @if (ViewBag.isDirigente && Model.podeNegar && Model.IdPacto != 0 && Model.StatusAprovacaoSolicitante == 1 && Model.StatusAprovacaoDirigente != 1)
                 {
 
-                    <div class="btn-group pull-right" role="group" aria-label="..." style="margin-right: 10px">
+                    <div class="form-group col-md-3" role="group" aria-label="..." style="margin-right: 10px">
                         <button type="button" class="btn btn-primary btn-block" title="Negar" id="btnNegar" onclick="SubmeterPacto('Negando')">
                             Negar
                         </button>
@@ -348,7 +365,7 @@
             </div>
         </div>
 
-    </div>
+   
 
     <div class="modal fade" id="modalObservacoesProduto" data-backdrop="static" data-keyboard="false">
         <div id="divConteudoObservacoesProduto">
@@ -434,7 +451,7 @@
             }
 
             function SubmeterPacto(acao) {
-                $('#@Html.IdFor(m => m.Acao)').val(acao);                
+                $('#@Html.IdFor(m => m.Acao)').val(acao);
                 $('#frmPacto').append($("#div-inputs-form-produto"));
                 $('#frmPacto').submit();
             }

@@ -13,9 +13,19 @@ namespace PGD.Domain.Entities
         public DateTime DataAvaliacao { get; set; }
         public int QuantidadeProdutosAvaliados { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "A qualidade da atividade é obrigatória")]
-        public int Avaliacao { get; set; }
+        public decimal Avaliacao { get; set; }
         [Required(ErrorMessage ="Informe se foi entregue no prazo")]
         public bool? EntregueNoPrazo { get; set; }
+
+        //csa add para incluir Itens de avaliação
+        public bool? Formato { get; set; }
+        public int UsodeVocabulario { get; set; }
+        public bool? AtendeSolicitado { get; set; }
+        public bool? Requisitos { get; set; }
+        public int AnaliseFundamentada { get; set; }
+        public bool? NecessidadeCorrecao { get; set; }
+
+
         [Required(ErrorMessage = "A descrição da entrega é obrigatória")]
         [MaxLength(8000)]
         public string LocalizacaoProduto { get; set; }

@@ -28,15 +28,15 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                @Html.Label("Unidade", new { @class = "col-md-2 control-label" })
+                @Html.Label("Unidade", new { @class = "control-label" })
                 @Html.DropDownListCGUFor(m => m.UnidadeId, new SelectList(Model.lstUnidade, "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize()
 
-                <div class="form-check">
+                <div class="form-check" style="margin: 1rem 0rem 0.5rem 0.5rem">
                     @if (!user.IsSolicitante)
                     {
-                        <label class="form-check-label">
+                        <label class="form-check-label" >
 
-                            @Html.CheckBoxCGUFor(m => m.ObterPactosUnidadesSubordinadas, new { @class = "form-check-input" })
+                            @Html.CheckBoxCGUFor(m => m.ObterPactosUnidadesSubordinadas, new { @class = "form-check-input", @style="margin-right: 1rem" })
                             Incluir Planos de Trabalho de Unidades Subordinadas
                            
                         </label>
@@ -74,7 +74,7 @@
         </div>
         <div class="row col-md-12">
             <div class="col-md-3" style='float: right'>
-                <button type="submit" onclick="submeteConsulta('@Url.Action("Index", "Pacto")')" class="btn btn-primary btn-block" id="btnConsultar"><span class="glyphicon glyphicon-search"></span> Consultar</button>
+                <button type="submit" onclick="submeteConsulta('@Url.Action("Index", "Pacto")')" class="btn btn-primary btn-block" id="btnConsultar"><span class="glyphicon glyphicon-search text-white"></span> Consultar</button>
             </div>
         </div>
 

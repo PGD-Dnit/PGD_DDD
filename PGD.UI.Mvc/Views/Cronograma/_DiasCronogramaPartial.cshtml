@@ -8,7 +8,7 @@
         </div>
     </div>
     <p>
-        Carga horária total:
+        Carga Horária Total:
         <strong>
             <label id="lblCargaTotalCronograma">@Model.HorasTotais.ConverterParaHora()</label>h
             @Html.HiddenFor(m => m.DataInicial)
@@ -28,11 +28,11 @@
     <p>
         @if (Model.CargaHorariaDistribuir >= TimeSpan.Zero)
         {
-            @Html.Raw("Carga horária a distribuir:")
+            @Html.Raw("Carga Horária a Distribuir:")
         }
         else
         {
-            @Html.Raw("Carga horária <strong>excedente</strong>:")
+            @Html.Raw("Carga Horária <strong>excedente</strong>:")
         }
         <strong>
             <label id="lblCargaTotalCronograma">@Math.Floor(Math.Abs(Model.CargaHorariaDistribuir.TotalHours))h e @Math.Abs(Model.CargaHorariaDistribuir.Minutes) min</label>
@@ -50,7 +50,7 @@
                     <th></th>
                     <th>Data</th>
                     <th>Dia</th>
-                    <th>Carga horária diária</th>
+                    <th>Carga Horária Diária</th>
                 </tr>
             </thead>
             <tbody>

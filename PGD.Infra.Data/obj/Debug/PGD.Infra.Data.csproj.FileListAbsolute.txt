@@ -185,3 +185,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\obj\Debug\PGD.Infra
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\obj\Debug\PGD.Infra.Data.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\obj\Debug\PGD.Infra.Data.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\obj\Debug\PGD.Infra.Data.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.Data\obj\Debug\PGD.Infra.Data.dll.config

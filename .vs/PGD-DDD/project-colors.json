@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "19e23d2e-a9d1-485e-86fd-f6f7041d4406": {
+      "ProjectGuid": "19e23d2e-a9d1-485e-86fd-f6f7041d4406",
+      "DisplayName": "PGD.Application",
+      "ColorIndex": 0
+    },
+    "bbce6e67-f241-4a07-8e24-5b06aee63c83": {
+      "ProjectGuid": "bbce6e67-f241-4a07-8e24-5b06aee63c83",
+      "DisplayName": "PGD.UI.Mvc",
+      "ColorIndex": 1
+    },
+    "3f7db9dc-6635-4c81-aefa-0b20a17cce0e": {
+      "ProjectGuid": "3f7db9dc-6635-4c81-aefa-0b20a17cce0e",
+      "DisplayName": "PGD.Domain",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Arquivos Diversos",
+      "ColorIndex": -1
+    },
+    "550dee01-0e39-4db0-8b55-734918c1dc5a": {
+      "ProjectGuid": "550dee01-0e39-4db0-8b55-734918c1dc5a",
+      "DisplayName": "PGD.DatabaseUpdate",
+      "ColorIndex": 3
+    },
+    "02ebaee6-a2e6-4e34-9983-a93cb23f35a4": {
+      "ProjectGuid": "02ebaee6-a2e6-4e34-9983-a93cb23f35a4",
+      "DisplayName": "PGD.Infra.Data",
+      "ColorIndex": 4
+    }
+  },
+  "NextColorIndex": 5
+}

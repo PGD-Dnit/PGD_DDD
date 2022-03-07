@@ -54,7 +54,7 @@ else
                     <td class="text-center">@obj.Nome</td>
                     @*<td class="text-center">@obj.DescricaoPerfil</td>*@
                     <td class="text-center">
-                        <a href="@Url.Action("Delete", new { id = obj.CPF })" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"></span></a>
+                        <a href="@Url.Action("Delete", new { id = obj.CPF })" class="btn btn-xs btn-danger"><span class="glyphicon glyphicon-remove text-white" aria-hidden="true" onclick="return confirm('@PGD.Domain.Constantes.Mensagens.MD_002');"></span></a>
                     </td>
                 </tr>
             }

@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
 
 
-    <h1 class="col-md-12">Nova Avaliação Detalhada </h1>
+    <h1 class="col-md-12 text-blue"> Nova Avaliação Detalhada </h1>
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div class="form-horizontal">
@@ -52,7 +52,7 @@
                 </table>
 
                 <div class="col-md-2 pull-right">
-                    <button id="AddItemAva" type="button" class="btn btn-primary btn-block btn-xs" onclick="AddItemAvaliacao();"><span class="glyphicon glyphicon-plus"></span> Adicionar</button>
+                    <button id="AddItemAva" type="button" class="btn btn-primary btn-block btn-xs" onclick="AddItemAvaliacao();"><span class="glyphicon glyphicon-plus text-white"></span> Adicionar</button>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
             <hr class="col-md-12">
             <div class="form-group">
                 <div class="col-md-2">
-                    <a href="@Url.Action("Index", "CriterioAvaliacao")" class="btn btn-danger btn-block">Cancelar</a>
+                    <a href="@Url.Action("Index", "CriterioAvaliacao")" class="btn btn-danger btn-block text-white">Cancelar</a>
                 </div>
                 <div class="col-sm-offset-8 col-md-2">
                     <button id="salvar" type="submit" class="btn btn-success btn-block">Salvar</button>

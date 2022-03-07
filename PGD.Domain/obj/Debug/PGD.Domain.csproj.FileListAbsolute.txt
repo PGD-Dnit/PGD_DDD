@@ -167,8 +167,11 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\pt-BR\Microso
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.AssemblyReference.cache
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.CoreCompileInputs.cache
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.AssemblyReference.cache
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.dll.config

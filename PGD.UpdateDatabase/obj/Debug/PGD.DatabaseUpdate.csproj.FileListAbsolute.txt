@@ -186,3 +186,5 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UpdateDatabase\obj\Debug\PGD.D
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UpdateDatabase\obj\Debug\PGD.DatabaseUpdate.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UpdateDatabase\obj\Debug\PGD.UpdateDatabase.exe
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UpdateDatabase\obj\Debug\PGD.UpdateDatabase.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UpdateDatabase\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.UpdateDatabase\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml

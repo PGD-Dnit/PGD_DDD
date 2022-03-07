@@ -199,3 +199,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\obj\Deb
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\obj\Debug\PGD.Infra.CrossCutting.IoC.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\obj\Debug\PGD.Infra.CrossCutting.IoC.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\obj\Debug\PGD.Infra.CrossCutting.IoC.pdb
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.IoC\obj\Debug\PGD.Infra.CrossCutting.IoC.dll.config
