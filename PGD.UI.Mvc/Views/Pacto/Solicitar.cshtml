@@ -68,7 +68,7 @@
                                                                         .OnChangeAtualizaExecutaCallback("Pacto", "GetDadosUsuarioPorCpf", new Dictionary<string, string>() { { "cpf", Html.IdFor(m => m.CpfUsuario).ToString() } }, callbackFunction: "atualizaCamposUsuario"))
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="exampleInputName2">Matrícula SIAPE: </label>
+                            <label for="exampleInputName2">Matrícula DNIT: </label>
                             @Html.TextBoxFor(m => m.MatriculaSIAPE, new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
                         </div>
                     </div>
