@@ -1,3 +1,6 @@
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\EntityFramework.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Identity.Client.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\PGD.Domain.dll.config
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\PGD.Domain.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\PGD.Domain.pdb
@@ -104,6 +107,7 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Bcl
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Bcl.HashCode.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Data.SqlClient.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.dll
@@ -128,13 +132,13 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\System.Memory
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\System.Numerics.Vectors.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\EntityFramework.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Bcl.HashCode.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Data.SqlClient.pdb
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.xml
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Relational.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Extensions.Caching.Abstractions.xml
@@ -147,8 +151,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Ext
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Extensions.Logging.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Extensions.Logging.Abstractions.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Extensions.Options.xml
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Extensions.Primitives.xml
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.Identity.Client.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Newtonsoft.Json.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\System.Buffers.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\System.Collections.Immutable.xml
@@ -167,11 +169,9 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\pt-BR\Microso
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.AssemblyReference.cache
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.dll.config
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.CoreCompileInputs.cache
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.CopyComplete
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.pdb
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.csproj.AssemblyReference.cache
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Domain\obj\Debug\PGD.Domain.dll.config

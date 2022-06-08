@@ -33,6 +33,9 @@ namespace PGD.Infra.Data.Repository
 
             if (filtro.IdUsuarioPerfilUnidade.HasValue)
                 query = query.Where(x => x.Id == filtro.IdUsuarioPerfilUnidade);
+            //csa add novo filtro
+            /*if (filtro.IdPerfil.HasValue)
+                query = query.Where(x => x.IdPerfil == filtro.IdPerfil);*/
 
             if (filtro.IdUsuario.HasValue)
                 query = query.Where(x => x.IdUsuario == filtro.IdUsuario);

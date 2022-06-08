@@ -97,7 +97,8 @@ namespace PGD.UI.Mvc.Controllers
             var lista = new List<PerfilViewModel>
             {
                 new PerfilViewModel { Nome = Domain.Enums.Perfil.Administrador.ToString(), IdPerfil = Domain.Enums.Perfil.Administrador.GetHashCode() },
-                new PerfilViewModel { Nome = Domain.Enums.Perfil.Dirigente.ToString(), IdPerfil = Domain.Enums.Perfil.Dirigente.GetHashCode() }
+                new PerfilViewModel { Nome = Domain.Enums.Perfil.Dirigente.ToString(), IdPerfil = Domain.Enums.Perfil.Dirigente.GetHashCode() },
+                new PerfilViewModel { Nome = Domain.Enums.Perfil.Solicitante.ToString(), IdPerfil = Domain.Enums.Perfil.Solicitante.GetHashCode() }
             };
             TempData["lstPerfil"] = lista;
         }

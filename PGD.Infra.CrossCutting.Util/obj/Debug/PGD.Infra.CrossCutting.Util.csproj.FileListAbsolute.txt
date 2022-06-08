@@ -165,7 +165,6 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\De
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.csproj.AssemblyReference.cache
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.Properties.Resources.resources
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.csproj.GenerateResource.cache
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.csproj.CoreCompileInputs.cache
@@ -175,3 +174,4 @@ C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\De
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\bin\Debug\Microsoft.EntityFrameworkCore.Design.xml
 C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.dll.config
+C:\Users\csa\source\repos\13-10\PGD_APP_13_10\PGD.Infra.CrossCutting.Util\obj\Debug\PGD.Infra.CrossCutting.Util.csproj.AssemblyReference.cache

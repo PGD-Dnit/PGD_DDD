@@ -574,15 +574,16 @@ namespace PGD.Domain.Services
             if (!isDirigente && pacto.CpfUsuario == usuariologado.Cpf)
             {
 
-                if (pacto.IdSituacaoPacto ==  (int)eSituacaoPacto.AIniciar || (pacto.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura && pacto.StatusAprovacaoSolicitante.GetValueOrDefault() == 0) || (pacto.IdSituacaoPacto == (int)eSituacaoPacto.EmAndamento))
+                //if (pacto.IdSituacaoPacto ==  (int)eSituacaoPacto.AIniciar || (pacto.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura && pacto.StatusAprovacaoSolicitante.GetValueOrDefault() == 0) || (pacto.IdSituacaoPacto == (int)eSituacaoPacto.EmAndamento))
+                if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar || (pacto.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura && pacto.StatusAprovacaoSolicitante.GetValueOrDefault() == 0))
                 {
-                    possuiPermissoesSolicitante = true;
+                        possuiPermissoesSolicitante = true;
                 }
 
                 if (pacto.IdSituacaoPacto != (int)PGD.Domain.Enums.eSituacaoPacto.Suspenso)
                 {
                     //List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado };
-                    List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)eSituacaoPacto.PendenteDeAvaliacao, (int)eSituacaoPacto.AvaliadoParcialmente };
+                    List<int> situacoesInvalidas = new List<int>() { (int)eSituacaoPacto.Excluido, (int)eSituacaoPacto.Negado, (int)eSituacaoPacto.Interrompido, (int)eSituacaoPacto.Avaliado, (int)eSituacaoPacto.PendenteDeAvaliacao, (int)eSituacaoPacto.AvaliadoParcialmente, (int)eSituacaoPacto.EmAndamento };
                     //csa
                     //if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio >= DateTime.Now)
                     if (!situacoesInvalidas.Contains(pacto.IdSituacaoPacto) && pacto.DataPrevistaInicio >= DateTime.Today)
@@ -986,17 +987,19 @@ namespace PGD.Domain.Services
             DateTime dataMinimoPacto = ObterDataMinimaSuspensaoPacto();
             if (pacto.DataPrevistaInicio > dataMinimoPacto)
                 dataMinimoPacto = pacto.DataPrevistaInicio;
-
-            if (dataInicioSuspensao < dataMinimoPacto)
+            //csa
+            //dataInicioSuspensao=>data estipulada no formulario campo "Interrompido a partir de"
+            //dataMinimoPacto=>
+            /* if (dataInicioSuspensao < dataMinimoPacto)
             {
                 return new ValidationResult($"A data de {operacao.ToString()} deve ser maior ou igual à { dataMinimoPacto.ToShortDateString() } .");
-            }
+            } */
 
             DateTime dataMaximaPacto = pacto.Cronogramas.Max(c => c.DataCronograma);
-            if (dataInicioSuspensao > dataMaximaPacto)
+            /*if (dataInicioSuspensao > dataMaximaPacto)
             {
                 return new ValidationResult($"A data de {operacao.ToString()} deve ser menor ou igual à { dataMaximaPacto.ToShortDateString() } .");
-            }
+            }*/
 
             return null;
         }

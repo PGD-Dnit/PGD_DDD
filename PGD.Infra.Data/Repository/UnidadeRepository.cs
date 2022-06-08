@@ -55,6 +55,11 @@ namespace PGD.Infra.Data.Repository
             
             if(filtro.IdUsuario.HasValue)
                 query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => !y.Excluido && y.IdUsuario == filtro.IdUsuario));
+            //csa add um filtro p perfil
+            //if (filtro.IdPerfilSelecionado.HasValue)
+                //query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == filtro.IdPerfilSelecionado));
+               // query = query.Where(x => x.UsuariosPerfisUnidades.Join(y => y.IdPerfil == filtro.IdPerfilSelecionado));
+                //query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == filtro.IdPerfilSelecionado));
 
             if (filtro.IdTipoPacto.HasValue)
                 query = query.Where(x => x.UnidadesTiposPactos.Any(y => y.IdTipoPacto == filtro.IdTipoPacto));

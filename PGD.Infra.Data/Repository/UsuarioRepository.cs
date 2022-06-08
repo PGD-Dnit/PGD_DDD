@@ -8,6 +8,9 @@ using System;
 using System.Data.Entity;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Collections.Generic;
+using PGD.Domain.Entities.RH;
+
 
 namespace PGD.Infra.Data.Repository
 {
@@ -15,10 +18,11 @@ namespace PGD.Infra.Data.Repository
     Justification = "False positive.")]
     public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
     {
-
-        public UsuarioRepository(PGDDbContext context)
+        private readonly IUnidadeRepository _unidadeRepository;
+        public UsuarioRepository(PGDDbContext context, UnidadeRepository unidadeRepository)
             : base(context)
         {
+            this._unidadeRepository = unidadeRepository;
 
         }
 
@@ -55,7 +59,7 @@ namespace PGD.Infra.Data.Repository
 
         public Usuario ObterPorNome(string nome)
         {
-           
+
             return DbSet.AsNoTracking().Where(a => a.Nome.Trim().ToLower().Contains(nome.Trim().ToLower())).FirstOrDefault();
         }
 
@@ -67,13 +71,37 @@ namespace PGD.Infra.Data.Repository
         public Usuario Teste(string email)
         {
             var usuario = DbSet.AsQueryable();
-            
+
             if (!string.IsNullOrWhiteSpace(email))
                 usuario = usuario.Where(x => x.Email.ToUpper() == email.ToUpper());
 
             return new Usuario();
         }
+        //csa
+        public IEnumerable<Usuario> ObterTodosPorUnidade(int idUnidade, bool incluirSubordinados = false)
+        {
+            var usuarios = new List<Usuario>();
+            IQueryable<Usuario> lista = null;
+            var unidades = _unidadeRepository.ObterUnidadesSubordinadas(idUnidade).ToList();
+            
+            foreach (var unid in unidades)
+            {
+            ///Parei aqui
+                var listaUsuarios = from u in Db.Set<Usuario>()
+                                     where u.IdUsuario == unid.IdUnidade
+                                   select u;
+               // var a = from u in Db.Set<Usuario>()
+               //         where u.Unidade == unid.IdUnidade
+               //         select u;
+                //usuariosUnidades = Db.Set<Usuario>().Where(x => x.Unidade == unid.IdUnidade);
+                ////.Where(x => lista2.All(y => y.IdUnidade != x.IdUnidade) && lista2.Any(y => y.IdUnidade == x.IdUnidadeSuperior));
 
+                // lista = usuariosUnidades;
+                lista = lista.Concat(listaUsuarios);
+            }
+            return lista;
+
+        }
         public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)
         {
             var retorno = new Paginacao<Usuario>();
@@ -97,7 +125,7 @@ namespace PGD.Infra.Data.Repository
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)
             {
-                retorno.Lista = filtro.OrdenarDescendente 
+                retorno.Lista = filtro.OrdenarDescendente
                     ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
                     : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
             }
