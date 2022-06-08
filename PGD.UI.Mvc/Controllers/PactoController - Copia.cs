@@ -219,6 +219,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 //csa
                 var IdUnidadeSuperior = UnidadeSelecionada;
+                //var IdUnidadeSuperior = IdUnidade;
 
                 //VER AQUI COMO FAZER UM SELECT P PEGAR A COORDENAÇÃO E E SUAS SUBORDINADAS VER SELECT EM PACTOREPOSITORY LINHA 99
 
@@ -550,7 +551,7 @@ namespace PGD.UI.Mvc.Controllers
 
             if (isDirigente)
             {
-               
+
                 var unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
                 var usuarios = new List<UsuarioViewModel>();
                 var listUsuario = new List<UsuarioViewModel>();
@@ -593,34 +594,48 @@ namespace PGD.UI.Mvc.Controllers
                 {
                     IdTipoPacto = idTipoPacto,
                     IdUsuario = userLogado.IdUsuario,
-                    
+                    IncludeUnidadePerfisUnidades = true,
+                    //csa add filtro
+                    //IdPerfilSelecionado = (int)Domain.Enums.Perfil.Solicitante,
+
                 }).Lista ?? new List<Unidade>();
                 TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadasParticipante.AsEnumerable();
+                // List<Unidade> unidadesX = _unidadeService.ObterUnidades
 
+                var idUsuarioPerfilUnidade = _UsuarioPerfilUnidadeService.Buscar(new UsuarioPerfilUnidadeFiltro
+                {
+                    IdUsuario = userLogado.IdUsuario,
+                    //IdPerfil = userLogado.IdPerfilSelecionado,
+                }).Lista ?? new List<UsuarioPerfilUnidade>();
+                ///PAREI AQUI
+                // TempData[GetNomeVariavelTempData("Unidades", idPacto)] = idUsuarioPerfilUnidade.AsEnumerable();
+                //foreach (var usuarioPerfilUnidade in idUsuarioPerfilUnidade)
+                // {
+                //     var u = usuarioPerfilUnidade.Unidade;
+                // }
             }
+                //csa ver unidades aqui
+                /*List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
+                {
+                    IdTipoPacto = idTipoPacto,
+                    IdUsuario = isDirigente ? userLogado?.IdUsuario : null
+                }).Lista ?? new List<Unidade>();*/
 
-            //csa ver unidades aqui
-            /*List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
-            {
-                IdTipoPacto = idTipoPacto,
-                IdUsuario = isDirigente ? userLogado?.IdUsuario : null
-            }).Lista ?? new List<Unidade>();*/
+                //var user = getUserLogado();
+                List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
+                {
+                    IdTipoPacto = idTipoPacto,
+                    IdUsuario = userLogado.IdUsuario,
+                    //IncludeUnidadesFilhas = isDirigente ? true : false,
+                    //IdUnidadeSuperior = userLogado.IdUnidadeSelecionada,
+                    //IncludeUnidadeSuperior = isDirigente ? true : false,                
+                    //IdUsuario = userLogado.IsSolicitante ? userLogado?.IdUsuario : null,
+                    //IdPerfilSelecionado = userLogado.IdPerfilSelecionado
+                    //IdUsuario = isDirigente ? userLogado?.IdUsuario : user.IdUsuario
+                    //BuscarExcluidos = false
+                }).Lista ?? new List<Unidade>();
 
-            //var user = getUserLogado();
-            List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
-            {
-                IdTipoPacto = idTipoPacto,
-                IdUsuario = userLogado.IdUsuario,
-                //IncludeUnidadesFilhas = isDirigente ? true : false,
-                //IdUnidadeSuperior = userLogado.IdUnidadeSelecionada,
-                //IncludeUnidadeSuperior = isDirigente ? true : false,                
-                //IdUsuario = userLogado.IsSolicitante ? userLogado?.IdUsuario : null,
-                //IdPerfilSelecionado = userLogado.IdPerfilSelecionado
-                //IdUsuario = isDirigente ? userLogado?.IdUsuario : user.IdUsuario
-                //BuscarExcluidos = false
-            }).Lista ?? new List<Unidade>();
-
-
+            
             if (idPacto > 0)
             {
                 var pactoVm = _Pactoservice.BuscarPorId(idPacto);
@@ -917,7 +932,9 @@ namespace PGD.UI.Mvc.Controllers
         public PactoViewModel SalvarSolicitar(PactoViewModel pactoViewModel)
         {
             if (pactoViewModel.PossuiCargaHoraria != null && pactoViewModel.PossuiCargaHoraria == false)
+                //csa
                 pactoViewModel.CargaHorariaDiaria = TimeSpan.FromHours(8);
+               // pactoViewModel.CargaHorariaDiaria = TimeSpan.FromHours(10);
 
 
             var user = getUserLogado();

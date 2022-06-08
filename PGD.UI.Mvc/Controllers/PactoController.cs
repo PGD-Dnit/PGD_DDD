@@ -136,14 +136,14 @@ namespace PGD.UI.Mvc.Controllers
         // GET: Pacto
         public ActionResult Index()
         {
-            
+
             var user = getUserLogado();
             var searchpacto = new SearchPactoViewModel
             {
                 ObterPactosUnidadesSubordinadas = user.IsDirigente
             };
-            
-                return Index(searchpacto);
+
+            return Index(searchpacto);
         }
 
         [HttpPost]
@@ -185,8 +185,9 @@ namespace PGD.UI.Mvc.Controllers
             var user = getUserLogado();
             bool dirigente = true;
             var IdUnidade = 0;
-
-           if (user.IsSolicitante)
+            //csa UnidadeSelecionada criada p/ resolver chefia em duas unidades ou mais
+            int UnidadeSelecionada = (int)user.IdUnidadeSelecionada;
+            if (user.IsSolicitante)
             {
 
                 // List<Unidade> unidadeUsuario = _unidadeService.Buscar(new UnidadeFiltro { IdUsuario = user.IdUsuario }).Lista.FirstOrDefault()?.Nome;
@@ -198,7 +199,7 @@ namespace PGD.UI.Mvc.Controllers
             }
             else if (user.IsDirigente)
             {
-                
+
                 var idUsuarioPerfilUnidade = _UsuarioPerfilUnidadeService.Buscar(new UsuarioPerfilUnidadeFiltro
                 {
                     IdUsuario = user.IdUsuario
@@ -207,21 +208,31 @@ namespace PGD.UI.Mvc.Controllers
                 foreach (var item in idUsuarioPerfilUnidade)
                 {
                     //perfil Dirigente ou Chefia IdPerfil = 2
-                    if (item .IdPerfil == (int)Domain.Enums.Perfil.Dirigente) {
+                    if (item.IdPerfil == (int)Domain.Enums.Perfil.Dirigente)
+                    {
                         IdUnidade = item.IdUnidade;
-                    }  
-                
+                    }
+
                 }
                 //VER AQUI A POSSIBILIDADE DE UTILIZAR IDUNIDADESELECIONA QUE JÁ VEM PREENCHIDA EM USER.IDUNIDADESELECIONA, AO INVES idUsuarioPerfilUnidade E O FOREACH ACIMA
-                var IdUnidadeSuperior = IdUnidade;
+                //var IdUnidadeSuperior = IdUnidade;
+
+                //csa
+                var IdUnidadeSuperior = UnidadeSelecionada;
+                //var IdUnidadeSuperior = IdUnidade;
+
                 //VER AQUI COMO FAZER UM SELECT P PEGAR A COORDENAÇÃO E E SUAS SUBORDINADAS VER SELECT EM PACTOREPOSITORY LINHA 99
+
                 unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade).ToList();
-                
+
                 //csa 
                 //unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade ).ToList();              
                 //var unidadesSubordinadas = _unidadeService.ObterUnidades().Where(x => x.IdUnidadeSuperior == IdUnidade).ToList();
                 //unidades = (List<Unidade>)unidades.Concat(unidadesSubordinadas); 
-                var  unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();
+
+                //csa
+                var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();
+
                 //unidades = unidades.Concat(unidadesSubordinadas).ToList();
                 unidades = unidadesSubordinadas;
 
@@ -265,8 +276,10 @@ namespace PGD.UI.Mvc.Controllers
             }
             else if (user.IsDirigente)
             {
-                pactoViewModel.UnidadeExercicio = IdUnidade;
-                pactoViewModel.CpfUsuario = user.CPF;                
+                //pactoViewModel.UnidadeExercicio = IdUnidade;
+                //csa alterado p pegar a unidade que foi escolhida pelo usuario no momento do login, caso esteja em mais de uma unidade como chefia
+                pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
+                pactoViewModel.CpfUsuario = user.CPF;
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas);
             }
             else
@@ -373,9 +386,6 @@ namespace PGD.UI.Mvc.Controllers
                 setModelErrorList(lstErros);
             }
 
-            
-           
-
             id = id == 0 ? null : id;
             var user = getUserLogado();
             ViewBag.CpfUsuarioLogado = RetornaCpfCorrigido(user.CPF);
@@ -398,7 +408,7 @@ namespace PGD.UI.Mvc.Controllers
 
                 // var unidades = _unidadeService.ObterUnidades().ToList();
                 // var retornoSituacao = unidades.FirstOrDefault(x => x.IdUnidade == _pactoVM.UnidadeExercicio);
-                _pactoVM.UnidadeDescricao = _unidadeService.Buscar(new UnidadeFiltro {Id = _pactoVM.UnidadeExercicio}).Lista.FirstOrDefault()?.Nome;
+                _pactoVM.UnidadeDescricao = _unidadeService.Buscar(new UnidadeFiltro { Id = _pactoVM.UnidadeExercicio }).Lista.FirstOrDefault()?.Nome;
                 _pactoVM.StatusAssinatura = _Pactoservice.BuscaStatusAssinatura(_pactoVM);
 
                 if (_pactoVM.IdPacto == 0)
@@ -439,10 +449,10 @@ namespace PGD.UI.Mvc.Controllers
 
                 //setando permissoes para editar dias cronograma e horas já usadas por outros pactos.
                 _pactoVM.Cronogramas.ForEach(c =>
-                        {
-                            c.PodeEditar = _cronogramaService.PodeEditarDiaCronograma(_pactoVM.CpfUsuario, getUserLogado(), c.DataCronograma);
-                            c.HorasUsadasPorOutroPacto = TimeSpan.FromHours(Convert.ToDouble(_cronogramaService.GetQuantidadeHorasNoDia(c.DataCronograma, pactosConcorrentes)));
-                        });
+                {
+                    c.PodeEditar = _cronogramaService.PodeEditarDiaCronograma(_pactoVM.CpfUsuario, getUserLogado(), c.DataCronograma);
+                    c.HorasUsadasPorOutroPacto = TimeSpan.FromHours(Convert.ToDouble(_cronogramaService.GetQuantidadeHorasNoDia(c.DataCronograma, pactosConcorrentes)));
+                });
 
                 _pactoVM.CargaHorariaTotal =
                     (_pactoVM.Produtos ?? new List<ProdutoViewModel>()).Sum(x => x.CargaHorariaProduto * x.QuantidadeProduto);
@@ -462,7 +472,7 @@ namespace PGD.UI.Mvc.Controllers
             {
                 TempData[GetNomeVariavelTempData("Produtos", id.GetValueOrDefault())] = new List<ProdutoViewModel>();
 
-               // TempData[PactoController.GetNomeVariavelTempData("Unidades", Model.IdPacto)]
+                // TempData[PactoController.GetNomeVariavelTempData("Unidades", Model.IdPacto)]
                 _pactoVM.DataPrevistaInicio = DateTime.Today;
                 _pactoVM.Produtos = new List<ProdutoViewModel>();
                 _pactoVM.DataPrevistaTermino = null;
@@ -538,16 +548,27 @@ namespace PGD.UI.Mvc.Controllers
         {
 
             var userLogado = getUserLogado();
-            
+            //csa IF necessario somente p Chefia e Participante, pois admin não tem menu p/ Solicitar Plano de trabalho
             if (isDirigente)
             {
-                var usuarios = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
-                {
-                    IdUnidade = userLogado.IdUnidadeSelecionada
-                })?.Lista ?? new List<UsuarioViewModel>();
 
-                usuarios = idPacto == 0 && usuarios.Any(x => x.CPF == userLogado.CPF)
-                    ? usuarios.Where(x => x.CPF != userLogado.CPF).ToList() : usuarios;
+                var unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
+                var usuarios = new List<UsuarioViewModel>();
+                var listUsuario = new List<UsuarioViewModel>();
+                foreach (var unid in unidades)
+                {
+                    usuarios = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
+                    {
+                        IdUnidade = unid.IdUnidade
+                        //IdUnidade = userLogado.IdUnidadeSelecionada
+                    })?.Lista ?? new List<UsuarioViewModel>();
+
+                    usuarios = idPacto == 0 && usuarios.Any(x => x.CPF == userLogado.CPF)
+                        ? usuarios.Where(x => x.CPF != userLogado.CPF).ToList() : usuarios;
+
+                    listUsuario.AddRange(usuarios);
+                }
+                usuarios = listUsuario;
 
                 if (!string.IsNullOrEmpty(cpfUsuario) && (usuarios.All(u => u.CPF != cpfUsuario) && (userLogado.CPF != cpfUsuario || idPacto != 0)))
                 {
@@ -555,11 +576,12 @@ namespace PGD.UI.Mvc.Controllers
                     {
                         Cpf = cpfUsuario
                     })?.Lista.FirstOrDefault();
-                    
-                    if(usuario != null) usuarios.Add(usuario);
+
+                    if (usuario != null) usuarios.Add(usuario);
                 }
 
                 TempData["NomesSubordinados"] = usuarios;
+                TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidades.AsEnumerable();
             }
             else
             {
@@ -567,27 +589,34 @@ namespace PGD.UI.Mvc.Controllers
                 {
                     Cpf = cpfUsuario
                 })?.Lista ?? new List<UsuarioViewModel>();
+
+                List<Unidade> unidadesHabilitadasParticipante = _unidadeService.Buscar(new UnidadeFiltro
+                {
+                    IdTipoPacto = idTipoPacto,
+                    IdUsuario = userLogado.IdUsuario,
+                    IncludeUnidadePerfisUnidades = true,
+                    //csa add filtro
+                    //IdPerfilSelecionado = (int)Domain.Enums.Perfil.Solicitante,
+
+                }).Lista ?? new List<Unidade>();
+                TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadasParticipante.AsEnumerable();
+                
             }
-            //csa ver unidades aqui
-            /*List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
-            {
-                IdTipoPacto = idTipoPacto,
-                IdUsuario = isDirigente ? userLogado?.IdUsuario : null
-            }).Lista ?? new List<Unidade>();*/
+                
+                List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
+                {
+                    IdTipoPacto = idTipoPacto,
+                    IdUsuario = userLogado.IdUsuario,
+                    //IncludeUnidadesFilhas = isDirigente ? true : false,
+                    //IdUnidadeSuperior = userLogado.IdUnidadeSelecionada,
+                    //IncludeUnidadeSuperior = isDirigente ? true : false,                
+                    //IdUsuario = userLogado.IsSolicitante ? userLogado?.IdUsuario : null,
+                    //IdPerfilSelecionado = userLogado.IdPerfilSelecionado
+                    //IdUsuario = isDirigente ? userLogado?.IdUsuario : user.IdUsuario
+                    //BuscarExcluidos = false
+                }).Lista ?? new List<Unidade>();
 
-            //var user = getUserLogado();
-            List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
-            {
-                IdTipoPacto = idTipoPacto,
-                IdUsuario = userLogado.IdUsuario,
-                //IncludeUnidadesFilhas = isDirigente ? true : false
-                //IdUsuario = userLogado.IsSolicitante ? userLogado?.IdUsuario : null,
-                //IdPerfilSelecionado = userLogado.IdPerfilSelecionado
-                //IdUsuario = isDirigente ? userLogado?.IdUsuario : user.IdUsuario
-                //BuscarExcluidos = false
-            }).Lista ?? new List<Unidade>();
-
-
+            
             if (idPacto > 0)
             {
                 var pactoVm = _Pactoservice.BuscarPorId(idPacto);
@@ -597,17 +626,50 @@ namespace PGD.UI.Mvc.Controllers
                     var unidadePacto = _unidadeService.Buscar(new UnidadeFiltro { Id = pactoVm.UnidadeExercicio }).Lista.FirstOrDefault();
                     unidadesHabilitadas.Add(unidadePacto);
                 }
+                TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadas.AsEnumerable();
             }
             //carregamento da tempdadta com as unidades p/ o droplistdown do formulario propor plano de trabalho
-            TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadas.AsEnumerable();
-            
+            //csa
+            // TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadas.AsEnumerable();
+             
 
         }
 
         private void ConfigurarNomesServidoresPesquisa()
         {
-             TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();            
-            //TempData["NomesSubordinados"] = ListarNomesPorUnidade();
+            //csa
+            var userLogado = getUserLogado();
+
+            if (userLogado.IsDirigente)
+            {
+                
+                var unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
+                var usuarios = new List<UsuarioViewModel>();
+                var listUsuario = new List<UsuarioViewModel>();
+                foreach (var unid in unidades)
+                {
+                    usuarios = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
+                    {
+                        IdUnidade = unid.IdUnidade                        
+                    })?.Lista ?? new List<UsuarioViewModel>();
+
+                    usuarios = usuarios.Any(x => x.CPF == userLogado.CPF)
+                        ? usuarios.Where(x => x.CPF != userLogado.CPF).ToList() : usuarios;
+
+                    listUsuario.AddRange(usuarios);
+                }
+                usuarios = listUsuario;                
+                TempData["NomesSubordinados"] = usuarios;
+                
+            }
+            else
+            {
+                TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();
+
+            }
+            //csa antes era só essa linha abaixo --> _usuarioAppService.ObterTodos();
+            //TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();
+            
         }
 
         private List<IniciativaPlanoOperacionalViewModel> ConfigurarIniciativasPlanoOperacional()
@@ -633,9 +695,9 @@ namespace PGD.UI.Mvc.Controllers
             }
         }
 
-        private void ConfigurarSituacaoProduto()            
+        private void ConfigurarSituacaoProduto()
         {
-        	TempData["SituacaoProduto"] = _situacaoProdutoAppService.ObterTodos();
+            TempData["SituacaoProduto"] = _situacaoProdutoAppService.ObterTodos();
         }
 
         private void ConfigurarJustificativas()
@@ -676,7 +738,7 @@ namespace PGD.UI.Mvc.Controllers
                 _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
-                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);                
+                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeInterromper = _Pactoservice.PodeInterromper(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeNegar = _Pactoservice.PodeNegar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeSuspender = _Pactoservice.PodeSuspender(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
@@ -694,12 +756,13 @@ namespace PGD.UI.Mvc.Controllers
                     p.PodeVisualizarPactuadoAvaliado = _pactoVM.podeVisualizarPactuadoAvaliado;
                 });
             }
-            else if (user.IsSolicitante) {
+            else if (user.IsSolicitante)
+            {
                 unidadePactoESubordinadaUnidadeUsuario = true;
                 _pactoVM.podeAssinar = _Pactoservice.PodeAssinar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeAvaliar = _Pactoservice.PodeAvaliar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
-                _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);                
-                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);               
+                _pactoVM.podeDeletar = _Pactoservice.PodeDeletar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
+                _pactoVM.podeEditar = _Pactoservice.PodeEditar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeInterromper = _Pactoservice.PodeInterromper(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeNegar = _Pactoservice.PodeNegar(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
                 _pactoVM.podeSuspender = _Pactoservice.PodeSuspender(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
@@ -717,10 +780,11 @@ namespace PGD.UI.Mvc.Controllers
                     p.PodeVisualizarPactuadoAvaliado = _pactoVM.podeVisualizarPactuadoAvaliado;
                 });
             }
-            else if(user.IsAdmin){                
+            else if (user.IsAdmin)
+            {
                 _pactoVM.podeAssinar = true;
                 _pactoVM.podeAvaliar = true;
-                _pactoVM.podeDeletar = true;                
+                _pactoVM.podeDeletar = true;
                 _pactoVM.podeEditar = true;
                 _pactoVM.podeInterromper = true;
                 _pactoVM.podeNegar = true;
@@ -760,10 +824,10 @@ namespace PGD.UI.Mvc.Controllers
                     });
             }
 
-           var validarPactoConcorrente = _Pactoservice.GetPactosConcorrentes(pactoViewModel.DataPrevistaInicio, DateTime.Now.AddYears(1),
-                                                                             pactoViewModel.CpfUsuario, pactoViewModel.IdPacto);
+            var validarPactoConcorrente = _Pactoservice.GetPactosConcorrentes(pactoViewModel.DataPrevistaInicio, DateTime.Now.AddYears(1),
+                                                                              pactoViewModel.CpfUsuario, pactoViewModel.IdPacto);
             ConfigurarSituacaoProduto();
-          
+
 
 
             ModelState.Where(x => x.Key.Contains("Produtos[")).ToList().ForEach(x =>
@@ -787,12 +851,12 @@ namespace PGD.UI.Mvc.Controllers
                     {
                         mensagem = "Plano N° " + pactoViewModel.IdPacto + " salvo com sucesso!";
                     }
-                   
-                     return setMessageAndRedirect(mensagem,
-                   "Solicitar",
-                    new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
-                    });
-                   
+
+                    return setMessageAndRedirect(mensagem,
+                  "Solicitar",
+                   new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
+                   });
+
                 }
                 else
                 {
@@ -849,9 +913,11 @@ namespace PGD.UI.Mvc.Controllers
         public PactoViewModel SalvarSolicitar(PactoViewModel pactoViewModel)
         {
             if (pactoViewModel.PossuiCargaHoraria != null && pactoViewModel.PossuiCargaHoraria == false)
+                //csa
                 pactoViewModel.CargaHorariaDiaria = TimeSpan.FromHours(8);
-           
-           
+               // pactoViewModel.CargaHorariaDiaria = TimeSpan.FromHours(10);
+
+
             var user = getUserLogado();
             AtualizaOrdemServico(pactoViewModel.IdOrdemServico);
             ConfigurarGruposAtividades(OrdemServico, pactoViewModel.IdTipoPacto);
@@ -1100,8 +1166,8 @@ namespace PGD.UI.Mvc.Controllers
         {
             var user = getUserLogado();
             var listSemSolicitante = new List<UsuarioViewModel>();
-
-            var listUser = _usuarioAppService.ObterTodos(user.Unidade, true).Where(x => x.CPF != user.CPF).ToList();
+            var IdUsuario = (int)user.IdUnidadeSelecionada;
+            var listUser = _usuarioAppService.ObterTodos(IdUsuario, true).Where(x => x.CPF != user.CPF).ToList();
             foreach (var item in listUser)
             {
                 //var perfil = _Usuarioservice.ObterPerfis(item);
@@ -1122,21 +1188,21 @@ namespace PGD.UI.Mvc.Controllers
             if (!string.IsNullOrEmpty(id))
             {
                 OrdemServico = idOrdemServico.HasValue && idOrdemServico.Value > 0 ? _ordemServicoService.ObterPorId(idOrdemServico.Value) : _ordemServicoService.GetOrdemVigente();
-                var grupo = OrdemServico.Grupos.First(x => x.IdGrupoAtividade == int.Parse(id));                
+                var grupo = OrdemServico.Grupos.First(x => x.IdGrupoAtividade == int.Parse(id));
                 grupo.Atividades.OrderBy(x => x.IdAtividade).ToList().ForEach(x => atividades.Add(new SelectListItem { Text = x.NomAtividade, Value = x.IdAtividade.ToString() }));
                 if (atividades.Count > 1)
                     atividades.Insert(0, new SelectListItem { Text = "-- Selecione --", Value = "" });
             }
-  
+
             return Json(atividades);
         }
 
         public JsonResult GetGrupoAtividades(int? idOrdemServico)
-        {            
+        {
             var listGrupo = new List<SelectListItem>();
 
             OrdemServico = idOrdemServico.HasValue && idOrdemServico.Value > 0 ? _ordemServicoService.ObterPorId(idOrdemServico.Value) : _ordemServicoService.GetOrdemVigente();
-            var grupo = OrdemServico.Grupos.Where((x => x.IdGrupoAtividade == 1 || x.IdGrupoAtividade == 2));            
+            var grupo = OrdemServico.Grupos.Where((x => x.IdGrupoAtividade == 1 || x.IdGrupoAtividade == 2));
             grupo.OrderBy(x => x.IdGrupoAtividade).ToList().ForEach(x => listGrupo.Add(new SelectListItem { Text = x.NomGrupoAtividade, Value = x.IdGrupoAtividade.ToString() }));
             if (listGrupo.Count > 1)
                 listGrupo.Insert(0, new SelectListItem { Text = "-- Selecione --", Value = "" });
@@ -1146,22 +1212,22 @@ namespace PGD.UI.Mvc.Controllers
         public JsonResult GetEntregas(string idGrupo, string idAtividade, int? idOrdemServico)
         {
             var resultado = new List<SelectListItem>();
-            
+
             if (!string.IsNullOrEmpty(idAtividade))
-            {                             
+            {
                 var iniciativa = _iniciativaPOAppService.ObterTodos().Where(x => x.CodigoDecimal == int.Parse(idAtividade)).ToList();
                 iniciativa.ForEach(x => resultado.Add(new SelectListItem { Text = x.CodigoDescricao, Value = x.CodigoDecimal.ToString() }));
                 if (resultado.Count > 1)
                     resultado.Insert(0, new SelectListItem { Text = "-- Selecione --", Value = "" });
             }
-                        
+
             return Json(resultado);
 
         }
 
         public JsonResult GetFaixas(string idGrupo, string idAtividade, string idPacto, int idProduto, int? idOrdemServico)
         {
-            
+
             var faixas = new List<SelectListItem>();
 
             if (!string.IsNullOrEmpty(idGrupo) && !string.IsNullOrEmpty(idAtividade))
@@ -1179,7 +1245,7 @@ namespace PGD.UI.Mvc.Controllers
             }
             return Json(faixas);
         }
-       
+
         private double GetValorMinimoFaixa(string idGrupo, string idAtividade, string idPacto, int idProduto)
         {
             double duracaoMinima = 0;
@@ -1209,7 +1275,8 @@ namespace PGD.UI.Mvc.Controllers
         public JsonResult GetFaixaValor(string idGrupo, string idAtividade, string idFaixa, string adesao, int? idOrdemServico)
         {
             //Caso adesao venha sem valor e atribuido a ele o valor 1 referente a faixa.DuracaoFaixa ou Teletrabalho
-            if (String.IsNullOrEmpty(adesao) || adesao == "") {
+            if (String.IsNullOrEmpty(adesao) || adesao == "")
+            {
                 adesao = "1";
             }
             var tipoAdesao = int.Parse(adesao);
@@ -1225,11 +1292,11 @@ namespace PGD.UI.Mvc.Controllers
                     {
                         resultado = faixa.DuracaoFaixa;
                     }
-                    else 
-                        {
+                    else
+                    {
                         resultado = faixa.DuracaoFaixaPresencial;
-                        }
-                               
+                    }
+
             }
             return Json(resultado);
         }
@@ -1299,10 +1366,10 @@ namespace PGD.UI.Mvc.Controllers
 
         }
 
-        
+
         public ActionResult AvaliarProduto(int idPacto, int idOrigemAcao)
         {
-        	var pactoVM = _Pactoservice.BuscarPorId(idPacto);
+            var pactoVM = _Pactoservice.BuscarPorId(idPacto);
 
             ConfigurarJustificativas();
             ConfigurarNiveisAvaliacao();
@@ -1507,7 +1574,7 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public ActionResult AddProduto(ProdutoViewModel model)
         {
-           
+
             var lista = TempData[GetNomeVariavelTempData("Produtos", model.IdPacto)] as List<ProdutoViewModel> ?? new List<ProdutoViewModel>();
 
             var errors = ModelState
@@ -1517,7 +1584,7 @@ namespace PGD.UI.Mvc.Controllers
             //csa########################
             //model.CodigoDecimal atribuido ao List do model.IniciativasPlanoOperacionalSelecionadas necessario pela mudança feito no entrega esperadas dropdownlist
             model.IniciativasPlanoOperacionalSelecionadas.Add(model.CodigoDecimal.ToString());
-            
+
             if (ModelState.IsValid)
             {
                 ConfigurarCargaHorariaFormatada(model);
@@ -1580,7 +1647,7 @@ namespace PGD.UI.Mvc.Controllers
         public PartialViewResult PreparaAlteracaoProduto(int indexProduto, int idPacto, int idTipoPacto)
         {
             List<ProdutoViewModel> lista = (List<ProdutoViewModel>)TempData[GetNomeVariavelTempData("Produtos", idPacto)];
-          
+
             ProdutoViewModel pvm = lista.FirstOrDefault(m => m.Index == indexProduto);
 
             pvm.IniciativasPlanoOperacionalProduto.ForEach(i =>
@@ -1635,7 +1702,7 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public JsonResult GetPermiteExecucaoExterior(int idUnidade, int idTipoPacto)
         {
-           
+
             var unidade_tipoPacto = _unidade_tipoPactoAppService.BuscarPorIdUnidadeTipoPacto(idUnidade, idTipoPacto);
             return Json(new { permiteExecucaoExterior = unidade_tipoPacto.IndPermitePactoExterior ? 1 : 0 });
         }
@@ -1873,7 +1940,7 @@ namespace PGD.UI.Mvc.Controllers
             var produto = _Produtoservice.BuscarPorId(alterarObservacaoProdutoVM.IdPacto, alterarObservacaoProdutoVM.IdProduto);
             produto.Observacoes = alterarObservacaoProdutoVM.Observacoes;
             var result = _Pactoservice.AtualizarObservacaoProduto(produto, user);
-            
+
 
             return Json(result.ValidationResult);
         }
@@ -1881,11 +1948,11 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public JsonResult AtualizaSituacaoProduto(string idSituacaoProduto, string idPacto, string idProduto)
         {
-        
+
             var user = getUserLogado();
             ViewBag.isDirigente = user.IsDirigente;
             var produto = _Produtoservice.BuscarPorId(int.Parse(idPacto), int.Parse(idProduto));
-            if(idSituacaoProduto != "")
+            if (idSituacaoProduto != "")
             {
                 produto.IdSituacaoProduto = int.Parse(idSituacaoProduto);
             }
@@ -1893,16 +1960,16 @@ namespace PGD.UI.Mvc.Controllers
             {
                 produto.IdSituacaoProduto = 0;
             }
-           
+
             var result = _Pactoservice.AtualizarSituacaoProduto(produto, user);
-        
+
 
             ConfigurarSituacaoProduto();
 
             return Json("Situação Alterada com Sucesso!");
 
             //return setMessageAndRedirect("Situação Alterada com Sucesso!", "Index");
-        } 
+        }
 
         [HttpPost]
         public JsonResult UploadAnexoProduto([Bind(Include = "IdPacto,IdProduto")] ProdutoViewModel produtoVM)
@@ -1910,7 +1977,7 @@ namespace PGD.UI.Mvc.Controllers
             var user = getUserLogado();
             ViewBag.isDirigente = user.IsDirigente;
             var produto = _Produtoservice.BuscarPorId(produtoVM.IdPacto, produtoVM.IdProduto);
-          
+
             int arquivosSalvos = 0;
             for (int i = 0; i < Request.Files.Count; i++)
             {
@@ -1918,9 +1985,9 @@ namespace PGD.UI.Mvc.Controllers
                 //Validações
 
                 //Salva Arquivo
-                if(arquivo.ContentLength > 0)
+                if (arquivo.ContentLength > 0)
                 {
-                
+
                     // Salva referencia no Banco
                     AnexoProduto anexoProduto = new AnexoProduto();
                     anexoProduto.IdProduto = produto.IdProduto;
@@ -1928,18 +1995,18 @@ namespace PGD.UI.Mvc.Controllers
                     anexoProduto.Tamanho = arquivo.ContentLength;
                     anexoProduto.Tipo = Path.GetExtension(arquivo.FileName);
                     anexoProduto = _anexoProdutoService.Adicionar(anexoProduto);
-                    
-                    if(anexoProduto != null)
+
+                    if (anexoProduto != null)
                     {
                         var uploadPath = Server.MapPath("~/Content/Uploads");
                         string caminhoArquivo = Path.Combine(uploadPath, Path.GetFileName(anexoProduto.IdProduto.ToString()));
                         arquivo.SaveAs(caminhoArquivo);
-                       
+
                     }
                     arquivosSalvos++;
                 }
 
-                
+
             }
             return Json("Arquivo anexado com sucesso!");
         }

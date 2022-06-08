@@ -195,8 +195,9 @@ function excluirPerfilUnidade(idUsuarioPerfilUnidade) {
 }
 
 function formatterAcoes(value, row) {
-    if (row.NomePerfil === 'Solicitante')
-        return '';
+    //csa
+    //if (row.NomePerfil === 'Solicitante')
+    //    return '';
 
     return `<span class="btn" onclick="excluirPerfilUnidadeClick(${row.Id})"><i class="fas fa-times-circle fa-2x danger"></i></span>`;
 }

@@ -6,6 +6,8 @@ namespace PGD.Domain.Filtros
     {
         public long? IdUsuarioPerfilUnidade { get; set; }
         public int? IdUsuario { get; set; }
+        //csa add novos filtros
+       // public int? IdPerfil { get; set; }        
         public bool IncludeUnidade { get; set; }
         public bool IncludePerfil { get; set; }
         public bool IncludeUsuario { get; set; }

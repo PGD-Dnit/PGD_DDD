@@ -68,7 +68,7 @@
                                                                         .OnChangeAtualizaExecutaCallback("Pacto", "GetDadosUsuarioPorCpf", new Dictionary<string, string>() { { "cpf", Html.IdFor(m => m.CpfUsuario).ToString() } }, callbackFunction: "atualizaCamposUsuario"))
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="exampleInputName2">Matrícula SIAPE: </label>
+                            <label for="exampleInputName2">Matrícula DNIT: </label>
                             @Html.TextBoxFor(m => m.MatriculaSIAPE, new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
                         </div>
                     </div>
@@ -336,15 +336,17 @@
                 </div>
                 @*<div class="form-group col-md-6">
                 </div>*@
-                <div class="form-group col-md-3">
-                    @if (Model.podeEditar || Model.podeEditarAndamento)
+            <div class="form-group col-md-3">
+                @if (Model.podeEditar || Model.podeEditarAndamento)
+                {
+
+                    if (Model.IdSituacaoPacto != 3 || ViewBag.isDirigente)
                     {
-                        if (Model.IdSituacaoPacto != 3)
-                        {
-                            <button id="btnSalvar" type="button" name="btnSalvar" value="Salvar" class="btn btn-primary btn-block" onclick="SubmeterPacto('Salvando')">Salvar Rascunho</button>
-                        }
+                        <button id="btnSalvar" type="button" name="btnSalvar" value="Salvar" class="btn btn-primary btn-block" onclick="SubmeterPacto('Salvando')">Salvar Rascunho</button>
                     }
-                </div>
+
+                }
+            </div>
                 @if (Model.podeAssinar)
                 {
                     <div class="form-group col-md-3" role="group" aria-label="...">

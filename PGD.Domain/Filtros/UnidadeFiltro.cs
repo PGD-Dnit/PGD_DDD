@@ -13,7 +13,7 @@ namespace PGD.Domain.Filtros
         public int? IdUsuario { get; set; }
         public int? IdTipoPacto { get; set; }
         //csa add mais um filtro
-       // public int? IdPerfilSelecionado { get; set; }
+        //public int? IdPerfilSelecionado { get; set; }
         public bool BuscarExcluidos { get; set; }
         public bool IncludeUnidadeSuperior { get; set; }
         public bool IncludeUnidadesFilhas { get; set; }

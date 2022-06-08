@@ -55,8 +55,9 @@ namespace PGD.Domain.Services
         public IEnumerable<Usuario> ObterTodosPorUnidade(int IdUnidade, bool incluirSubordinados = false)
         {
 
-            var lista = _usuarioRepository.ObterTodos();
-
+            //var lista = _usuarioRepository.ObterTodos();
+            var lista = _usuarioRepository.ObterTodosPorUnidade(IdUnidade).ToList();
+            //var a = 0;
             return lista;
 
         }
