@@ -632,7 +632,6 @@ namespace PGD.UI.Mvc.Controllers
             //csa
             // TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadas.AsEnumerable();
              
-
         }
 
         private void ConfigurarNomesServidoresPesquisa()

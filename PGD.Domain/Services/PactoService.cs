@@ -995,6 +995,7 @@ namespace PGD.Domain.Services
                 return new ValidationResult($"A data de {operacao.ToString()} deve ser maior ou igual à { dataMinimoPacto.ToShortDateString() } .");
             } */ 
 
+
             DateTime dataMaximaPacto = pacto.Cronogramas.Max(c => c.DataCronograma);
             /*if (dataInicioSuspensao > dataMaximaPacto)
             {
