@@ -49,6 +49,11 @@ namespace PGD.Domain.Services
         {
             return _unidadeRepository.ObterUnidadesSubordinadas(idUnidadePai);
         }
+        //csa
+        public IEnumerable<Unidade> ObterUnidadesParticipante(int idUsuario, int idPerfil)
+        {
+            return _unidadeRepository.ObterUnidadesParticipante(idUsuario, idPerfil);
+        }
 
         public Unidade ObterUnidade(int idUnidade)
         {

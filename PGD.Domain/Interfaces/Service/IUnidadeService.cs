@@ -11,5 +11,7 @@ namespace PGD.Domain.Interfaces.Service
         IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai);
         Unidade ObterUnidade(int idUnidade);
         Paginacao<Unidade> Buscar(UnidadeFiltro filtro);
+        //csa
+        IEnumerable<Unidade> ObterUnidadesParticipante(int idUsuario, int idPerfil);
     }
 }

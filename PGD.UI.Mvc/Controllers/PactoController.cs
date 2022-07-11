@@ -271,7 +271,8 @@ namespace PGD.UI.Mvc.Controllers
             {
                 PactoCompleto.Searchpacto.NomeServidor = user.Nome;
                 //csa aqui tenho que melhorar a consulta p obter pactos por cpf e não obter todos e usar o where p filtar depois 
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas).Where(x => x.CpfUsuario == user.CPF);
+                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(10).ToList();
 
             }
             else if (user.IsDirigente)
@@ -280,11 +281,13 @@ namespace PGD.UI.Mvc.Controllers
                 //csa alterado p pegar a unidade que foi escolhida pelo usuario no momento do login, caso esteja em mais de uma unidade como chefia
                 pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
                 pactoViewModel.CpfUsuario = user.CPF;
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas);
+                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                    .OrderByDescending(s => s.IdPacto).Take(10).ToList();
             }
             else
             {
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas);
+                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                    .OrderByDescending(s => s.IdPacto).Take(10).ToList();
 
             }
             dirigente = user.IsDirigente;
@@ -292,7 +295,8 @@ namespace PGD.UI.Mvc.Controllers
             if (retorno != null)
             {
                 // aqui o retorno com a lista de pactos são atribuídos a variavel pactoViewModels e posteriomente, cada pacto e atribuido a item e submetido a podePermissoes()
-                var pactoViewModels = retorno.ToList();
+                //var pactoViewModels = retorno.OrderByDescending(s => s.IdPacto).Take(20).ToList();
+                var pactoViewModels = retorno;
                 foreach (var item in pactoViewModels)
                 {
 
@@ -590,17 +594,19 @@ namespace PGD.UI.Mvc.Controllers
                     Cpf = cpfUsuario
                 })?.Lista ?? new List<UsuarioViewModel>();
 
-                List<Unidade> unidadesHabilitadasParticipante = _unidadeService.Buscar(new UnidadeFiltro
-                {
-                    IdTipoPacto = idTipoPacto,
-                    IdUsuario = userLogado.IdUsuario,
-                    IncludeUnidadePerfisUnidades = true,
-                    //csa add filtro
-                    //IdPerfilSelecionado = (int)Domain.Enums.Perfil.Solicitante,
+                //List<Unidade> unidadesHabilitadasParticipante = _unidadeService.Buscar(new UnidadeFiltro
+                //{
+                //    IdTipoPacto = idTipoPacto,
+                //    IdUsuario = userLogado.IdUsuario,
+                //    IncludeUnidadePerfisUnidades = true,
+                //    //csa add filtro
+                //    //IdPerfilSelecionado = (int)Domain.Enums.Perfil.Solicitante,
 
-                }).Lista ?? new List<Unidade>();
+                //}).Lista ?? new List<Unidade>();
+                List<Unidade> unidadesHabilitadasParticipante = _unidadeService.ObterUnidadesParticipante(userLogado.IdUsuario, (int)Domain.Enums.Perfil.Solicitante).ToList();
                 TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadasParticipante.AsEnumerable();
-                
+                 
+
             }
                 
                 List<Unidade> unidadesHabilitadas = _unidadeService.Buscar(new UnidadeFiltro
@@ -649,11 +655,13 @@ namespace PGD.UI.Mvc.Controllers
                 {
                     usuarios = _usuarioAppService.Buscar(new UsuarioFiltroViewModel
                     {
-                        IdUnidade = unid.IdUnidade                        
+                        IdUnidade = unid.IdUnidade,
+                        Perfil = Domain.Enums.Perfil.Solicitante,
+                        Inativo = true,
                     })?.Lista ?? new List<UsuarioViewModel>();
 
                     usuarios = usuarios.Any(x => x.CPF == userLogado.CPF)
-                        ? usuarios.Where(x => x.CPF != userLogado.CPF).ToList() : usuarios;
+                        ? usuarios.Where(x => x.CPF != userLogado.CPF && x.Inativo == false).ToList() : usuarios;
 
                     listUsuario.AddRange(usuarios);
                 }
@@ -661,7 +669,7 @@ namespace PGD.UI.Mvc.Controllers
                 TempData["NomesSubordinados"] = usuarios;
                 
             }
-            else
+            else if(userLogado.IsAdmin)
             {
                 TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();
 

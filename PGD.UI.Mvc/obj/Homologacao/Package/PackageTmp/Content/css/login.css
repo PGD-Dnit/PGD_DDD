@@ -84,9 +84,15 @@
 
 .imagem_footer {
     position: fixed;
-    bottom: 0;
-    width: 750px;
+    bottom: 25px;
+    width: 500px;
     max-width: 100%;
+    left: 49.5%;
+    /*position: fixed;
+    bottom: 50px;
+    width: 250px;
+    max-width: 100%;
+    left: 56%;*/
 }
 
 #loginMain {
@@ -163,7 +169,7 @@
 }
 
 /*TELA DE PERFIL*/
-.selecione_perfil_main {
+    .selecione_perfil_main {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -244,7 +250,7 @@
     position: fixed;
     bottom: 0;
     left: 46%;
-    width: 591px;
+    width: 500px;
     max-width: 100%;
 }
 
@@ -258,13 +264,20 @@
 
 @media(max-width: 1367px) {
     .imagem_footer_perfil {
-        width: 568px !important;
+        width: 500px !important;
         max-width: 100%;
-        margin-left: 1%;
+        margin-left: -4.5%;
+        bottom: 25px;
+        /*width: 250px !important;
+        max-width: 100%;
+        margin-left: -3%;*/
     }
     .imagem_footer {
-        left: 45%;
-        width:569px;
+        left: 49.5%;
+        width: 500px;
+        /*left: 59%;
+        width: 250px;
+        bottom: 0;*/
     }
 }
 
@@ -274,8 +287,13 @@
     }
 
     .imagem_footer_perfil {
-        width: 804px;
+        width: 500px;
         max-width: 100%;
-        left: 46%;
+        left: 55%;
+        bottom: 25px;
+        /* width: 250px;
+        max-width: 100%;
+        left: 62%;
+        bottom: 20px;*/
     }
 }

@@ -149,7 +149,9 @@ namespace PGD.Domain.Enums
         [Display(Name = "Prazo, em dias, para bloquear novos planos de trabalho se houver planos de trabalho em andamento sem avaliação parcial ")]
         PrazoBloqueioPactoEmAndamentoSemAvaliacaoParcial = 8,
 
-        QuantidadesDiaConclusaoAntecipada = 9
+        QuantidadesDiaConclusaoAntecipada = 9,
+        //csa add p/ implementar a compensação horas de 8 ou 10 horas
+        QuantidadeHorasDiarias = 10
 
     }
 
@@ -173,5 +175,11 @@ namespace PGD.Domain.Enums
         Avaliacao,
         AvaliacaoParcial,
         VoltandoSuspensão
+    }
+
+    public enum Status
+    { 
+        Ativo = 0,
+        Inativo = 1,
     }
 }

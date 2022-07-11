@@ -121,5 +121,17 @@ namespace PGD.Infra.Data.Repository
 
             return RetornaUnidadesSubordinadas(lista, forcarParada);
         }
+        //csa
+        public IEnumerable<Unidade> ObterUnidadesParticipante(int idUsuario, int idPerfil)
+        {
+            var unidades = from u in Db.Set<Unidade>()
+                           join upu in Db.Set<UsuarioPerfilUnidade>()
+                           on u.IdUnidade equals upu.IdUnidade
+                           where upu.IdUsuario == idUsuario && upu.IdPerfil == idPerfil && upu.Excluido == false
+                           select u;
+
+            return unidades;
+
+        }
     }
 }

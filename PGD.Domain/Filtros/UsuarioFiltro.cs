@@ -12,5 +12,7 @@ namespace PGD.Domain.Filtros
         public int? IdUnidade { get; set; }
         public Perfil? Perfil { get; set; }
         public bool IncludeUnidadesPerfis { get; set; }
+        //csa
+        public bool Inativo { get; set; }
     }
 }
