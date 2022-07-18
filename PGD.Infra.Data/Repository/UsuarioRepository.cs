@@ -1,0 +1,156 @@
+﻿using PGD.Domain.Entities.Usuario;
+using PGD.Domain.Filtros;
+using PGD.Domain.Interfaces.Repository;
+using PGD.Domain.Paginacao;
+using PGD.Infra.Data.Context;
+using PGD.Infra.Data.Util;
+using System;
+using System.Data.Entity;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Collections.Generic;
+using PGD.Domain.Entities.RH;
+using PGD.Domain.Entities;
+
+
+namespace PGD.Infra.Data.Repository
+{
+    [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly",
+    Justification = "False positive.")]
+    public class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
+    {
+        private readonly IUnidadeRepository _unidadeRepository;
+        public UsuarioRepository(PGDDbContext context, UnidadeRepository unidadeRepository)
+            : base(context)
+        {
+            this._unidadeRepository = unidadeRepository;
+
+        }
+
+        public Usuario ObterPorCPF(string cpf)
+        {
+            cpf = cpf.PadLeft(11, '0');
+            var usuario = DbSet.AsNoTracking()
+                .Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf)
+                .Include("UsuariosPerfisUnidades")
+                .Include("UsuariosPerfisUnidades.Perfil")
+                .Include("UsuariosPerfisUnidades.Unidade")
+                .FirstOrDefault();
+            if (usuario == null)
+            {
+                long novocpf;
+                if (long.TryParse(cpf, out novocpf))
+                {
+                    cpf = novocpf.ToString();
+                    usuario = DbSet.AsNoTracking().Where(a => a.Cpf.Replace("\r", string.Empty).Replace("\n", string.Empty) == cpf)
+                        .Include("UsuariosPerfisUnidades")
+                        .Include("UsuariosPerfisUnidades.Perfil")
+                        .Include("UsuariosPerfisUnidades.Unidade")
+                        .FirstOrDefault();
+                }
+
+            }
+            return usuario;
+        }
+
+        public Usuario ObterPorEmail(string email)
+        {
+            return DbSet.AsNoTracking().Where(a => a.Email.Replace("\r", string.Empty).Replace("\n", string.Empty) == email).FirstOrDefault();
+        }
+
+        public Usuario ObterPorNome(string nome)
+        {
+
+            return DbSet.AsNoTracking().Where(a => a.Nome.Trim().ToLower().Contains(nome.Trim().ToLower())).FirstOrDefault();
+        }
+
+        public override Usuario ObterPorId(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario Teste(string email)
+        {
+            var usuario = DbSet.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(email))
+                usuario = usuario.Where(x => x.Email.ToUpper() == email.ToUpper());
+
+            return new Usuario();
+        }
+        //csa
+        public IEnumerable<Usuario> ObterTodosPorUnidade(int idUnidade, bool incluirSubordinados = false)
+        {
+            var usuarios = new List<Usuario>();
+            IQueryable<Usuario> lista = null;
+            var unidades = _unidadeRepository.ObterUnidadesSubordinadas(idUnidade).ToList();
+
+            foreach (var unid in unidades)
+            {
+                ///Parei aqui
+                var listaUsuarios = from u in Db.Set<Usuario>()
+                                    where u.IdUsuario == unid.IdUnidade
+                                    select u;
+                // var a = from u in Db.Set<Usuario>()
+                //         where u.Unidade == unid.IdUnidade
+                //         select u;
+                //usuariosUnidades = Db.Set<Usuario>().Where(x => x.Unidade == unid.IdUnidade);
+                ////.Where(x => lista2.All(y => y.IdUnidade != x.IdUnidade) && lista2.Any(y => y.IdUnidade == x.IdUnidadeSuperior));
+
+                // lista = usuariosUnidades;
+                lista = lista.Concat(listaUsuarios);
+            }
+            return lista;
+
+        }
+        public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)
+        {
+            var retorno = new Paginacao<Usuario>();
+            var query = DbSet.AsQueryable();
+
+            if (filtro.IncludeUnidadesPerfis)
+                query.Include("UsuariosPerfisUnidades")
+                    .Include("UsuariosPerfisUnidades.Perfil")
+                    .Include("UsuariosPerfisUnidades.Unidade");
+
+            query = !string.IsNullOrWhiteSpace(filtro.Nome) ? query.Where(x => x.Nome.ToLower().Contains(filtro.Nome.ToLower())) : query;
+            query = !string.IsNullOrWhiteSpace(filtro.Cpf) ? query.Where(x => x.Cpf == filtro.Cpf) : query;
+            query = !string.IsNullOrWhiteSpace(filtro.Sigla) ? query.Where(x => x.Sigla == filtro.Sigla) : query;
+            query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
+            query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
+            query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
+
+            query = filtro.Perfil.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == (int)filtro.Perfil)) : query;
+            //csa
+            if (filtro.Inativo.HasValue)
+                query = query.Where(x => x.Inativo == false);
+
+            retorno.QtRegistros = query.Count();
+
+            if (filtro.Skip.HasValue && filtro.Take.HasValue)
+            {
+                retorno.Lista = filtro.OrdenarDescendente
+                    ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
+                    : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
+            }
+            else
+            {
+                retorno.Lista = query.ToList();
+            }
+
+
+            return retorno;
+        }
+        //csa
+        public IEnumerable<Usuario> BuscarServidores(int idUnidade, int idPerfil, string CPF)
+        {
+            var unidades = from u in Db.Set<Usuario>()
+                           join upu in Db.Set<UsuarioPerfilUnidade>()
+                           on u.IdUsuario equals upu.IdUsuario
+                           where u.Cpf != CPF && u.Inativo == false && upu.IdUnidade == idUnidade && upu.IdPerfil == idPerfil && upu.Excluido == false
+                           select u;
+
+            return unidades;
+        }
+    }
+}
