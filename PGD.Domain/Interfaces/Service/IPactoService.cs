@@ -57,5 +57,6 @@ namespace PGD.Domain.Interfaces.Service
         bool PodeVisualizar(Pacto pacto, Usuario usuario, bool isDirigente, bool unidadePactoESubordinadaUnidadeUsuario);
 
         DateTime ObterDataMinimaSuspensaoPacto();
+        DateTime ObterDataMinimaCronograma(int dias);
     }
 }

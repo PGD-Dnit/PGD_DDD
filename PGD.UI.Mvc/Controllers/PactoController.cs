@@ -394,6 +394,7 @@ namespace PGD.UI.Mvc.Controllers
             var user = getUserLogado();
             ViewBag.CpfUsuarioLogado = RetornaCpfCorrigido(user.CPF);
             ViewBag.isDirigente = user.IsDirigente;
+           // TempData["NomesSubordinados"] = usuarios;
             ViewBag.AbrirCronograma = abrircronograma;
             _pactoVM.IdTipoPacto = idTipoPacto.GetValueOrDefault();
             _pactoVM.ehPGDProjeto = idTipoPacto.HasValue && idTipoPacto == (int)PGD.Domain.Enums.eTipoPacto.PGD_Projeto;

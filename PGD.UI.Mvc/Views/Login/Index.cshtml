@@ -18,37 +18,37 @@
 
         @using (Html.BeginForm("Index", "Login", FormMethod.Post, htmlAttributes: new { @class = "form col-md-12" }))
         {
-@Html.AntiForgeryToken()
+            @Html.AntiForgeryToken()
 
-                <div class="row col-md-12 col-lg-12">
-                    <div class="form-group col-md-12">
+            <div class="row col-md-12 col-lg-12">
+                <div class="form-group col-md-12">
 
-                        @*@Html.Label("Sigla", "Usuário", new { @class = "col-md-12 control-label" })*@
-                        <div class="col-md-12 input-group-lg">
+                    @*@Html.Label("Sigla", "Usuário", new { @class = "col-md-12 control-label" })*@
+                    <div class="col-md-12 input-group-lg">
 
 
-                            @Html.TextBoxFor(x => x.Sigla, new { @class = "form-control input-login ", @type = "text", @placeHolder = "Usuário" })
-                            @Html.ValidationMessageFor(c => c.Sigla)
+                        @Html.TextBoxFor(x => x.Sigla, new { @class = "form-control input-login ", @type = "text", @placeHolder = "Usuário" })
+                        @Html.ValidationMessageFor(c => c.Sigla)
 
-                        </div>
                     </div>
                 </div>
+            </div>
 
-                                <div class="row col-md-12">
-                                    <div class="form-group col-md-12">
-                                        @*@Html.Label("Senha", "Senha", new { @class = "col-md-12 control-label" })*@
-                                        <div class="col-md-12 input-group-lg">
-                                            @Html.TextBoxFor(x => x.Senha, new { @class = "form-control input-login ", @type = "password", @placeHolder = "Senha" })
-                                            @Html.ValidationMessageFor(c => c.Senha)
-                                        </div>
-                                    </div>
-                                </div>
+            <div class="row col-md-12">
+                <div class="form-group col-md-12">
+                    @*@Html.Label("Senha", "Senha", new { @class = "col-md-12 control-label" })*@
+                    <div class="col-md-12 input-group-lg">
+                        @Html.TextBoxFor(x => x.Senha, new { @class = "form-control input-login ", @type = "password", @placeHolder = "Senha" })
+                        @Html.ValidationMessageFor(c => c.Senha)
+                    </div>
+                </div>
+            </div>
 
-                                                <div class="row col-md-12 col-sm-12 col-lg-6 col-xs-12">
-                                                    <div class="col text-center">
-                                                        <button class="btn btn-entrar">Entrar</button>
-                                                    </div>
-                                                </div>}
+            <div class="row col-md-12 col-sm-12 col-lg-6 col-xs-12">
+                <div class="col text-center">
+                    <button class="btn btn-entrar">Entrar</button>
+                </div>
+            </div>}
     </div>
     <div class="col-md-8 col-sm-8 col-lg-8 col-xs- clique-aqui text-center">
 

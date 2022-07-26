@@ -1,6 +1,7 @@
 ﻿@model PGD.Application.ViewModels.CronogramaPactoViewModel
 @using PGD.Application.Util
 
+
 <div id="containerCronograma">
     <div id="page-content-wrapper" class="body-content">
         <div id="divAlertaCronograma" class="form-group alert alert-danger fade in @(ViewData.ModelState.IsValid ? "hidden" : "") ">
@@ -8,6 +9,14 @@
         </div>
     </div>
     <p>
+        @{
+            var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
+            var user = controller.getUserLogado();
+        }
+        @if (user.IsSolicitante) //IsDirigente
+        {
+            <span class="glyphicon glyphicon-exclamation-sign" title="teste">teste#########</span>
+        }
         Carga Horária Total:
         <strong>
             <label id="lblCargaTotalCronograma">@Model.HorasTotais.ConverterParaHora()</label>h
@@ -61,76 +70,76 @@
                     {
                         string idRow = "rowCronograma" + i.ToString();
 
-                <tr id="@idRow" @( cronograma.HorasUsadasPorOutroPacto >= Model.HorasDiarias ? "class=danger" : (!@cronograma.DiaUtil || cronograma.HorasUsadasPorOutroPacto > TimeSpan.Zero) ? "class=warning" : "")>
+                        <tr id="@idRow" @( cronograma.HorasUsadasPorOutroPacto >= Model.HorasDiarias ? "class=danger" : (!@cronograma.DiaUtil || cronograma.HorasUsadasPorOutroPacto > TimeSpan.Zero) ? "class=warning" : "")>
 
-                    @Html.HiddenFor(c => c.Cronogramas[i].IdCronograma, new { @id = "IdCronograma_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].IdPacto, new { @id = "IdPacto_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].DataCronograma, new { @id = "DataCronograma_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].Suspenso, new { @id = "Suspenso_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].DiaUtil, new { @id = "DiaUtil_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].DiaCronograma, new { @id = "DiaCronograma_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].Feriado, new { @id = "Feriado_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].DuracaoFeriado, new { @id = "DuracaoFeriado_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].PodeEditar, new { @id = "PodeEditar_" + i })
-                    @Html.HiddenFor(c => c.Cronogramas[i].HorasUsadasPorOutroPacto, new { @id = "HorasUsadasPorOutroPacto_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].IdCronograma, new { @id = "IdCronograma_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].IdPacto, new { @id = "IdPacto_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].DataCronograma, new { @id = "DataCronograma_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].Suspenso, new { @id = "Suspenso_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].DiaUtil, new { @id = "DiaUtil_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].DiaCronograma, new { @id = "DiaCronograma_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].Feriado, new { @id = "Feriado_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].DuracaoFeriado, new { @id = "DuracaoFeriado_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].PodeEditar, new { @id = "PodeEditar_" + i })
+                            @Html.HiddenFor(c => c.Cronogramas[i].HorasUsadasPorOutroPacto, new { @id = "HorasUsadasPorOutroPacto_" + i })
 
-                    <td>
-                        @if (cronograma.Feriado)
-                        {
-                            <span class="glyphicon glyphicon-info-sign" title="Feriado @((cronograma.DuracaoFeriado < Model.HorasDiarias) ? cronograma.DuracaoFeriado.ToString("hh\\:mm") : "")"></span>
-                        }
+                            <td>
+                                @if (cronograma.Feriado)
+                                {
+                                    <span class="glyphicon glyphicon-info-sign" title="Feriado @((cronograma.DuracaoFeriado < Model.HorasDiarias) ? cronograma.DuracaoFeriado.ToString("hh\\:mm") : "")"></span>
+                                }
 
-                        @if (cronograma.HorasUsadasPorOutroPacto > TimeSpan.Zero)
-                        {
-                            if (cronograma.HorasUsadasPorOutroPacto < Model.HorasDiarias)
-                            {
-                                <span class="glyphicon glyphicon-exclamation-sign" title="Existe(m) @(cronograma.HorasUsadasPorOutroPacto.ToString("hh\\:mm"))h neste dia comprometida(s) por outro(s) plano(s) PGD"></span>
-                            }
-                            else
-                            {
-                                <span class="glyphicon glyphicon-exclamation-sign" title="Carga horária diária já preenchida por outro(s) plano(s) PGD"></span>
-                            }
+                                @if (cronograma.HorasUsadasPorOutroPacto > TimeSpan.Zero)
+                                {
+                                    if (cronograma.HorasUsadasPorOutroPacto < Model.HorasDiarias)
+                                    {
+                                        <span class="glyphicon glyphicon-exclamation-sign" title="Existe(m) @(cronograma.HorasUsadasPorOutroPacto.ToString("hh\\:mm"))h neste dia comprometida(s) por outro(s) plano(s) PGD"></span>
+                                    }
+                                    else
+                                    {
+                                        <span class="glyphicon glyphicon-exclamation-sign" title="Carga horária diária já preenchida por outro(s) plano(s) PGD"></span>
+                                    }
 
-                        }
+                                }
 
-                        @if (cronograma.Suspenso)
-                        {
-                            if (cronograma.DataCronograma.Date == Model.DataInicioSuspensao.Value.Date)
-                            {
-                                <span class="glyphicon glyphicon-pause" title="Início Suspensão Plano"></span>
-                            }
+                                @if (cronograma.Suspenso)
+                                {
+                                    if (cronograma.DataCronograma.Date == Model.DataInicioSuspensao.Value.Date)
+                                    {
+                                        <span class="glyphicon glyphicon-pause" title="Início Suspensão Plano"></span>
+                                    }
 
-                            if (cronograma.DataCronograma.Date == Model.DataFimSuspensao?.Date)
-                            {
-                                <span class="glyphicon glyphicon-play" title="Fim Suspensão Plano"></span>
-                            }
+                                    if (cronograma.DataCronograma.Date == Model.DataFimSuspensao?.Date)
+                                    {
+                                        <span class="glyphicon glyphicon-play" title="Fim Suspensão Plano"></span>
+                                    }
 
-                            if (cronograma.DataCronograma.Date != Model.DataInicioSuspensao.Value.Date && cronograma.DataCronograma.Date != Model.DataFimSuspensao?.Date)
-                            {
-                                <span class="glyphicon glyphicon-pause" title="Plano Suspenso"></span>
-                            }
-                        }
+                                    if (cronograma.DataCronograma.Date != Model.DataInicioSuspensao.Value.Date && cronograma.DataCronograma.Date != Model.DataFimSuspensao?.Date)
+                                    {
+                                        <span class="glyphicon glyphicon-pause" title="Plano Suspenso"></span>
+                                    }
+                                }
 
-                    </td>
-                    <td>@cronograma.DataString</td>
-                    <td>@cronograma.DiaCronograma</td>
-                    <td>
-                        @if ((cronograma.DiaUtil || (cronograma.DuracaoFeriado > TimeSpan.Zero && cronograma.DuracaoFeriado < Model.HorasDiarias))
-                             && (!cronograma.Suspenso || cronograma.HorasCronograma > TimeSpan.Zero)
-                             && (cronograma.HorasUsadasPorOutroPacto < Model.HorasDiarias)
-                             )
-                        {
-                            @Html.TextBoxCGUFor(c => c.Cronogramas[i].HorasCronograma, new { @id = "HorasCronogramas_" + i, @class = "qtdHoras timepicker form-control" }).SetReadonly(!Model.PodeEditar || !cronograma.PodeEditar)
-                            @Html.ValidationMessageFor(c => c.HorasTotais)
-                        }
-                        else
-                        {
-                            @Html.HiddenFor(c => c.Cronogramas[i].HorasCronograma, new { @id = "HorasCronograma_" + i })
-                            @Html.Raw("-")
-                        }
-                    </td>
+                            </td>
+                            <td>@cronograma.DataString</td>
+                            <td>@cronograma.DiaCronograma</td>
+                            <td>
+                                @if ((cronograma.DiaUtil || (cronograma.DuracaoFeriado > TimeSpan.Zero && cronograma.DuracaoFeriado < Model.HorasDiarias))
+                                     && (!cronograma.Suspenso || cronograma.HorasCronograma > TimeSpan.Zero)
+                                     && (cronograma.HorasUsadasPorOutroPacto < Model.HorasDiarias)
+                                     )
+                                {
+                                    @Html.TextBoxCGUFor(c => c.Cronogramas[i].HorasCronograma, new { @id = "HorasCronogramas_" + i, @class = "qtdHoras timepicker form-control" }).SetReadonly(!Model.PodeEditar || !cronograma.PodeEditar)
+                                    @Html.ValidationMessageFor(c => c.HorasTotais)
+                                }
+                                else
+                                {
+                                    @Html.HiddenFor(c => c.Cronogramas[i].HorasCronograma, new { @id = "HorasCronograma_" + i })
+                                    @Html.Raw("-")
+                                }
+                            </td>
 
-                </tr>
+                        </tr>
                         i++;
                     }
                 }

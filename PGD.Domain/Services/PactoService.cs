@@ -1013,6 +1013,14 @@ namespace PGD.Domain.Services
             return dataMinimoPacto;
         }
 
+        public DateTime ObterDataMinimaCronograma( int dias)
+        {
+            var parametroDiasRetroagirInterrupcao = _parametroSistemaService.ObterPorId((int)eParametrosSistema.QuantidadesDiaRetroagirInterrupcao);
+            int quantidadeDiasRetroativos = parametroDiasRetroagirInterrupcao?.IntValue.GetValueOrDefault() ?? 1;
+            DateTime dataMinimoPacto = DateTime.Now.Date.AddDays(quantidadeDiasRetroativos * - dias);
+            return dataMinimoPacto;
+        }
+
         public ValidationResult ValidarDataConclusaoAntecipada(Pacto pacto, DateTime dataConclusaoAntecipada)
         {
             var parametroDiasConclusaoAntecipada = _parametroSistemaService.ObterPorId((int)eParametrosSistema.QuantidadesDiaConclusaoAntecipada);

@@ -251,9 +251,20 @@ namespace PGD.Application
 
         public bool PodeEditarDiaCronograma (string cpfSolicitantePacto, UsuarioViewModel usuarioLogado, DateTime dataCronograma)
         {
-            DateTime dataMinimaSuspensaoPacto = _pactoService.ObterDataMinimaSuspensaoPacto();
+            //csa
+            //alteração para possibilitar palnos retroativos somente p chefias e administradores
+            int dias = 1;
+            if (usuarioLogado.IdPerfilSelecionado == (int)Domain.Enums.Perfil.Dirigente || usuarioLogado.IdPerfilSelecionado == (int)Domain.Enums.Perfil.Administrador)
+            {
+                 dias = 365;
+            }
+            DateTime dataMinimaSuspensaoPacto = _pactoService.ObterDataMinimaCronograma( dias);
             DateTime dataReferencia = dataCronograma;
             return dataReferencia >= dataMinimaSuspensaoPacto && (cpfSolicitantePacto == usuarioLogado.CPF || usuarioLogado.IsDirigente);
+
+            //    DateTime dataMinimaSuspensaoPacto = _pactoService.ObterDataMinimaSuspensaoPacto();
+            //    DateTime dataReferencia = dataCronograma;
+            //    return dataReferencia >= dataMinimaSuspensaoPacto && (cpfSolicitantePacto == usuarioLogado.CPF || usuarioLogado.IsDirigente);
         }
 
 
