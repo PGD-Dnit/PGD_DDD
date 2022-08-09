@@ -45,27 +45,23 @@ namespace PGD.Infra.Data.Repository
 
             retorno.QtRegistros = query.Count();
 
-            //if (filtro.Skip.HasValue && filtro.Take.HasValue)
-            //{
-            //    var primeiraPagina = filtro.Skip.Value == 0;
+            if (filtro.Skip.HasValue && filtro.Take.HasValue)
+            {
+                var primeiraPagina = filtro.Skip.Value == 0;
 
-            //    if (primeiraPagina)
-            //    {
-            //        var perfilSolicitante = query.FirstOrDefault(x => x.IdPerfil == (int) Domain.Enums.Perfil.Solicitante);
-            //        if(perfilSolicitante != null) retorno.Lista.Add(perfilSolicitante);
-            //    }
+                if (primeiraPagina)
+                {
+                    var perfilSolicitante = query.FirstOrDefault(x => x.IdPerfil == (int)Domain.Enums.Perfil.Solicitante);
+                    if (perfilSolicitante != null) retorno.Lista.Add(perfilSolicitante);
+                }
 
-            //    query = query.Where(x => x.IdPerfil != (int)Domain.Enums.Perfil.Solicitante);
-            //    retorno.Lista.AddRange(filtro.OrdenarDescendente
-            //        ? query.OrderByDescending(filtro.OrdenarPor).Skip(!primeiraPagina ? filtro.Skip.Value - 1 : filtro.Skip.Value).Take(primeiraPagina ? filtro.Take.Value - 1 : filtro.Take.Value).ToList()
-            //        : query.OrderBy(filtro.OrdenarPor).Skip(!primeiraPagina ? filtro.Skip.Value - 1 : filtro.Skip.Value).Take(primeiraPagina ? filtro.Take.Value - 1 : filtro.Take.Value).ToList());
-            //}
-            //else
-            //var perfilSolicitante = query.OrderByDescending(filtro.OrdenarPor).All(x => x.IdPerfil == (int)Domain.Enums.Perfil.Solicitante && x.IdPerfil == (int)Domain.Enums.Perfil.Dirigente);
-            query = query.OrderBy(x => x.IdPerfil);
-            //           
-            //retorno.Lista = query.OrderBy(filtro.OrdenarPor).ToList();
-            retorno.Lista = query.ToList();
+                query = query.Where(x => x.IdPerfil != (int)Domain.Enums.Perfil.Solicitante);
+                retorno.Lista.AddRange(filtro.OrdenarDescendente
+                    ? query.OrderByDescending(filtro.OrdenarPor).Skip(!primeiraPagina ? filtro.Skip.Value - 1 : filtro.Skip.Value).Take(primeiraPagina ? filtro.Take.Value - 1 : filtro.Take.Value).ToList()
+                    : query.OrderBy(filtro.OrdenarPor).Skip(!primeiraPagina ? filtro.Skip.Value - 1 : filtro.Skip.Value).Take(primeiraPagina ? filtro.Take.Value - 1 : filtro.Take.Value).ToList());
+            }
+            else
+                retorno.Lista = query.ToList();
 
             return retorno;
         }

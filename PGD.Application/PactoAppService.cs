@@ -786,6 +786,11 @@ namespace PGD.Application
         {
             return _pactoService.ValidarDataHoraSuspensaoInterrupcao(Mapper.Map<Pacto>(pactoVM), dataInicioSuspensao, horasConsideradas, operacao);
         }
+        //csa
+        public System.ComponentModel.DataAnnotations.ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio)
+        {
+            return _pactoService.ValidarDataPrevistaInicio(DataPrevistaInicio);
+        }
 
         public System.ComponentModel.DataAnnotations.ValidationResult ValidarDataConclusaoAntecipada(PactoViewModel pacto, DateTime dataConclusaoAntecipada)
         {

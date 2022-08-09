@@ -79,8 +79,8 @@ namespace PGD.UI.Mvc.Controllers
             var retorno = _usuarioAppService.BuscarPerfilUnidade(new UsuarioPerfilUnidadeFiltroViewModel
             {
                 IdUsuario = idUsuario,
-                Skip = skip,
-                Take = take,
+                //Skip = skip,
+                //Take = take,
                 OrdenarDescendente = true
             });
             return Json(retorno, JsonRequestBehavior.AllowGet);

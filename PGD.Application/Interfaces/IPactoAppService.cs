@@ -62,6 +62,8 @@ namespace PGD.Application.Interfaces
         bool PodeVisualizarPactuadoAvaliado(PactoViewModel pactoVM);
         PactoViewModel CancelarAvaliacao(PactoViewModel pactoVM, AvaliacaoProdutoViewModel avaliacaoProdutoVM, UsuarioViewModel user, eAcaoPacto acao);
         ValidationResult ValidarDataHoraSuspensaoInterrupcao(PactoViewModel pactoVM, DateTime dataInicioSuspensao, TimeSpan horasConsideradas, Domain.Enums.Operacao operacao );
+        //csa
+        ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio);
         ValidationResult ValidarDataConclusaoAntecipada(PactoViewModel pacto, DateTime dataConclusaoAntecipada);
         
         bool PodeVisualizar(PactoViewModel pactoVM, UsuarioViewModel usuarioVM, bool isDirigente, bool unidadePactoESubordinadaUnidadeUsuario);

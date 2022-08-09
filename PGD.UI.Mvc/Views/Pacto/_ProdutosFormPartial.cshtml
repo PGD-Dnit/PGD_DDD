@@ -1,13 +1,17 @@
 ﻿@model PGD.Application.ViewModels.ProdutoViewModel
 @using PGD.Application.ViewModels;
 
-@{ 
+@{
     var item = new List<SelectListItem>
-            {
+    {
                 new SelectListItem() { Value = "1", Text = "Teletrabalho", Selected = true },
                 new SelectListItem() { Value = "2", Text = "Presencial" }
             };
-   ViewBag.ItemLista = item;
+    ViewBag.ItemLista = item;
+}
+@{
+    var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
+    var user = controller.getUserLogado();
 }
 
 @using (Ajax.BeginForm("AddProduto", null, ajaxOptions: new AjaxOptions()
@@ -35,15 +39,19 @@
                 @(Html.DropDownListCGUFor(m => m.IdGrupoAtividade, new SelectList((List<GrupoAtividadeViewModel>)TempData["GruposAtividades"], "IdGrupoAtividade", "NomGrupoAtividade"),
         new Dictionary<string, object>() { { "class", "form-control" } })
         .OnChangeAtualizaDropDownContextual("Pacto", "GetAtividades",
-            new Dictionary<string, string>() { { "id", Html.IdFor(m => m.IdGrupoAtividade).ToString() }, { "idOrdemServico", "hdn-id-ordem-servico" } },
-            Html.IdFor(m => m.IdAtividade).ToHtmlString(), Model.IdAtividade.ToString()))
+            new Dictionary<string, string>()
+            {
+                { "id", Html.IdFor(m => m.IdGrupoAtividade).ToString() },
+                { "idOrdemServico", "hdn-id-ordem-servico" }
+            }, Html.IdFor(m => m.IdAtividade).ToHtmlString(), Model.IdAtividade.ToString()))
 
             </div>
             <div class="form-group col-md-6">
                 <label for="@Html.IdFor(m => m.IdAtividade)" class="text-vertical-line">Atividade:</label>
-                @(Html.DropDownListCGUFor(m => m.IdAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object>() { { "class", "form-control" } })
-    .OnChangeAtualizaDropDownContextual("Pacto", "GetFaixas",
-        new Dictionary<string, string>()
+                @(Html.DropDownListCGUFor(m => m.IdAtividade, new SelectList(string.Empty, "Value", "Text"),
+        new Dictionary<string, object>() { { "class", "form-control" } })
+        .OnChangeAtualizaDropDownContextual("Pacto", "GetFaixas",
+            new Dictionary<string, string>()
                     {
                         {"idGrupo", Html.IdFor(m => m.IdGrupoAtividade).ToString()},
                         {"idAtividade", Html.IdFor(m => m.IdAtividade).ToString()},
@@ -52,9 +60,10 @@
                         {"idOrdemServico", "hdn-id-ordem-servico"}
                     }, Html.IdFor(m => m.IdTipoAtividade).ToString(), valorControleDestino: Model.IdTipoAtividade.ToString())
     .OnChangeAtualizaDropDownContextual("Pacto", "GetEntregas",
-            new Dictionary<string, string>() {
+            new Dictionary<string, string>()
+                    {
                             { "IdAtividade", Html.IdFor(m => m.IdAtividade).ToString() }
-                        }, Html.IdFor(m => m.CodigoDecimal).ToHtmlString(), Model.CodigoDecimal.ToString())
+                    }, Html.IdFor(m => m.CodigoDecimal).ToHtmlString(), Model.CodigoDecimal.ToString())
     .SetDisabled(!Model.PodeEditar && !Model.PodeEditarAndamento))
 
             </div>
@@ -132,12 +141,21 @@
         @Html.HiddenFor(m => m.PodeEditarAndamento)
         @Html.HiddenFor(m => m.IdTipoPacto)
         @Html.HiddenFor(m => m.IdSituacaoProduto)
-        <div id="b1"></div>       
+        @Html.Hidden("User", user.IsSolicitante)
+        <div id="b1"></div>
         @if (!Model._BtnEdit)
         {
             <div class="row">
                 <div class="form-group col-md-12 text-right">
-                    <button id="btnOk" type="submit" class="btn btn-primary" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")> Prosseguir </button>
+                    @if (user.IsSolicitante)
+                    {
+                        <button id="btnOk" type="submit" class="btn btn-primary" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "") onclick="validaDataInicio(event)"> Prosseguir </button>
+                    }
+                    else
+                    {
+                        <button id="btnOk" type="submit" class="btn btn-primary" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")> Prosseguir </button>
+                    }
+
                 </div>
             </div>
         }
@@ -145,7 +163,15 @@
         {
             <div class="row">
                 <div class="form-group col-md-12 text-right">
-                    <button id="btnOk" type="submit" class="btn btn-warning" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "") onclick="alterabtn()">Editar Atividade</button>
+                    @if (user.IsSolicitante)
+                    {
+                        <button id="btnOk" type="submit" class="btn btn-warning" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "") onclick="alterabtn()">Editar Atividade</button>
+                    }
+                    else
+                    {
+                <button id="btnOk" type="submit" class="btn btn-warning" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "") onclick="alterabtnChefia()">Editar Atividade</button>
+                    }
+                    
                 </div>
             </div>
         }
@@ -175,7 +201,10 @@
             language: "pt"
 
         });
-
+    //csa
+    //function validaDataInicio(event) {
+    //    validaDataInicio2(event);
+    //}
     var habilitarEdicaoProdutos = '@(Model.PodeEditar || Model.PodeEditarAndamento)';
     $('#LinkAtividade').hide();
     var formAddProduto = $('#form-add-produto');
@@ -307,13 +336,20 @@
 
     });
 
-    
+
 
     function alterabtn() {
+       
+        validaDataInicio(event)
+        $("#btnOk").hide();
+        $("#b1").html("<div class='row'> <div class='form-group col-md-12 text-right'><button id='btnOk' type='submit' class='btn btn-primary' @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")>Prosseguir</button></div></div> ");
+
+    }
+    function alterabtnChefia() {
 
         $("#btnOk").hide();
-        $("#b1").html("<div class='row'> <div class='form-group col-md-12 text-right'><button id='btnOk' type='submit' class='btn btn-primary' @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")>Cadastrar Atividade</button></div></div> ");
-       // LimpaFormProdutos(); nao colocar aqui#######
+        $("#b1").html("<div class='row'> <div class='form-group col-md-12 text-right'><button id='btnOk' type='submit' class='btn btn-primary' @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")>Prosseguir</button></div></div> ");
+
     }
-    
+
 </script>

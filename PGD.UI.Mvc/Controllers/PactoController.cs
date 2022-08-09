@@ -267,6 +267,8 @@ namespace PGD.UI.Mvc.Controllers
             }
 
             IEnumerable<PactoViewModel> retorno = null;
+            //csa
+            //consulta responsavel pela tabela da tela consultar PGD
             if (user.IsSolicitante)
             {
                 PactoCompleto.Searchpacto.NomeServidor = user.Nome;
@@ -287,7 +289,7 @@ namespace PGD.UI.Mvc.Controllers
             else
             {
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .OrderByDescending(s => s.IdPacto).Take(10).ToList();
+                    .OrderByDescending(s => s.IdPacto).Take(50).ToList();
 
             }
             dirigente = user.IsDirigente;
@@ -829,6 +831,21 @@ namespace PGD.UI.Mvc.Controllers
         [HttpPost]
         public ActionResult Solicitar(PactoViewModel pactoViewModel)
         {
+
+            var user = getUserLogado();
+           //csa validação data prevista de inicio, não permitir ao solicitante criar planos com datas retorativas 
+            if (user.IsSolicitante) {
+                var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio);
+                if (resultadoValidarDataPrevistaInicio != null)
+                {                    
+                    return setMessageAndRedirect("A DataPrevistaInicio deve ser maior ou igual a data atual",
+                  "Solicitar",
+                   new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
+                   });
+                }
+            }
+
+            
             if (pactoViewModel.Produtos.Count == 0)
             {
                 return setMessageAndRedirect(
@@ -1322,7 +1339,7 @@ namespace PGD.UI.Mvc.Controllers
             ConfigurarJustificativas();
             var pacto = _Pactoservice.BuscarPorId(pactoVM.IdPacto);
             var resultadoValidacao = _Pactoservice.ValidarDataHoraSuspensaoInterrupcao(pacto, pactoVM.DataInterrupcao.GetValueOrDefault(), pactoVM.HorasMantidasParaDataInterrupcao, Domain.Enums.Operacao.Interrupção);
-
+                        
             pacto.Motivo = pactoVM.Motivo;
             pacto.HorasMantidasParaDataInterrupcao = pactoVM.HorasMantidasParaDataInterrupcao;
             pacto.DataInterrupcao = pactoVM.DataInterrupcao;

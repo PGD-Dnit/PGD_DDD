@@ -1005,7 +1005,21 @@ namespace PGD.Domain.Services
             return null;
         }
 
-        public DateTime ObterDataMinimaSuspensaoPacto()
+        //csa
+        public ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio)
+        {
+            
+            var dataAtual = DateTime.Now.Date;            
+            
+            if (DataPrevistaInicio < dataAtual)
+            {
+                //return new ValidationResult($"A data de {DataPrevistaInicio.ToString()} deve ser maior ou igual à {dataAtual.ToShortDateString()} .");
+                return new ValidationResult("true");
+            }
+            return null;
+        }
+
+            public DateTime ObterDataMinimaSuspensaoPacto()
         {
             var parametroDiasRetroagirInterrupcao = _parametroSistemaService.ObterPorId((int)eParametrosSistema.QuantidadesDiaRetroagirInterrupcao);
             int quantidadeDiasRetroativos = parametroDiasRetroagirInterrupcao?.IntValue.GetValueOrDefault() ?? 1;

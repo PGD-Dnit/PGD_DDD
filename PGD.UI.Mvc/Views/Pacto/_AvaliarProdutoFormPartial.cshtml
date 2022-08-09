@@ -334,36 +334,30 @@
 
 
         formato = document.querySelector('input[name=Formato]:checked').value == 'True' ? 1 : 0;
-        console.log('formato: ', formato);
+        //console.log('formato: ', formato);
 
         usoVocabulario = ($('#@Html.IdFor(m => m.UsodeVocabulario) option:selected').val() / 5);
-        console.log('usoVocabulario: ', usoVocabulario);
+        //console.log('usoVocabulario: ', usoVocabulario);
 
         analiseFundamentada = ($('#@Html.IdFor(m => m.AnaliseFundamentada) option:selected').val() * 0.8);
-        console.log('analiseFundamentada: ', analiseFundamentada);
+        //console.log('analiseFundamentada: ', analiseFundamentada);
 
-        //entregueNoPrazo = parseInt(document.querySelector('input[name=EntregueNoPrazo]:checked').value);
         entregueNoPrazo = document.querySelector('input[name=EntregueNoPrazo]:checked').value == 'True' ? 1 : 0;
-        console.log('entregueNoPrazo: ', entregueNoPrazo);
+        //console.log('entregueNoPrazo: ', entregueNoPrazo);
 
         atendeSolicitado = document.querySelector('input[name=AtendeSolicitado]:checked').value == 'True' ? 1 : 0;
-        console.log('atendeSolicitado: ', atendeSolicitado);
+        //console.log('atendeSolicitado: ', atendeSolicitado);
 
         requisitos = document.querySelector('input[name=Requisitos]:checked').value == 'True' ? 1 : 0;
-        console.log('requisitos: ', requisitos);
+        //console.log('requisitos: ', requisitos);
 
         necessidadeCorrecao = document.querySelector('input[name=NecessidadeCorrecao]:checked').value == 'True' ? 1 : 0;
-        console.log('necessidadeCorrecao: ', necessidadeCorrecao);
-
+        //console.log('necessidadeCorrecao: ', necessidadeCorrecao);
 
         avaliacao = formato + usoVocabulario + entregueNoPrazo + atendeSolicitado + requisitos + analiseFundamentada + necessidadeCorrecao;
 
         avaliacao = avaliacao.toLocaleString('pt-br');
-        $('#@Html.IdFor(m => m.Avaliacao)').val(avaliacao);
-
-        //var cultureInfo = '@System.Globalization.CultureInfo.CurrentCulture.Name';
-        //console.log(cultureInfo);
-        //$('#Avaliacao').val(avaliacao);
+        $('#@Html.IdFor(m => m.Avaliacao)').val(avaliacao);       
 
 
     }

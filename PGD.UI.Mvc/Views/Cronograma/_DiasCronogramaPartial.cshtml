@@ -8,15 +8,7 @@
             @Html.ValidationSummary(false)
         </div>
     </div>
-    <p>
-        @{
-            var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
-            var user = controller.getUserLogado();
-        }
-        @if (user.IsSolicitante) //IsDirigente
-        {
-            <span class="glyphicon glyphicon-exclamation-sign" title="teste">teste#########</span>
-        }
+    <p>       
         Carga Horária Total:
         <strong>
             <label id="lblCargaTotalCronograma">@Model.HorasTotais.ConverterParaHora()</label>h

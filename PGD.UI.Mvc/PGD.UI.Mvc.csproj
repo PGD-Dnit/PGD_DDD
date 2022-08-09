@@ -2389,6 +2389,7 @@
     <Content Include="Content\fontawesome5.14.0\webfonts\fa-brands-400.svg" />
     <Content Include="Content\fontawesome5.14.0\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome5.14.0\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\img\arrow.png" />
     <Content Include="Content\img\loading-blue-pipe.gif" />
     <Content Include="Content\img\loading.gif" />
     <Content Include="Content\img\switch.png" />

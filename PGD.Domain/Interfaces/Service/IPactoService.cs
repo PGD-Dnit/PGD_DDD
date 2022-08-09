@@ -41,6 +41,8 @@ namespace PGD.Domain.Interfaces.Service
         void AtualizaEstadoEntidadesRelacionadas(Pacto pacto);
 
         ValidationResult ValidarDataHoraSuspensaoInterrupcao(Pacto pacto, DateTime dataInicioSuspensao, TimeSpan horasConsideradas, Domain.Enums.Operacao operacao);
+        //csa
+        ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio);
         ValidationResult ValidarDataConclusaoAntecipada(Pacto pacto, DateTime dataConclusaoAntecipada);
 
         List<Pacto> GetPactosConcorrentes(DateTime dataInicio, DateTime dataFinal, string cpfUsuario, int idPacto);
