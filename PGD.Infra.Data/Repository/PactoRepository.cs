@@ -74,15 +74,17 @@ namespace PGD.Infra.Data.Repository
         
         public IEnumerable<Pacto> ConsultarPactos(Pacto objFiltro, bool incluirUnidadesSubordinadas = false)
         {
-            var query = DbSet.AsNoTracking().Include("Produtos")
-                .Include("OrdemServico")
-                .Include("Historicos")
-                .Include("Produtos.GrupoAtividade")
-                .Include("Produtos.Atividade")
-                .Include("Produtos.TipoAtividade")
-                .Include("Cronogramas")
+            var query = DbSet.AsNoTracking()
+                //.Include("Produtos")
+                //.Include("OrdemServico")
+                //.Include("Historicos")
+                //.Include("Produtos.GrupoAtividade")
+                //.Include("Produtos.Atividade")
+                //.Include("Produtos.TipoAtividade")
+                //.Include("Cronogramas")
                 .Include("SituacaoPacto")
-                .Include("TipoPacto").AsQueryable();
+                .Include("TipoPacto")
+                .AsQueryable();
 
             if (objFiltro.IdPacto > 0)
             {

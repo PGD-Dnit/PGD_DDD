@@ -189,9 +189,7 @@ namespace PGD.UI.Mvc.Controllers
             int UnidadeSelecionada = (int)user.IdUnidadeSelecionada;
             if (user.IsSolicitante)
             {
-
                 // List<Unidade> unidadeUsuario = _unidadeService.Buscar(new UnidadeFiltro { IdUsuario = user.IdUsuario }).Lista.FirstOrDefault()?.Nome;
-
                 unidades = _unidadeService.Buscar(new UnidadeFiltro
                 {
                     IdUsuario = user.IdUsuario
@@ -216,27 +214,15 @@ namespace PGD.UI.Mvc.Controllers
                 }
                 //VER AQUI A POSSIBILIDADE DE UTILIZAR IDUNIDADESELECIONA QUE JÁ VEM PREENCHIDA EM USER.IDUNIDADESELECIONA, AO INVES idUsuarioPerfilUnidade E O FOREACH ACIMA
                 //var IdUnidadeSuperior = IdUnidade;
-
                 //csa
                 var IdUnidadeSuperior = UnidadeSelecionada;
                 //var IdUnidadeSuperior = IdUnidade;
 
                 //VER AQUI COMO FAZER UM SELECT P PEGAR A COORDENAÇÃO E E SUAS SUBORDINADAS VER SELECT EM PACTOREPOSITORY LINHA 99
-
-                unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade).ToList();
-
-                //csa 
-                //unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade ).ToList();              
-                //var unidadesSubordinadas = _unidadeService.ObterUnidades().Where(x => x.IdUnidadeSuperior == IdUnidade).ToList();
-                //unidades = (List<Unidade>)unidades.Concat(unidadesSubordinadas); 
-
+                //unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade).ToList();         
                 //csa
-                var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();
-
-                //unidades = unidades.Concat(unidadesSubordinadas).ToList();
+                var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();                
                 unidades = unidadesSubordinadas;
-
-
             }
             else
             {
@@ -834,11 +820,13 @@ namespace PGD.UI.Mvc.Controllers
 
             var user = getUserLogado();
            //csa validação data prevista de inicio, não permitir ao solicitante criar planos com datas retorativas 
-            if (user.IsSolicitante) {
+            //if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null && pactoViewModel.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura) {
+            if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null) {
+
                 var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio);
                 if (resultadoValidarDataPrevistaInicio != null)
                 {                    
-                    return setMessageAndRedirect("A DataPrevistaInicio deve ser maior ou igual a data atual",
+                    return setMessageAndRedirect("A DataPrevistaInicio deve ser maior ou igual a data atual ou aguarde assinatura de sua chefia",
                   "Solicitar",
                    new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
                    });
@@ -1246,8 +1234,9 @@ namespace PGD.UI.Mvc.Controllers
             if (!string.IsNullOrEmpty(idAtividade))
             {
                 var iniciativa = _iniciativaPOAppService.ObterTodos().Where(x => x.CodigoDecimal == int.Parse(idAtividade)).ToList();
-                iniciativa.ForEach(x => resultado.Add(new SelectListItem { Text = x.CodigoDescricao, Value = x.CodigoDecimal.ToString() }));
-                if (resultado.Count > 1)
+                //iniciativa.ForEach(x => resultado.Add(new SelectListItem { Text = x.CodigoDescricao, Value = x.CodigoDecimal.ToString() }));
+                iniciativa.ForEach(x => resultado.Add(new SelectListItem { Text = x.DescIniciativaPlanoOperacional, Value = x.CodigoDecimal.ToString() }));
+                if (resultado.Count > 1)                   
                     resultado.Insert(0, new SelectListItem { Text = "-- Selecione --", Value = "" });
             }
 

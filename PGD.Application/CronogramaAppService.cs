@@ -256,7 +256,7 @@ namespace PGD.Application
             int dias = 1;
             if (usuarioLogado.IdPerfilSelecionado == (int)Domain.Enums.Perfil.Dirigente || usuarioLogado.IdPerfilSelecionado == (int)Domain.Enums.Perfil.Administrador)
             {
-                 dias = 365;
+                 dias = 30;
             }
             DateTime dataMinimaSuspensaoPacto = _pactoService.ObterDataMinimaCronograma( dias);
             DateTime dataReferencia = dataCronograma;
