@@ -202,8 +202,24 @@ namespace PGD.Application
             return pactoViewModel;
 
         }
+        //csa
+        //public PactoViewModel AtualizarPactosAiniciar(PactoViewModel pactoViewModel)
+        //{
+        //    var pacto = Mapper.Map<PactoViewModel, Pacto>(pactoViewModel);
+        //    pacto.IdSituacaoPacto = (int)eSituacaoPacto.EmAndamento;
 
-        public PactoViewModel Adicionar(PactoViewModel pactoViewModel, bool isDirigente, UsuarioViewModel usuarioViewModel)
+        //    BeginTransaction();
+        //    var pactoReturn = _pactoService.Atualizar(pacto);
+        //    if (pactoReturn.ValidationResult.IsValid)
+        //    {               
+        //        Commit();
+        //    }
+        //    pactoViewModel = Mapper.Map<Pacto, PactoViewModel>(pactoReturn);
+        //    return pactoViewModel;
+            
+        //}
+
+            public PactoViewModel Adicionar(PactoViewModel pactoViewModel, bool isDirigente, UsuarioViewModel usuarioViewModel)
         {
             var pacto = Mapper.Map<PactoViewModel, Pacto>(pactoViewModel);
 
@@ -787,9 +803,9 @@ namespace PGD.Application
             return _pactoService.ValidarDataHoraSuspensaoInterrupcao(Mapper.Map<Pacto>(pactoVM), dataInicioSuspensao, horasConsideradas, operacao);
         }
         //csa
-        public System.ComponentModel.DataAnnotations.ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio)
+        public System.ComponentModel.DataAnnotations.ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio, Domain.Enums.Perfil user)
         {
-            return _pactoService.ValidarDataPrevistaInicio(DataPrevistaInicio);
+            return _pactoService.ValidarDataPrevistaInicio(DataPrevistaInicio, user);
         }
 
         public System.ComponentModel.DataAnnotations.ValidationResult ValidarDataConclusaoAntecipada(PactoViewModel pacto, DateTime dataConclusaoAntecipada)

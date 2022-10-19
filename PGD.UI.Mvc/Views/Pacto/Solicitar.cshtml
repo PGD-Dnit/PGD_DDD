@@ -5,6 +5,10 @@
 @{
     ViewBag.Title = "Propor Plano de Trabalho";
 }
+@{
+    var controller = ViewContext.Controller as PGD.UI.Mvc.Controllers.BaseController;
+    var user = controller.getUserLogado();
+}
 
 <div class="modal fade" id="infoModalPGD-Projeto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
     <div class="modal-dialog modal-lg" role="document">
@@ -164,9 +168,17 @@
                             @Html.TextBoxCGUFor(x => x.TipoPacto.DescTipoPacto, new { @class = "form-control" }).SetReadonly(true)
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Data Prevista de Início do Plano de Trabalho: </label>                           
-                                @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(!Model.podeEditar)
+                            @if (user.IsSolicitante && Model.StatusAprovacaoDirigente == 1)
+                            {
+                                <label class="text-vertical-line">Data Prevista de Início do Plano de Trabalho: </label>
+                                @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(true)
+                                <div id="advertencia"></div>
+                            }
+                            else
+                            {      <label class="text-vertical-line">Data Prevista de Início do Plano de Trabalho: </label>
+                            @Html.TextBoxCGUFor(x => x.DataPrevistaInicio, "{0:dd/MM/yyyy}", new { @class = "form-control datepicker", @placeholder = "", @required = "required", @onchange = "$('#DataInicial').val(this.value);atualizaData();" }).SetReadonly(false)
                             <div id="advertencia"></div>
+                            }
                         </div>
                         <!--
                         <div class="form-group col-md-6">
@@ -311,14 +323,14 @@
 
 
                         <p style="font-weight: bold; line-height: 1.5; white-space: wrap; text-align:justify; padding:0 32px;">
-                            Declaro ciência e concordância com a vedação de pagamentos das vantagens a que se referem os artigos 29 a 36 da Instrução Normativa nº 65 de 2020.<br>							
-							Declaro ciência quanto à vedação de utilização de terceiros para a execução dos trabalhos acordados como parte das metas.<br>
-							Declaro ciência e concordância quanto às disposições constantes da Lei nº 13.709, de 14 de agosto de 2018 - Lei Geral de Proteção de Dados Pessoais
-							(LGPD), no que couber, e quanto às orientações da Portaria  nº 15.543/SEDGG/ME de 2 de julho de 2020, que divulga o Manual de Conduta do Agente Público Civil do Poder Executivo Federal.<br>
-							Declaro que tenho a estrutura necessária, física e tecnológica, para a execução plena das atividades em PGD presencial e teletrabalho.<br>
-							Declaro ciência quanto à responsabilidade de comunicar à chefia imediata a ocorrência de afastamentos, licenças ou outros impedimentos para eventual adequação das metas e dos prazos ou possível redistribuição das atividades constantes do plano de trabalho.<br>
-							Declaro que estou disponível para contato pela chefia imediata durante o horário de funcionamento da Autarquia, por todos os meios de comunicação, inclusive número de telefone, fixo ou móvel.<br>
-							Declaro que meu telefone funcional e ramal da unidade de lotação são de livre divulgação tanto dentro da Autarquia quanto para o público externo que necessitar entrar em contato.
+                            Declaro ciência e concordância com a vedação de pagamentos das vantagens a que se referem os artigos 29 a 36 da Instrução Normativa nº 65 de 2020.<br>
+                            Declaro ciência quanto à vedação de utilização de terceiros para a execução dos trabalhos acordados como parte das metas.<br>
+                            Declaro ciência e concordância quanto às disposições constantes da Lei nº 13.709, de 14 de agosto de 2018 - Lei Geral de Proteção de Dados Pessoais
+                            (LGPD), no que couber, e quanto às orientações da Portaria  nº 15.543/SEDGG/ME de 2 de julho de 2020, que divulga o Manual de Conduta do Agente Público Civil do Poder Executivo Federal.<br>
+                            Declaro que tenho a estrutura necessária, física e tecnológica, para a execução plena das atividades em PGD presencial e teletrabalho.<br>
+                            Declaro ciência quanto à responsabilidade de comunicar à chefia imediata a ocorrência de afastamentos, licenças ou outros impedimentos para eventual adequação das metas e dos prazos ou possível redistribuição das atividades constantes do plano de trabalho.<br>
+                            Declaro que estou disponível para contato pela chefia imediata durante o horário de funcionamento da Autarquia, por todos os meios de comunicação, inclusive número de telefone, fixo ou móvel.<br>
+                            Declaro que meu telefone funcional e ramal da unidade de lotação são de livre divulgação tanto dentro da Autarquia quanto para o público externo que necessitar entrar em contato.
                         </p>
                     </div>
                 </div>
@@ -383,35 +395,73 @@
         <script type="text/javascript">
             //csa
             function validaDataInicio(event) {
-                              
-                const form = document.querySelector('#form-add-produto');
-                const d = new Date();
+
+
+                var dataInicio = 0;
+                //DATA VINDA DO FORMULÁRIO
+                dataInicio = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
+                console.log('DATA INICIO:', dataInicio);
+                var partesData = dataInicio.split("/");
+                dataInicio = new Date(partesData[2], partesData[1] - 1, partesData[0]);
+                console.log('DATA INICIO PRONTA:', dataInicio.getTime());
+
+                //DATA RETROATIVA DE UMA SEMANA
+                var dataRetro = new Date();
+                dataRetro.setDate(dataRetro.getDate() - 8);
+                console.log('DATA RETRO:', dataRetro.getTime());
+
+
+                if (dataRetro.getTime() > dataInicio.getTime()) {
+
+                    var x = event.cancelable;
+                    document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano retroativo</div>';
+                    $(document).scrollTop(500)
+                    event.preventDefault();
+                }
+                else {
+                    document.querySelector("#advertencia").innerHTML = "";
+                }
+
+            }
+
+            function validaDataInicioChefia(event) {
+
+               // const form = document.querySelector('#form-add-produto');
+                @*const d = new Date();
                 var dataInicio = 0;
 
                 var datateste = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
-                var dataAtual = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear();
-                dataAtual = new Date(dataAtual);
+                var dataPrazo = (d.getMonth() - 2) + '/' + d.getDate() + '/' + d.getFullYear();
+                dataPrazo = new Date(dataPrazo);
 
                 dataInicio = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
                 var partesData = dataInicio.split("/");
+                dataInicio = new Date(partesData[2], partesData[1] - 1, partesData[0]);*@
+                var dataInicio = 0;
+                //DATA VINDA DO FORMULÁRIO
+                dataInicio = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
+                console.log('DATA INICIO:', dataInicio);
+                var partesData = dataInicio.split("/");
                 dataInicio = new Date(partesData[2], partesData[1] - 1, partesData[0]);
-                console.log('dataAtual: ', dataAtual);
-                console.log('dataInicio: ', dataInicio);               
+                console.log('DATA INICIO PRONTA:', dataInicio.getTime());
 
-                if (dataAtual.getTime() > dataInicio.getTime()) {
+                //DATA RETROATIVA DE UMA SEMANA
+                var dataRetro = new Date();
+                dataRetro.setDate(dataRetro.getDate() - 365);
+                console.log('DATA RETRO:', dataRetro.getTime());
 
-                    console.log('dataAtual: ', dataAtual.getTime());
-                    console.log('dataInicio: ', dataInicio.getTime());
+                //if (dataPrazo.getTime() > dataInicio.getTime()) {
+                if (dataRetro.getTime() > dataInicio.getTime()) {
+
                     var x = event.cancelable;
-                    console.log('cancelavel: ', x);
-                    document.getElementById("advertencia").innerHTML = '<div class="alert alert-danger" role="alert">A Data Prevista de Início não pode ser menor que a data atual!</div>';
-                    $(document).scrollTop(500)                    
-                    event.preventDefault();                    
+                    document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano retroativo</div>';
+                    $(document).scrollTop(500)
+                    event.preventDefault();
                 }
                 else {
-                    document.getElementById("advertencia").innerHTML = "";                   
+                    document.querySelector("#advertencia").innerHTML = "";
                 }
-                
+
             }
 
             function atualizaData() {

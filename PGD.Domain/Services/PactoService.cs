@@ -54,6 +54,21 @@ namespace PGD.Domain.Services
 
             return _classRepository.Atualizar(obj);
         }
+        //csa
+        //public Pacto AtualizarAIniciar(Pacto obj)
+        //{
+        //    ValidarPacto(obj);
+
+        //    if (!obj.ValidationResult.IsValid)
+        //    {
+        //        return obj;
+        //    }
+
+        //    obj.ValidationResult.Message = Mensagens.MS_004;
+
+        //    return _classRepository.Atualizar(obj);
+        //}
+
 
         public void ValidarInclusaoPacto(Pacto pacto)
         {
@@ -1006,15 +1021,26 @@ namespace PGD.Domain.Services
         }
 
         //csa
-        public ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio)
+        public ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio, Domain.Enums.Perfil user)
         {
             
-            var dataAtual = DateTime.Now.Date;            
+            var dataAtual = DateTime.Now.Date;
+            //var dataPrazoRetroativo = dataAtual.AddMonths(-3);
+            //PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasRetroativosPactos;
+            //var dataPrazoRetroativo = dataAtual.AddDays(-90);
+            var dataPrazoRetroativoChefe = dataAtual.AddDays((double)PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasRetroativosPactosChefe);
+            var dataPrazoRetroativoSolicitante = dataAtual.AddDays((double)PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasRetroativosPactosSolicitante);
             
-            if (DataPrevistaInicio < dataAtual)
+            if (user == Domain.Enums.Perfil.Solicitante && DataPrevistaInicio < dataPrazoRetroativoSolicitante)
             {
                 //return new ValidationResult($"A data de {DataPrevistaInicio.ToString()} deve ser maior ou igual à {dataAtual.ToShortDateString()} .");
-                return new ValidationResult("true");
+                //return new ValidationResult("true");
+                return new ValidationResult("Não foi possível salvar/assinar o plano. Verifique a data de início.");
+            }
+            if (user == Domain.Enums.Perfil.Dirigente && DataPrevistaInicio < dataPrazoRetroativoChefe)
+            {
+                //return new ValidationResult("true");
+                return new ValidationResult("A Data Prevista de Início deve ter no máximo 90 dias retrotivos.");
             }
             return null;
         }

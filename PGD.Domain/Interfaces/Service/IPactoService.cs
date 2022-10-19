@@ -42,7 +42,7 @@ namespace PGD.Domain.Interfaces.Service
 
         ValidationResult ValidarDataHoraSuspensaoInterrupcao(Pacto pacto, DateTime dataInicioSuspensao, TimeSpan horasConsideradas, Domain.Enums.Operacao operacao);
         //csa
-        ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio);
+        ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio, Domain.Enums.Perfil user);
         ValidationResult ValidarDataConclusaoAntecipada(Pacto pacto, DateTime dataConclusaoAntecipada);
 
         List<Pacto> GetPactosConcorrentes(DateTime dataInicio, DateTime dataFinal, string cpfUsuario, int idPacto);

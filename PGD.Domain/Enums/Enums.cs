@@ -151,7 +151,13 @@ namespace PGD.Domain.Enums
 
         QuantidadesDiaConclusaoAntecipada = 9,
         //csa add p/ implementar a compensação horas de 8 ou 10 horas
-        QuantidadeHorasDiarias = 10
+        QuantidadeHorasDiarias = 10,
+        //csa numero de dias retroativos
+        QuantidadeDiasRetroativosPactosChefe = -365,
+        QuantidadeDiasRetroativosPactosSolicitante = -7,
+        PodeEditarDiaCronogramaChefe = 365,
+        PodeEditarDiaCronogramaSolicitante = 7
+
 
     }
 

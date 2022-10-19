@@ -16,6 +16,8 @@ namespace PGD.Application.Interfaces
         IEnumerable<PactoViewModel> ObterTodos();
         IEnumerable<PactoViewModel> ObterTodos(string include);
         IEnumerable<PactoViewModel> ObterTodos(PactoViewModel objFiltro, bool incluirUnidadesSubordinadas);
+        //csa
+        //PactoViewModel AtualizarPactosAiniciar(PactoViewModel pacto);
         IEnumerable<CronogramaViewModel> ObterTodosCronogramasCpfLogado(string cpf, List<int> idsSituacoes = null,
             DateTime? dataInicial = null, DateTime? dataFinal = null, int? idUnidade = null);
         List<int> ObterSituacoesPactoValido();
@@ -63,7 +65,7 @@ namespace PGD.Application.Interfaces
         PactoViewModel CancelarAvaliacao(PactoViewModel pactoVM, AvaliacaoProdutoViewModel avaliacaoProdutoVM, UsuarioViewModel user, eAcaoPacto acao);
         ValidationResult ValidarDataHoraSuspensaoInterrupcao(PactoViewModel pactoVM, DateTime dataInicioSuspensao, TimeSpan horasConsideradas, Domain.Enums.Operacao operacao );
         //csa
-        ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio);
+        ValidationResult ValidarDataPrevistaInicio(DateTime DataPrevistaInicio, Domain.Enums.Perfil user);
         ValidationResult ValidarDataConclusaoAntecipada(PactoViewModel pacto, DateTime dataConclusaoAntecipada);
         
         bool PodeVisualizar(PactoViewModel pactoVM, UsuarioViewModel usuarioVM, bool isDirigente, bool unidadePactoESubordinadaUnidadeUsuario);

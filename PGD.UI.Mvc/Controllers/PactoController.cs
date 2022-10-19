@@ -252,6 +252,7 @@ namespace PGD.UI.Mvc.Controllers
                 }
             }
 
+            //IEnumerable<PactoViewModel> retorno = null;
             IEnumerable<PactoViewModel> retorno = null;
             //csa
             //consulta responsavel pela tabela da tela consultar PGD
@@ -262,6 +263,18 @@ namespace PGD.UI.Mvc.Controllers
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
                     .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(50).ToList();
 
+                //PAREI AQUI                
+                //var pac = new PactoViewModel();
+                //foreach (var pacto in retorno)
+                //{
+                   
+                //    if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar && pacto.DataPrevistaInicio <= DateTime.Now)
+                //    {
+                //        pac = _Pactoservice.AtualizarPactosAiniciar(pacto);
+                //    }                  
+                    
+                //}
+                
             }
             else if (user.IsDirigente)
             {
@@ -819,19 +832,36 @@ namespace PGD.UI.Mvc.Controllers
         {
 
             var user = getUserLogado();
-           //csa validação data prevista de inicio, não permitir ao solicitante criar planos com datas retorativas 
+            //csa validação data prevista de inicio, não permitir ao solicitante criar planos com datas retorativas 
             //if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null && pactoViewModel.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura) {
+            
+
             if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null) {
 
-                var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio);
+                var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio, Domain.Enums.Perfil.Solicitante);
                 if (resultadoValidarDataPrevistaInicio != null)
                 {                    
-                    return setMessageAndRedirect("A DataPrevistaInicio deve ser maior ou igual a data atual ou aguarde assinatura de sua chefia",
+                    return setMessageAndRedirect($"{resultadoValidarDataPrevistaInicio}",
                   "Solicitar",
                    new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
                    });
                 }
             }
+            //csa PAREI AQUI
+            if (user.IsDirigente) {
+
+                var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio, Domain.Enums.Perfil.Dirigente);
+
+
+                if (resultadoValidarDataPrevistaInicio != null)
+                {
+                    return setMessageAndRedirect($"{resultadoValidarDataPrevistaInicio}",
+                  "Solicitar",
+                   new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
+                   });
+                }
+            }
+
 
             
             if (pactoViewModel.Produtos.Count == 0)
