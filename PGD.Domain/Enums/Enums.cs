@@ -154,9 +154,9 @@ namespace PGD.Domain.Enums
         QuantidadeHorasDiarias = 10,
         //csa numero de dias retroativos
         QuantidadeDiasRetroativosPactosChefe = -365,
-        QuantidadeDiasRetroativosPactosSolicitante = -7,
+        QuantidadeDiasRetroativosPactosSolicitante = -30,
         PodeEditarDiaCronogramaChefe = 365,
-        PodeEditarDiaCronogramaSolicitante = 7
+        PodeEditarDiaCronogramaSolicitante = 30
 
 
     }

@@ -193,6 +193,12 @@ namespace PGD.UI.Mvc.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        /// ##
+        public ActionResult Termos()
+        {
+            //Console.Write("Hello World! ");
+            return View("Termos");
+        }
 
         public ActionResult LogOut()
         {

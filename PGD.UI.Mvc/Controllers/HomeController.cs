@@ -19,8 +19,14 @@ namespace PGD.UI.Mvc.Controllers
         }
 
         public ActionResult Index()
-        {
+        {           
             return RedirectToAction("Index", "Pacto");
         }
+
+        //public actionresult termos()
+        //{
+        //    return view("termos");
+        //    //return redirecttoaction("index", "pacto");
+        //}
     }
 }

@@ -17,7 +17,7 @@
 .right {
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 50%;    
     justify-content: center;
 }
 
@@ -87,7 +87,8 @@
     bottom: 25px;
     width: 500px;
     max-width: 100%;
-    left: 49.5%;
+    right: 3%;
+    /*left: 49.5%;
     /*position: fixed;
     bottom: 50px;
     width: 250px;
@@ -146,7 +147,7 @@
     }
 
 .clique-aqui {
-    text-align: center;
+    text-align: left;
     width: 500px;
     font-size: 1.4rem;
     margin-top: 3rem;
