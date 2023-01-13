@@ -79,16 +79,17 @@
     flex-direction: column;
     align-items: center;
     box-shadow: 3px 3px 16px #ccc;
-    padding: 8px;
-    width: 100%;
+    padding: 18px;
+    width: 40%;
     opacity: 0;
     visibility: hidden;
     position: absolute;
-    top: 40px;  
+    top: 52px;
     z-index: 1000;
-    background: #fff;
+    background: #022764;
     border-radius: 4px;
 
+    /*margin-left: 25%;*/
 }
 
 
@@ -102,21 +103,29 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 10px 15px;
+    /*padding: 10px 15px;*/
     border-radius: 4px;
 }
 
 
 #menuItems div a {
     text-decoration: none;
+    margin: auto;
+    padding: 5px;
 }
 
 #menuItems div:not(:first-child) {
     border-top: 1px solid #dddddd;
 }
 
-#tbPlanoTrabalho th{
-    color:#fff;
+.menu-config {   
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+#tbPlanoTrabalho th {
+    color: #fff;
     margin: 0 auto;
 }
 #tbPlanoTrabalho th:nth-child(1) {

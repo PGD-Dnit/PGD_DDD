@@ -84,10 +84,6 @@
 .cookieConsentContainer .cookieButton a:hover{cursor:pointer;background:#3e9b67}
 
 
-
-
-
-
     </style>
 
 
@@ -120,107 +116,153 @@
 
 
             <div id="header">
-                <div class="container" id="logo">
+                <div class="col-md-12 col-lg-12 container colorir" id="logo">
+                    <div class="col-md-12 col-lg-12 cabecalho" style="height:200px">
+                        <div class="col-md-4 col-lg-2 logoPgd colorir" style="height:90px"></div>
+                        <div class="col-md-5 col-lg-5 colorir" style="height:90px"> 
 
-                    <div class="logo pull-left col-md-2 col-lg-2 logo-pgd">
+                                            <div>
+                                                  <div id="menuconsultar" class="col-md-4 col-lg-4 menu-novo" role="presentation">
+                                                      <span class="text-white ml-1 glyphicon glyphicon-search"></span>&nbsp;<a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" id="menuConsultarPactos">Consultar Plano de trabalho </a>
+                                                  </div>
+                                                @if (user != null && !user.IsAdmin)
+                                                {
+                                                   
+                                                       <div id="menuchange" class="col-md-4 col-lg-4 menu-novo" role="presentation">
+                                                           <span class="text-white ml-1 glyphicon glyphicon-edit"></span>&nbsp;<a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuSolicitar"> Criar Plano de Trabalho</a>
+                                                       </div>
+                                                   
+                                                }
+                                              
+                                                <div id="menuConfiguracoesContainer" class="col-md-4 col-lg-4 menu-novo">
 
-                    </div>
-                    <div class="col-md-5 col-lg-5">
-
-                        <div>
-                            @if (controller != null &&!(controller.ControllerContext.RouteData.Values["controller"].ToString() == "Perfil" && controller.ControllerContext.RouteData.Values["action"].ToString() == "Selecionar")
-                                    && controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login")
-                            {
-                                <div class="menu-novo">
-                                    <ul class="nav-justified">
-                                        <li role="presentation" class="menu-novo-right">
-                                            <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" id="menuConsultarPactos"><span class="text-white glyphicon glyphicon-search" style="margin-top:8px;"></span> Consultar Plano de Trabalho </a>
-                                        </li>
-                                        @if (user != null && !user.IsAdmin)
-                                        {
-                                            <li role="presentation" class="menu-novo-left">
-
-                                                <a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuId"><span class="text-white glyphicon glyphicon-edit" style="margin-top:8px;"></span> Criar Plano de Trabalho</a>
-
-                                            </li>
-                                        }
+                                                    @if (user != null && user.IsAdmin)
+                                                    {
+                                                        <span class="text-white ml-1 glyphicon glyphicon-list-alt"></span><a id="menuchange" href="#">&nbsp;&nbsp;Configurações</a>
+                                                        <div id="menuItems">
+                                                            <div><a id="menuOrdemServico" onclick="showLoading()" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></div>
+                                                            <div><a id="menuGrupoAtividade" onclick="showLoading()" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></div>
+                                                            <div><a id="menuAtividade" onclick="showLoading()" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></div>
+                                                            <div><a id="menuPerfil" onclick="showLoading()" href="@Url.Action("Index", "Usuario")">Gerenciar Perfil</a></div>
+                                                            <div><a id="menutiposPacto" onclick="showLoading()" href="@Url.Action("Index", "UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></div>
+                                                            <div><a id="menuAvaliacaoDetalhada" onclick="showLoading()" href="@Url.Action("Index", "CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></div>
+                                                            @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
+                                                        </div>
+                                                    }
 
 
-
-                                        @if (user != null && user.IsAdmin)
-                                        {
-                                            <li id="menuConfiguracoesContainer" class="menu-config menu-novo-left">
-                                                <div>
-                                                    <a id="menuId" href="#"><span class="text-white glyphicon glyphicon-list-alt" style="margin-top:8px;"></span> Configurações</a>
-                                                    <div id="menuItems">
-                                                        <div><a id="menuOrdemServico" onclick="showLoading()" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></div>
-                                                        <div><a id="menuGrupoAtividade" onclick="showLoading()" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></div>
-                                                        <div><a id="menuAtividade" onclick="showLoading()" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></div>
-                                                        <div><a id="menuPerfil" onclick="showLoading()" href="@Url.Action("Index", "Usuario")">Gerenciar Perfil</a></div>
-                                                        <div><a id="menutiposPacto" onclick="showLoading()" href="@Url.Action("Index", "UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></div>
-                                                        <div><a id="menuAvaliacaoDetalhada" onclick="showLoading()" href="@Url.Action("Index", "CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></div>
-                                                        @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
-                                                    </div>
                                                 </div>
-                                            </li>
-                                        }
+                                            </div>
+                                    
+                                    
+                               
 
-                                    </ul>
-                                </div>
-                            }
+
 
                         </div>
 
+                        @if (user != null && user.IdUsuario > 0)
+                        {
+                            <div class="col-md-4 col-lg-5 colorir" style="height:90px">
+
+                                <p class="loginUsuario">
+                                    <span class="text-white ml-1 glyphicon glyphicon-user"></span>&nbsp;
+                                    <a href="javascript:void(0)" class="cpfUsuarioLogado" onclick="openModalUsuario();">Usuário: @(user?.Nome) &nbsp;</a>
+                                    <span class="text-white" style="margin: 0 10px; font-weight:bold">| </span>
+                                    @if (user.PerfilSelecionado.HasValue)
+                                    {
+
+                                        if (@user.PerfilSelecionado.ToString().Equals("Dirigente"))
+                                        {
+                                            <span class="text-white">   Chefia </span>
+                                        }
+                                        else if (@user.PerfilSelecionado.ToString().Equals("Solicitante"))
+                                        {
+                                            <span class="text-white">  Participante </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-white">   @user.PerfilSelecionado.ToString()  </span>
+                                        }
+
+
+                                    }
+                                    <a class="pull-right" id="linkSignOut" href="javascript:void(0)">
+                                        <span onclick="fazerLogOut()" class="btn btn-warning text-white ml-4" style="padding: 2px 24px; border-radius: 8px"> Sair <span class="text-white ml-1 glyphicon glyphicon-off"></span></span>
+
+                                    </a>
+
+                                </p>
+
+                            </div>
+                        }
                     </div>
 
-                    @if (user != null && user.IdUsuario > 0)
-                    {
-                        <div class="col-md-5 col-lg-5 loginpartial pull-right info-usuario">
+                </div>
+                
+            </div>
+            
+            <div>
 
-                            <p class="dados-user">
-                                <span class="text-white glyphicon glyphicon-user "></span>
-                                <a href="javascript:void(0)" class="cpfUsuarioLogado info-usuario" onclick="openModalUsuario();">Usuário: @(user?.Nome) &nbsp;</a>
-                                <span class="text-white" style="margin: 0 10px; font-weight:bold">| </span>
-                                @if (user.PerfilSelecionado.HasValue)
+                @if (controller != null &&
+                        !(controller.ControllerContext.RouteData.Values["controller"].ToString() == "Perfil" && controller.ControllerContext.RouteData.Values["action"].ToString() == "Selecionar")
+                        && controller.ControllerContext.RouteData.Values["controller"].ToString() != "Login")
+                {
+                    <nav class="navbar navbar-dark bg-primary">
+                        <div>
+
+                            <div class="col-md-12" style="padding-left: 0">
+                                @if (user != null && !user.IsAdmin)
                                 {
 
-                                    if (@user.PerfilSelecionado.ToString().Equals("Dirigente"))
-                                    {
-                                        <span class="text-white">   Chefia </span>
-                                    }
-                                    else if (@user.PerfilSelecionado.ToString().Equals("Solicitante"))
-                                    {
-                                        <span class="text-white">  Participante </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-white">   @user.PerfilSelecionado.ToString()  </span>
-                                    }
-
-
+                                    @*<div class="col-md-4">
+                                          <ul class="nav nav-tabs nav-justified">
+                                              <li role="presentation">
+                                                  <a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuSolicitar"> Plano de Trabalho</a>
+                                              </li>
+                                          </ul>
+                                    </div>*@
                                 }
-                                <a class="pull-right" id="linkSignOut" href="javascript:void(0)"><span onclick="fazerLogOut()" class="btn btn-warning text-white ml-4" style="font-weight: bold;padding: 2px 12px; border-radius: 5px">Sair&nbsp;<span class="text-white glyphicon glyphicon-off"></span></span></a>
-                            </p>
 
+                                <div class="col-md-6" style="padding-left: 0">
+                                    <ul class="nav nav-tabs nav-justified" id="menu-navbar">
+                                        @if (user != null && !user.IsAdmin)
+                                        {
+                                            <li role="presentation">
+                                                <a href="@Url.Action("Solicitar", "Pacto", new { id = "", idTipoPacto = (int)PGD.Domain.Enums.eTipoPacto.PGD_Pontual })" onclick="showLoading()" id="menuSolicitar"> Plano de Trabalho</a>
+                                            </li>
+                                        }
+                                        <li role="presentation">
+                                            <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" id="menuConsultarPactos">Consultar PGD </a>
+                                        </li>
+                                        <li id="menuConfiguracoesContainer">
+
+                                            @if (user != null && user.IsAdmin)
+                                            {
+                                                <a id="menuConfiguracoes" href="#">Configurações</a>
+                                                <div id="menuItems">
+                                                    <div><a id="menuOrdemServico" onclick="showLoading()" href="@Url.Action("Index", "OrdemServico")">Tabela de Atividades</a></div>
+                                                    <div><a id="menuGrupoAtividade" onclick="showLoading()" href="@Url.Action("Index", "GrupoAtividade")">Gerenciar Grupo de Atividades</a></div>
+                                                    <div><a id="menuAtividade" onclick="showLoading()" href="@Url.Action("Index", "Atividade")">Gerenciar Atividades</a></div>
+                                                    <div><a id="menuPerfil" onclick="showLoading()" href="@Url.Action("Index", "Usuario")">Gerenciar Perfil</a></div>
+                                                    <div><a id="menutiposPacto" onclick="showLoading()" href="@Url.Action("Index", "UnidadeTipoPacto")">Gerenciar Tipos de Plano de Trabalho</a></div>
+                                                    <div><a id="menuAvaliacaoDetalhada" onclick="showLoading()" href="@Url.Action("Index", "CriterioAvaliacao")">Gerenciar Avaliação Detalhada</a></div>
+                                                    @*<li><a id="trocaUser" href="@Url.Action("Index", "TrocaUsuario")">Trocar Usuário</a></li>*@
+                                                </div>
+                                            }
+
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                    }
-                    else
-                    {
-                        @*<div class="loginpartial pull-right">
-                            <p><a href="#" onclick="alto_contraste();">ALTO CONTRASTE</a></p>
-                            @Html.ActionLink("Entrar", "Index", "Login", routeValues: null, htmlAttributes: new { id = "loginLink" })
-                        </div>*@
-                    }
-                 <!--<div class="col-md-5 col-lg-5 loginpartial pull-right">
-                        <p>
-                            <a href="javascript:void(0)" onclick="alto_contraste();">ALTO CONTRASTE</a>
-                        </p>
-                     </div>-->
-                </div>
+
+                    </nav>
+                }
+
             </div>
-           <!--####################################################-->
-            
-            <div class="clearfix" style="margin-top:-150px;"></div>
+            <div class="clearfix"></div>
         }
 
             <div class="container" id="@(@controller.ControllerContext.HttpContext.Request.Url.Segments[lengthURL - 1] != "SelecionarPerfil" &&
@@ -358,20 +400,26 @@
                     });
                 }
             }
-                window.onload = function () {
+                
+                window.onload = function exampleFunction() {
+                    var url_atual = window.location.href;
+                    var pacto = window.location.protocol + "//" + window.location.host + "/Pacto";
+                   
+                    if (url_atual == pacto ) {
+                        var idmenuconsultar = document.getElementById("menuConsultarPactos");
+                        idmenuconsultar.classList.add("menu-sublinhado");
+                    } else {
+                        var idmenuconsultar = document.getElementById("menuSolicitar");
+                        idmenuconsultar.classList.add("menu-sublinhado");
+                        
 
-                    var urlAtual = window.location.href;
-                    var urlConsultar = window.location.protocol + "//" + window.location.host + "/" + "Pacto";
-                    var urlPropor = window.location.protocol + "//" + window.location.host + "/" + "Pacto";
-                    if (urlAtual == urlConsultar) {
-                        var adicionar = document.getElementById("menuConsultarPactos");
-                        adicionar.classList.add("menu-sublinhado");
-                    } else {                       
-                        var adicionar = document.getElementById("menuId");
-                        adicionar.classList.add("menu-sublinhado");                        
                     }
-
+                    
+                        //menuconsultar
+                   
                 }
+               
+
 
             </script>
             @RenderSection("scripts", required: false)

@@ -256,11 +256,12 @@
 }
 
 #divAlerta {
-    width:250px;
+    width: 250px;
     max-width: 250px;
     position: fixed;
     right: 2%;
     top: 7%;
+    z-index: 1000;
 }
 
 @media(max-width: 1367px) {

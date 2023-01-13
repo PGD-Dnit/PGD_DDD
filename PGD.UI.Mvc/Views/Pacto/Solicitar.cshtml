@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<h1 class="text-blue"> Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
+<h1 class="text-white"> Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
 <div class="clearfix"></div>
 
 <div class="panel-group" role="tablist">
@@ -130,9 +130,9 @@
                     <div class="row">
 
                         <div class="form-group col-md-6">
-                            <label class="text-vertical-line">Servidor Tem Redução de Carga Horária? </label>
-                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PossuiCargaHoraria.GetValueOrDefault()) Sim</label>
-                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PossuiCargaHoraria.GetValueOrDefault()) Não</label>
+                            <label class="text-vertical-line">Servidor Tem Redução de Carga Horária?&nbsp;</label>
+                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PossuiCargaHoraria.GetValueOrDefault())&nbsp; Sim &nbsp;</label>
+                            <label>@Html.RadioButtonCGUFor(x => x.PossuiCargaHoraria, new { @required = "required", @onchange = "alternaVisibilidadeCargaHoraria(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PossuiCargaHoraria.GetValueOrDefault())&nbsp; Não</label>
                         </div>
                         <div class="form-group col-md-6">
                             <div id="divCargaHoraria" style="@(Model.PossuiCargaHoraria.GetValueOrDefault() ? "" : "display:none")">

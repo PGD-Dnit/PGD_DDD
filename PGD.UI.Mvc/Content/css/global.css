@@ -316,6 +316,9 @@ body {
 .text-center, .table-center td {
     text-align: center;
 }
+.text-center a {
+    margin:1px;
+}
 
 .text-right {
     text-align: right;
@@ -356,7 +359,7 @@ body {
 
 @media (min-width: 1550px) {
     #header {
-        height: 250px !important;
+        height: 300px !important;
     }
     
 }
@@ -613,11 +616,38 @@ submitLink:focus {
 }
 
 .text-blue {
-    color: #052D6F
+    /*color: #052D6F;*/
+    color: #003770;
+}
+
+.text-lightblue {
+    /*color: #052D6F;*/
+    color: #0087CC;
+}
+
+.lightgreen {
+    color: #45ABA5;
 }
 
 .text-gray {
     color:#757575;
+}
+
+.text-darkgray {
+    color: #58636B;
+}
+
+
+.text-yellow {
+    color: #FBBE5E;
+}
+
+.text-green {
+    color: #45ABA5;
+}
+
+.text-red {
+    color:red;
 }
 
 .bg-lightgray {
@@ -633,11 +663,62 @@ submitLink:focus {
     background-image: url('../../Imagens/Grupo 411.png');
     background-size: cover;
     background-repeat: no-repeat;
-
-    display: flex;
-    align-items:flex-end;
+    /*display: flex;*/
+    align-items: flex-end;
     justify-content: flex-end;
-   
 }
+.logo-pgd {
+    background-image: url('../../Imagens/logo_temp.PNG');
+    background-repeat: no-repeat;
+    max-width: 100%;
+    height: 80px;
+    background-size: contain;
+    margin-top: 10px;
+}
+
+.menu-novo a {
+    color: #fff !important;    
+    text-decoration: none;
+    
+}
+.menu-novo-left a {  
+    float: left;    
+    margin-left: 60px;
+}
+.menu-novo-right a {     
+    float: right;     
+}
+.menu-novo {
+    margin-top: 25px;
+    font-size:16px;    
+}
+
+.menu-novo a:hover{
+    font-weight: bold;
+}
+
+.dados-user {
+    margin-top: 25px !important;
+    font-size: 16px;
+}
+
+.menu-sublinhado {
+    border-bottom: solid 2px #e38d13;
+}
+.info-usuario p {
+    color: #fff !important;
+    margin-top: 8px;
+    float: right;
+    text-decoration: none;
+}
+.conteudo-up {
+    margin-top:-100px;
+    z-index:99;
+}
+.btn-acao {
+    width:100px;
+}
+
+
 
 

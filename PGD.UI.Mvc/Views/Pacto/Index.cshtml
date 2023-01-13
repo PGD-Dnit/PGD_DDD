@@ -18,7 +18,7 @@
     }
 }
 
-<h1 class="text-blue">Plano de Trabalho</h1>
+<h1 class="text-white">Consultar Plano de Trabalho</h1>
 
 <div class="clearfix"></div>
 @Html.Partial("_SearchPartial", Model.Searchpacto)
@@ -37,7 +37,7 @@
                 <th class="text-center hidden-sm hidden-xs">Unidade</th>
                 @if (perfil != PGD.Domain.Enums.Perfil.Consulta)
                 {
-                    <th class="text-center">Ação</th>
+                    <th class="text-center btn-acao">Ação</th>
                 }
             </tr>
         </thead>
@@ -65,17 +65,17 @@
 
                             if (pacto.podeEditar && pacto.IdSituacaoPacto != 3)
                             {
-                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" id=@("Solicitar" + index) class="btn btn-xs btn-primary"><span title="Editar" class="glyphicon glyphicon-pencil text-white" aria-hidden="true"></span></a>
+                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" id=@("Solicitar" + index) class="btn btn-xs btn-default"><span title="Editar" class="glyphicon glyphicon-edit text-darkgray" aria-hidden="true"></span></a>
                             }
                             if (pacto.podeDeletar)
                             {
-                                <!-- <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" id=@("Deletar" + index) class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove text-white" aria-hidden="true" onclick="if (confirm('@PGD.Domain.Constantes.Mensagens.MD_002')) { showLoading(); return true; } else return false;"></span></a> -->
-                                <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove text-white" aria-hidden="true" onclick="confirmarDelete(event)"></span></a>
+                                <!-- <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" id=@("Deletar" + index) class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-trash text-white" aria-hidden="true" onclick="if (confirm('@PGD.Domain.Constantes.Mensagens.MD_002')) { showLoading(); return true; } else return false;"></span></a> -->
+                                <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-default"><span title="Deletar" class="glyphicon glyphicon-trash text-red" aria-hidden="true" onclick="confirmarDelete(event)"></span></a>
                             }
 
                             if (pacto.podeAssinar)
                             {
-                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" class="btn btn-xs btn-primary"><span title="Assinar" class="glyphicon glyphicon glyphicon-ok text-white" aria-hidden="true"></span></a>
+                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" class="btn btn-xs btn-default"><span title="Assinar" class="glyphicon glyphicon glyphicon-ok text-green" aria-hidden="true"></span></a>
                             }
 
                             if (pacto.podeSuspender)
@@ -84,7 +84,7 @@
                                     @using (Ajax.BeginForm("IniciarSuspensao", "Pacto", new AjaxOptions() { HttpMethod = "Get", OnSuccess = "iniciarSuspensaoSuccess", OnFailure = "defaultFailureHandler", UpdateTargetId = "divSuspensaoPartial", OnBegin = "showLoading" }))
                                     {
                                         @Html.Hidden("idPactoInicioSuspensao", pacto.IdPacto)
-                                        <button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pause text-white" title="Suspender" aria-hidden="true"></span></button>
+                                        <button type="submit" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pause text-blue" title="Suspender" aria-hidden="true"></span></button>
                                     }
                                 </div>
                             }
@@ -95,7 +95,7 @@
                                     @using (Ajax.BeginForm("RetornarSuspensao", "Pacto", new AjaxOptions() { HttpMethod = "Get", OnSuccess = "retornarSuspensaoSuccess", OnFailure = "defaultFailureHandler", UpdateTargetId = "modalRetornarSuspensao", OnBegin = "showLoading" }))
                                     {
                                         @Html.Hidden("idPactoRetornoSuspensao", pacto.IdPacto)
-                                        <button type="submit" class="btn btn-xs btn-primary"><span title="Retornar Suspensão" class="glyphicon glyphicon-play text-white" aria-hidden="true"></span></button>
+                                        <button type="submit" class="btn btn-xs btn-default"><span title="Retornar Suspensão" class="glyphicon glyphicon-play text-blue" aria-hidden="true"></span></button>
                                     }
                                 </div>
                             }
@@ -107,18 +107,18 @@
 
                             if (pacto.podeEditar || pacto.podeEditarAndamento)
                             {
-                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" id=@("Solicitar" + index) class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pencil text-white" aria-hidden="true" title="Editar"></span></a>
+                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" id=@("Solicitar" + index) class="btn btn-xs btn-default"><span class="glyphicon glyphicon-edit text-darkgray" aria-hidden="true" title="Editar"></span></a>
                             }
 
                             if (pacto.podeDeletar)
                             {
-                                <!-- <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove text-white" aria-hidden="true" onclick="if (confirm('@PGD.Domain.Constantes.Mensagens.MD_002')) { showLoading(); return true; } else return false;"></span></a> -->
-                                <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-remove text-white" aria-hidden="true" onclick="confirmarDelete(event)"></span></a>
+                                <!-- <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-danger"><span title="Deletar" class="glyphicon glyphicon-trash text-white" aria-hidden="true" onclick="if (confirm('@PGD.Domain.Constantes.Mensagens.MD_002')) { showLoading(); return true; } else return false;"></span></a> -->
+                                <a href="@Url.Action("Deletar", "Pacto", new { pactoid = pacto.IdPacto })" class="btn btn-xs btn-default"><span title="Deletar" class="glyphicon glyphicon-trash text-red" aria-hidden="true" onclick="confirmarDelete(event)"></span></a>
                             }
 
                             if (pacto.podeAssinar)
                             {
-                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" class="btn btn-xs btn-primary"><span title="Assinar" class="glyphicon glyphicon glyphicon-ok text-white" aria-hidden="true"></span></a>
+                                <a href="@Url.Action("Solicitar", "Pacto", new { id = pacto.IdPacto, idTipoPacto = pacto.IdTipoPacto })" onclick="showLoading()" class="btn btn-xs btn-default"><span title="Assinar" class="glyphicon glyphicon glyphicon-ok text-green" aria-hidden="true"></span></a>
                             }
 
                             if (pacto.podeSuspender)
@@ -127,7 +127,7 @@
                                     @using (Ajax.BeginForm("IniciarSuspensao", "Pacto", new AjaxOptions() { HttpMethod = "Get", OnSuccess = "iniciarSuspensaoSuccess", OnFailure = "defaultFailureHandler", UpdateTargetId = "divSuspensaoPartial", OnBegin = "showLoading" }))
                                     {
                                         @Html.Hidden("idPactoInicioSuspensao", pacto.IdPacto)
-                                        <button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-pause text-white" title="Suspender" aria-hidden="true"></span></button>
+                                        <button type="submit" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pause text-blue" title="Suspender" aria-hidden="true"></span></button>
                                     }
                                 </div>
                             }
@@ -137,18 +137,18 @@
                                     @using (Ajax.BeginForm("RetornarSuspensao", "Pacto", new AjaxOptions() { HttpMethod = "Get", OnSuccess = "retornarSuspensaoSuccess", OnFailure = "defaultFailureHandler", UpdateTargetId = "modalRetornarSuspensao", OnBegin = "showLoading" }))
                                     {
                                         @Html.Hidden("idPactoRetornoSuspensao", pacto.IdPacto)
-                                        <button type="submit" class="btn btn-xs btn-primary"><span title="Retornar Suspensão" class="glyphicon glyphicon-play text-white" aria-hidden="true"></span></button>
+                                        <button type="submit" class="btn btn-xs btn-default"><span title="Retornar Suspensão" class="glyphicon glyphicon-play text-blue" aria-hidden="true"></span></button>
                                     }
                                 </div>
                             }
                             if (pacto.podeInterromper)
                             {
-                                <a href="@Url.Action("Interromper", "Pacto", new { idpacto = pacto.IdPacto })" onclick="showLoading()" class="btn btn-xs btn-primary" id=@("Interromper" + index)><span class="glyphicon glyphicon-stop text-white" title="Interromper" aria-hidden="true"></span></a>
+                                <a href="@Url.Action("Interromper", "Pacto", new { idpacto = pacto.IdPacto })" onclick="showLoading()" class="btn btn-xs btn-default" id=@("Interromper" + index)><span class="glyphicon glyphicon-stop text-lightblue" title="Interromper" aria-hidden="true"></span></a>
                             }
 
                             if (pacto.podeAvaliar)
                             {
-                                <a href="@Url.Action("AvaliarProduto", "Pacto", new { idPacto = pacto.IdPacto, idOrigemAcao=(int)PGD.Domain.Enums.eOrigem.Listagem })" onclick="showLoading()" id=@("Avaliar" + index) class="btn btn-xs btn-primary"><span title="Avaliar" class="glyphicon glyphicon-star-empty text-white" aria-hidden="true"></span></a>
+                                <a href="@Url.Action("AvaliarProduto", "Pacto", new { idPacto = pacto.IdPacto, idOrigemAcao=(int)PGD.Domain.Enums.eOrigem.Listagem })" onclick="showLoading()" id=@("Avaliar" + index) class="btn btn-xs btn-default"><span title="Avaliar" class="glyphicon glyphicon-star text-yellow" aria-hidden="true"></span></a>
                             }
 
                             if (pacto.podeCancelarAvaliacao)

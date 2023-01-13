@@ -7,37 +7,40 @@
     ViewBag.Title = "Selecionar tipos de Plano de Trabalho na Unidade";
 }
 
-<h1>Selecionar tipos de Plano de Trabalho na Unidade</h1>
+<h1 class="text-white">Selecionar tipos de Plano de Trabalho na Unidade</h1>
 
-@using (Html.BeginForm("Create", "UnidadeTipoPacto", FormMethod.Post, new { @class = "form col-md-10", onsubmit = "$(this).find('#btn-salvar').attr('disabled', true)" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.IdUnidade_TipoPacto)
-    <div class="col-md-12 form-group">
-        <div class="col-md-4">
-            <label class="pull-right">Unidade</label>
-        </div>
-        <div class="col-md-8">
-            @Html.DropDownListCGUFor(model => model.IdUnidade, new SelectList((List<Unidade>)TempData["lstUnidade"], "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize()
-        </div>
-    </div>
+<div class="well">
+   
+        @using (Html.BeginForm("Create", "UnidadeTipoPacto", FormMethod.Post, new { @class = "form col-md-12", onsubmit = "$(this).find('#btn-salvar').attr('disabled', true)" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.IdUnidade_TipoPacto)
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="control-label">Unidade</label>
+                    @Html.DropDownListCGUFor(model => model.IdUnidade, new SelectList((List<Unidade>)TempData["lstUnidade"], "IdUnidade", "Nome"), new { @class = "form-control" }).Selectize()
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label class="control-label">Tipo de Plano de Trabalho</label>
+                    @Html.DropDownListCGUFor(model => model.IdTipoPacto, new SelectList((List<TipoPacto>)TempData["lstTipos"], "IdTipoPacto", "DescTipoPacto"), new { @class = "form-control" }).Selectize()
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-4">
+                    @Html.CheckBoxFor(model => model.IndPermitePactoExterior)
+                    <label for="IndPermitePactoExterior">&nbsp;Permite Plano de Trabalho no Exterior?</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="pull-right">
+                    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-danger" })
+                    <input type="submit" id="btn-salvar" class="btn btn-success" value="Salvar" />
+                </div>
+            </div>
+        }
+   
+    <div class="clearfix"></div>
+</div>
 
-    <div class="col-md-12 form-group">
-        <div class="col-md-4">
-            <label class="pull-right">Tipo de Plano de Trabalho</label>
-        </div>
-        <div class="col-md-8">
-            @Html.DropDownListCGUFor(model => model.IdTipoPacto, new SelectList((List<TipoPacto>)TempData["lstTipos"], "IdTipoPacto", "DescTipoPacto"), new { @class = "form-control" }).Selectize()
-        </div>
-    </div>
-
-    <div class="col-md-8 col-md-offset-4">
-        @Html.CheckBoxFor(model => model.IndPermitePactoExterior)
-        <label for="IndPermitePactoExterior">Permite Plano de Trabalho no Exterior?</label>
-    </div>
-
-    <div class="pull-right">
-        @Html.ActionLink("Cancelar","Index",null, new { @class = "btn btn-danger" })
-        <input type="submit" id="btn-salvar" class="btn btn-success" value="Salvar" />
-    </div>
-}

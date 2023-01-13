@@ -13,8 +13,8 @@ namespace PGD.UI.Mvc
                         "~/Scripts/jquery-{version}.js"
                         ));
 
-
-
+ 
+ 
             var valBundle = new ScriptBundle("~/bundles/jqueryval").Include(
                     "~/Scripts/cldr.js",
                     "~/Scripts/cldr/event.js",
@@ -35,7 +35,7 @@ namespace PGD.UI.Mvc
                     "~/Scripts/jquery.wordexport.js",
                     "~/Scripts/jquery.table2excel.js",
                     "~/Scripts/html2canvas.js",
-                    "~/Scripts/jquery.validate.globalize.js",
+                    "~/Scripts/jquery.validate.globalize.js", 
                     "~/Scripts/selectize.js",
                     "~/Scripts/select2/select2.min.js",
                     "~/Scripts/jquery.unobtrusive-ajax.min.js",
@@ -49,7 +49,7 @@ namespace PGD.UI.Mvc
 
             bundles.Add(valBundle);
 
-
+             
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -64,7 +64,20 @@ namespace PGD.UI.Mvc
                       "~/Scripts/bootstrap-table/extensions/export/tableExport.min.js",
                       "~/Scripts/bootstrap-table/extensions/export/bootstrap-table-export.min.js",
                       "~/Scripts/bootstrap-table/extensions/js-xlsx/xlsx.core.min.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.js",
+
+                      "~/Content/Bootstrap/js/js/bootstrap.bundle.js",
+                      "~/Content/Bootstrap/js/js/bootstrap.bundle.js.map",
+                      "~/Content/Bootstrap/js/js/bootstrap.bundle.min.js",
+                      "~/Content/Bootstrap/js/js/bootstrap.bundle.min.js.map",
+                      "~/Content/Bootstrap/js/js/bootstrap.esm.js",
+                      "~/Content/Bootstrap/js/js/bootstrap.esm.js.map",
+                      "~/Content/Bootstrap/js/js/bootstrap.esm.min.js",
+                      "~/Content/Bootstrap/js/js/bootstrap.esm.min.js.map",
+                      "~/Content/Bootstrap/js/js/bootstrap.js",
+                      "~/Content/Bootstrap/js/js/bootstrap.js.map",
+                      "~/Content/Bootstrap/js/js/bootstrap.min.js",
+                      "~/Content/Bootstrap/js/js/bootstrap.min.js.map"));
 
 
             bundles.Add(new ScriptBundle("~/bundles/CGUUtil").Include(
@@ -84,7 +97,42 @@ namespace PGD.UI.Mvc
                       "~/Content/css/datepicker2.css",
                       "~/Content/select2/select2.min.css",
                       "~/Content/fontawesome5.14.0/css/all.min.css",
-                      "~/Content/css/selectize.bootstrap3.css"
+                      "~/Content/css/selectize.bootstrap3.css",
+
+                      "~/Content/bootstrap/css/css/bootstrap.css",
+                      "~/Content/bootstrap/css/css/bootstrap.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap.rtl.css",
+                      "~/Content/bootstrap/css/css/bootstrap.rtl.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap.rtl.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap.rtl.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.css",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.rtl.css",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.rtl.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.rtl.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.rtl.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.rtl.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-grid.rtl.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.css",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.rtl.css",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.rtl.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.rtl.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-reboot.rtl.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.css",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.min.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.rtl.css",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.rtl.css.map",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.rtl.min.css",
+                      "~/Content/bootstrap/css/css/bootstrap-utilities.rtl.min.css.map"                      
                       ));
 
             bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(

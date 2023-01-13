@@ -91,8 +91,8 @@
                 </div>
                 <div class="col-md-9">
 
-                    <label>@Html.RadioButtonCGUFor(x => x.Formato, new { @required = "required", @onchange = "alternaVisibilidadeFormatoCorreto(true)" }, true).SetDisabled(!Model.HabilitarCampos) Sim</label>
-                    <label>@Html.RadioButtonCGUFor(x => x.Formato, new { @required = "required", @onchange = "alternaVisibilidadeFormatoCorreto(false)" }, false).SetDisabled(!Model.HabilitarCampos) Não</label>
+                    <label>@Html.RadioButtonCGUFor(x => x.Formato, new { @required = "required", @onchange = "alternaVisibilidadeFormatoCorreto(true)" }, true).SetDisabled(!Model.HabilitarCampos)&nbsp; Sim&nbsp;</label>
+                    <label>@Html.RadioButtonCGUFor(x => x.Formato, new { @required = "required", @onchange = "alternaVisibilidadeFormatoCorreto(false)" }, false).SetDisabled(!Model.HabilitarCampos)&nbsp; Não</label>
                 </div>
             </div>
             <div id="divFormatoCorreto" style="@(!Model.Formato.HasValue || Model.Formato.GetValueOrDefault() ? "display:none" : "")">
@@ -111,8 +111,8 @@
                         @Html.Label("Entregue no Prazo?")                        
                     </div>
                     <div class="col-md-9">
-                        <label>@Html.RadioButtonCGUFor(x => x.EntregueNoPrazo, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetChecked(Model.EntregueNoPrazo.HasValue && Model.EntregueNoPrazo.Value).SetDisabled(!Model.HabilitarCampos) Sim</label>
-                        <label>@Html.RadioButtonCGUFor(x => x.EntregueNoPrazo, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetChecked(Model.EntregueNoPrazo.HasValue && !Model.EntregueNoPrazo.GetValueOrDefault()).SetDisabled(!Model.HabilitarCampos) Não</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.EntregueNoPrazo, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetChecked(Model.EntregueNoPrazo.HasValue && Model.EntregueNoPrazo.Value).SetDisabled(!Model.HabilitarCampos)&nbsp; Sim&nbsp;</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.EntregueNoPrazo, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetChecked(Model.EntregueNoPrazo.HasValue && !Model.EntregueNoPrazo.GetValueOrDefault()).SetDisabled(!Model.HabilitarCampos)&nbsp; Não</label>
                     </div>
                 </div>
 
@@ -163,8 +163,8 @@
                         @Html.LabelFor(m => m.AtendeSolicitado, "A entrega atende ao solicitado?")
                     </div>
                     <div class="col-md-9">
-                        <label>@Html.RadioButtonCGUFor(x => x.AtendeSolicitado, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetDisabled(!Model.HabilitarCampos) Sim</label>
-                        <label>@Html.RadioButtonCGUFor(x => x.AtendeSolicitado, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetDisabled(!Model.HabilitarCampos) Não</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.AtendeSolicitado, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetDisabled(!Model.HabilitarCampos)&nbsp; Sim&nbsp;</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.AtendeSolicitado, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetDisabled(!Model.HabilitarCampos)&nbsp; Não</label>
                     </div>
                 </div>
                 <div class="row">
@@ -172,8 +172,8 @@
                         @Html.LabelFor(m => m.Requisitos, "Cumpriu os requisitos mínimos para análise?")
                     </div>
                     <div class="col-md-9">
-                        <label>@Html.RadioButtonCGUFor(x => x.Requisitos, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetChecked(Model.Requisitos.HasValue && Model.Requisitos.Value).SetDisabled(!Model.HabilitarCampos) Sim</label>
-                        <label>@Html.RadioButtonCGUFor(x => x.Requisitos, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetChecked(Model.Requisitos.HasValue && !Model.Requisitos.GetValueOrDefault()).SetDisabled(!Model.HabilitarCampos) Não</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.Requisitos, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetChecked(Model.Requisitos.HasValue && Model.Requisitos.Value).SetDisabled(!Model.HabilitarCampos)&nbsp; Sim&nbsp;</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.Requisitos, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetChecked(Model.Requisitos.HasValue && !Model.Requisitos.GetValueOrDefault()).SetDisabled(!Model.HabilitarCampos)&nbsp; Não</label>
                     </div>
                 </div>
                 <div class="row">
@@ -189,8 +189,8 @@
                         @Html.Label("Houve necessidade de correção estrutural?")
                     </div>
                     <div class="col-md-9">
-                        <label>@Html.RadioButtonCGUFor(x => x.NecessidadeCorrecao, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetChecked(Model.NecessidadeCorrecao.HasValue && Model.NecessidadeCorrecao.Value).SetDisabled(!Model.HabilitarCampos) Sim</label>
-                        <label>@Html.RadioButtonCGUFor(x => x.NecessidadeCorrecao, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetChecked(Model.NecessidadeCorrecao.HasValue && !Model.NecessidadeCorrecao.GetValueOrDefault()).SetDisabled(!Model.HabilitarCampos) Não</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.NecessidadeCorrecao, new { @required = "required", @onchange = "atualizarQualidade()" }, false).SetChecked(Model.NecessidadeCorrecao.HasValue && Model.NecessidadeCorrecao.Value).SetDisabled(!Model.HabilitarCampos)&nbsp; Sim&nbsp;</label>
+                        <label>@Html.RadioButtonCGUFor(x => x.NecessidadeCorrecao, new { @required = "required", @onchange = "atualizarQualidade()" }, true).SetChecked(Model.NecessidadeCorrecao.HasValue && !Model.NecessidadeCorrecao.GetValueOrDefault()).SetDisabled(!Model.HabilitarCampos)&nbsp; Não</label>
                     </div>
                 </div>
             </div>
