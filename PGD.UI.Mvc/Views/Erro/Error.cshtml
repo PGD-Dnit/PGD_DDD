@@ -1,13 +1,100 @@
-﻿@{
+﻿@using PGD.Application.Util
+@{
+    ViewBag.Title = "Error";
     Layout = null;
 }
-<h2>
-    Ocorreu um erro não mapeado durante a execução da última ação.
-</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Sistema PGD - Error</title>
 
-<p>
-    <strong>Sistema:</strong> PGD
-</p>
-<p>
-    <strong>Horário do Erro:</strong> @DateTime.Now
-</p>
+    <script defer="defer" src="//barra.brasil.gov.br/barra.js" type="text/javascript"></script>
+    <meta property="creator.productor" content="http://estruturaorganizacional.dados.gov.br/id/unidade-organizacional/214460">
+
+    @Styles.Render("~/bundles/css")
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jquery")
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/CGUUtil")
+
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link id="CSSGlobal" rel="stylesheet" type="text/css" href="~/Content/css/global.css">
+    <link id="CSSGlobalEscuro" rel="stylesheet" type="text/css" href="~/Content/css/global_escuro.css" disabled="disabled">
+    <link id="CSSLogin" rel="stylesheet" type="text/css" href="~/Content/css/login.css">
+    <script type="text/javascript" language="javascript">
+        var ROOT = '@Url.Content("~")';
+
+        if (ROOT == "/")
+            ROOT = "";
+        
+        $(document).ajaxError(function (xhr, props) {
+            if (props.status === 401)
+            {
+                window.location.href = '@Url.Action("Index", "Home")';
+            }
+        });
+
+    </script>
+
+</head>
+<body>
+    
+
+    <div class="container-fluid">
+
+        <div class="row topoerro ">
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-5 col-md-offset-1">
+                <div class="leftErro"></div>
+            </div>
+
+            <div class="col-xs-6 col-sm-6 col-md-5">
+                <div class="rightErro"></div>
+                <div class="col-md-12 col-sm-12 col-lg-12 col-xs-12">
+                    <div class="text-center textoErro">
+                        <h2>Ops, algo deu errado!</h2><br />
+                        <h2>Fique tranquilo que já estamos trabalhando para</h2>
+                        <h2>resolver.</h2><br />
+                        <h2>Tente novamente mais tarde. Se o problema</h2>
+                        <h2>persistir envie um e-mail para</h2>
+                        <h2><a class="Bold text-blue" href="pgd@dnit.gov.br">pgd@dnit.gov.br</a></h2>
+                    </div>
+                    <div class="col-md-7 text-center btn-erro-position">
+                        <br /><br /><br />
+                        <a href="@Url.Action("Index", "Login")" onclick="voltarError()" class="btn btn-erro btn-lg">Voltar para o início</a>
+
+                        <br />
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function voltarError() {
+            $.ajax({
+                type: 'GET',
+                url: ROOT + '/Login/LogOut',
+                beforeSend: () => showLoading(),
+                success: (data) => {
+                    if (data && data.ok) location.reload();
+                },
+                error: err => {
+                    console.log(err);
+                    hideLoading();
+                }
+            });
+        }
+    </script>
+</body>
+</html>

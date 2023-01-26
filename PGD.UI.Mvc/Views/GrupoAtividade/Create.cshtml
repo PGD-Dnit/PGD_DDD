@@ -2,13 +2,15 @@
 @{
     ViewBag.Title = "Novo Grupo de Atividade";
 }
+<h1 class="text-white">Grupo de Atividade </h1>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="well">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <h1 class="col-md-12">Grupo de Atividade </h1>
-    <div class="col-md-12">
+
+
         @Html.HiddenFor(x => x.IdGrupoAtividade)
         <div class="form-group">
             <label for="nomeAtividade" class="col-sm-4 control-label">Grupo de Atividade:</label>
@@ -52,23 +54,24 @@
                 <button id="salvar" type="submit" class="btn btn-success btn-block">Salvar</button>
             </div>
         </div>
-    </div>
-}
 
+    }
+<div class="clearfix"></div>
+</div>
 
-@section scripts{
-    <script src="~/Scripts/datatables.min.js"></script>
-    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
-    <script src="~/Scripts/pgd.js"></script>
+    @section scripts{
+        <script src="~/Scripts/datatables.min.js"></script>
+        <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+        <script src="~/Scripts/pgd.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#pre-selected-options').multiSelect();
-            $('.verDetalhes').click(function (e) {
-                e.preventDefault();
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#pre-selected-options').multiSelect();
+                $('.verDetalhes').click(function (e) {
+                    e.preventDefault();
 
-                $(this).siblings('.lista-hide').slideToggle('fast')
-            })
-        });
-    </script>
-}
+                    $(this).siblings('.lista-hide').slideToggle('fast')
+                })
+            });
+        </script>
+    }

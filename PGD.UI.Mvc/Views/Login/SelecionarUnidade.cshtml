@@ -5,32 +5,36 @@
     ViewBag.Title = "Selecionar unidade";
 }
 
+<div class="col-md-6 col-sm-6 col-lg-6 leftUnid"></div>
+<div class="col-md-6 col-sm-6 col-lg-6 right">
+
+    <div class=" selecione_perfil_main ">
 
 
-<div class="col-md-6 col-xs-12 col-lg-6 divpai">
-   
-   
+        @using (Html.BeginForm("SelecionarUnidade", "Login", FormMethod.Post, htmlAttributes: new { @class = "form col-md-12" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="panel panel-default panel-conteudo">
 
-    @using (Html.BeginForm("SelecionarUnidade", "Login", FormMethod.Post, htmlAttributes: new { @class = "form col-md-12" }))
-    {
-        @Html.AntiForgeryToken()
+                <div class="panel-body corpodopainel">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            @Html.Label("IdUnidade", "Selecione a Unidade(UORG):", new { @class = "col-md-12 control-label title-select-unid" })
+                            @Html.DropDownListCGUFor(m => m.IdUnidade, new SelectList((List<Unidade>)TempData["lstUnidade"], "IdUnidade", "Nome"), new { @class = "form-control input-form", placeholder = " " }).Selectize()
+                            @Html.ValidationMessageFor(c => c.IdUnidade)
+                        </div>
+                    </div>
 
-    <div class="panel panel-default panel-conteudo">
-        <img src="~/Imagens/Grupo 520.svg" class="img-dnit" />
-        <div class="panel-body text-left corpodopainel">
-            <div class="row">
-                <div class="form-group col-md-12">
-                    @Html.Label("IdUnidade", "Selecione a SIGLA (Unidade):", new { @class = "col-md-12 control-label" })
-                    @Html.DropDownListCGUFor(m => m.IdUnidade, new SelectList((List<Unidade>)TempData["lstUnidade"], "IdUnidade", "Nome"), new { @class = "form-control input-form", placeholder = " " }).Selectize()
-                    @Html.ValidationMessageFor(c => c.IdUnidade)
                 </div>
+                <button class="btn btn-entrar" style="width:195px">Entrar</button>
             </div>
 
+        }
+        <div>
+            <img class="image-footer-select-unid" src="~/Imagens/fundo.dnit_v5.png" />
         </div>
-        <button class="btn btn-entrar" style="width:195px">Entrar</button>
+
+        <div class="clearfix"></div>
     </div>
-
-    }
-
-    @*<div class="clearfix"></div>*@
+   
 </div>

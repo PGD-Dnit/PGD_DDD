@@ -37,7 +37,7 @@ namespace PGD.UI.Mvc
                     "~/Scripts/html2canvas.js",
                     "~/Scripts/jquery.validate.globalize.js",
                     "~/Scripts/selectize.js",
-                    "~/Scripts/select2/select2.min.js",
+                    //"~/Scripts/select2/select2.min.js",
                     "~/Scripts/jquery.unobtrusive-ajax.min.js",
                     "~/Scripts/jquery-ui.js",
                     "~/Scripts/jquery.maskedinput.js",
@@ -82,7 +82,7 @@ namespace PGD.UI.Mvc
                       "~/Content/css/Site.css",
                       "~/Content/css/datatables.min.css",
                       "~/Content/css/datepicker2.css",
-                      "~/Content/select2/select2.min.css",
+                    //"~/Content/select2/select2.min.css",
                       "~/Content/fontawesome5.14.0/css/all.min.css",
                       "~/Content/css/selectize.bootstrap3.css"
                       ));

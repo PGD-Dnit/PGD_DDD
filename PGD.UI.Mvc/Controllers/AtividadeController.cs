@@ -91,6 +91,7 @@ namespace PGD.UI.Mvc.Controllers
                     setModelErrorList(atividadeViewModel.ValidationResult.Erros);
             }
             return View(atividadeViewModel);
+            //return View(Create);
         }
 
         public PartialViewResult AddTipoAtividade(int pCount)

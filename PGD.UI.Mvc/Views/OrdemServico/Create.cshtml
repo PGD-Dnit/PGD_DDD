@@ -1,6 +1,9 @@
 ﻿@model PGD.Application.ViewModels.OrdemServicoViewModel
-<h1 class="col-md-12">Cadastro de Nova Tabela de Atividade</h1>
-<div class="col-md-8">
+
+<h1 class="text-white">Cadastro de Nova Tabela de Atividade</h1>
+
+<div class="well">
+
     @using (Html.BeginForm("Create", "OrdemServico", FormMethod.Post, htmlAttributes: new { @class = "form-horizontal", @id = "frmOrdemServico" }))
     {
         @Html.AntiForgeryToken()
@@ -67,6 +70,7 @@
             </div>
         </div>
     }
+<div class="clearfix"></div>
 </div>
 @section scripts{
     <script src="~/Scripts/datatables.min.js"></script>

@@ -12,6 +12,23 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left;
+    margin-bottom: -20px;
+}
+
+.leftUnid {
+    width: 50%;
+    background: url('../../Imagens/fundo_dnit_unid.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-bottom: -20px;
+}
+
+.leftPerfil {
+    width: 65%;
+    background: url('../../Imagens/fundo.dnit_v3.png.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
 }
 
 .right {
@@ -174,10 +191,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 100%;
+    width: 500px;
     height: auto;
     align-items: center;
-    padding-left: 30%;
+    padding-left: 0;
+    margin-left: -15px;
 }
 
 
@@ -285,17 +303,39 @@
 
 @media(max-width:1921px) {
     .selecione_perfil_main {
-        padding-left: 12%;
+        //padding-left: 12%;
+        padding-left: 0;
     }
 
     .imagem_footer_perfil {
         width: 500px;
         max-width: 100%;
-        left: 55%;
+        left: 58%;
         bottom: 25px;
         /* width: 250px;
         max-width: 100%;
         left: 62%;
         bottom: 20px;*/
     }
+}
+.imagem_footer_perfil {
+    position: fixed;
+    bottom: 25px;
+    left: 55%;
+    width: 500px;
+    max-width: 100%;
+}
+@media (max-width: 1921px) {
+    .image-footer-select-unid {
+        position: fixed;
+        bottom: 0;
+        left: 49%;
+        width: 500px;
+        max-width: 100%;
+        bottom: 25px;
+    }
+}
+.title-select-unid {
+    font-size: 20px;
+    margin-bottom: 15px;
 }

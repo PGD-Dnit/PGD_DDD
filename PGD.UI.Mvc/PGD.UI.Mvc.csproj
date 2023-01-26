@@ -2397,7 +2397,10 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Imagens\erro.png" />
+    <Content Include="Imagens\error.png" />
     <Content Include="Imagens\fundo.dnit_v3.png" />
+    <Content Include="Imagens\fundo_dnit_unid.png" />
     <Content Include="Imagens\Grupo 411.png" />
     <Content Include="Imagens\fundo.dnit_v2.png" />
     <Content Include="Imagens\fundo.dnit_v3_b.png" />
@@ -2407,6 +2410,8 @@
     <Content Include="Imagens\fundo.dnit_v6.png" />
     <Content Include="Imagens\Grupo 411_b.png" />
     <Content Include="Imagens\Grupo 520.svg" />
+    <Content Include="Imagens\logoDnitSo.png" />
+    <Content Include="Imagens\logopgp_dnit.png" />
     <Content Include="Imagens\logo_temp.png" />
     <Content Include="Imagens\logo_temp_b.PNG" />
     <Content Include="Imagens\pg_cade_1.png" />

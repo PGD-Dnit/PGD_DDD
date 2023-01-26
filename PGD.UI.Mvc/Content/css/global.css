@@ -718,7 +718,64 @@ submitLink:focus {
 .btn-acao {
     width:100px;
 }
+.btn-bold {
+    font-weight:bold;
+}
+.leftErro {
+    width: 90%;
+    background: url('../../Imagens/error.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    margin-top: 70px;    
+    height: 650px;
+    
+}
+.rightErro {
+    width: 60%;
+    background: url('../../Imagens/logopgp_dnit.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    margin-top: 100px;
+    height: 150px;
+    margin-left: 210px;
+    
+}
+.topoerro {    
+    height: 100px;    
+}
+.imgTopoErro {
+    height: 70px;
+    background: url('../../Imagens/logoDnitSo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+    margin: 20px 0px 0px 20px;
+}
+.textoErro {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+}
+.btn-erro {
+    width: 100%;
+    background: rgb(3,70,181);
+    background: linear-gradient(0deg, rgba(3,70,181,1) 0%, rgba(5,48,119,1) 10%, rgba(5,48,119,1) 90%, rgba(3,70,181,1) 100%);
+    border-radius: 25px;
+    box-shadow: 0 3px 6px #E7E7E7;
+    color: white;
+    font-weight: normal;
+    font-size:25px;
+   
+}
+    .btn-erro:hover {
+        color: white;
+        font-weight: bolder;
+    }
 
+.btn-erro-position {
+    margin-left:150px;
+}
 
 
 

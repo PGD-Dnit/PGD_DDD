@@ -247,14 +247,14 @@
                     @Html.TextBoxFor(m => m.DataPrevistaTermino, "dd/MM/yyyy", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
                 </div>
 
-                <div class="form-group col-md-12 text-left" id="divCargaHorariaTotal">
+                <div class="form-group col-md-6 text-left" id="divCargaHorariaTotal">
                     <label for="exampleInputName2">Carga Horária Total: </label>
                     @*@Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" }, { "onchange", "$('#HorasTotais').val(this.value)" } })*@
                     @Html.TextBox("lblCargaTotal", "", new Dictionary<string, object>() { { "class", "textboxAsLabel" }, { "readonly", "readonly" } })
 
                 </div>
 
-                <div class="form-group col-md-12 text-left">
+                <div class="form-group col-md-6 text-left">
                     @using (Ajax.BeginForm("ExibirCronograma", "Cronograma", null, new AjaxOptions()
                     {
                         HttpMethod = "Post",
@@ -277,7 +277,7 @@
                         @Html.Hidden("idOrigemAcao", (int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto, new { })
 
 
-                        <button type="submit" class="btn" style="background: #fff; color: #06901f; font-weight: bold; box-shadow: 3px 3px 16px #ccc;"> Editar Cronograma do PGD </button>
+                        <button type="submit" class="btn btn-warning pull-right text-white btn-bold" style="box-shadow: 3px 3px 16px #ccc;"> Editar Cronograma do PGD </button>
 
                     }
 
