@@ -1030,7 +1030,9 @@ namespace PGD.Domain.Services
             //var dataPrazoRetroativo = dataAtual.AddDays(-90);
             var dataPrazoRetroativoChefe = dataAtual.AddDays((double)PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasRetroativosPactosChefe);
             var dataPrazoRetroativoSolicitante = dataAtual.AddDays((double)PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasRetroativosPactosSolicitante);
-            
+            var dataPrazoPosteriorChefe = dataAtual.AddDays((double)PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasPosteriorPactosChefe);
+            var dataPrazoPosteriorSolicitante = dataAtual.AddDays((double)PGD.Domain.Enums.eParametrosSistema.QuantidadeDiasPosteriorPactosSolicitante);
+
             if (user == Domain.Enums.Perfil.Solicitante && DataPrevistaInicio < dataPrazoRetroativoSolicitante)
             {
                 //return new ValidationResult($"A data de {DataPrevistaInicio.ToString()} deve ser maior ou igual à {dataAtual.ToShortDateString()} .");
@@ -1041,6 +1043,21 @@ namespace PGD.Domain.Services
             {
                 //return new ValidationResult("true");
                 return new ValidationResult("A Data Prevista de Início deve ter no máximo 90 dias retrotivos.");
+            }
+
+            ////////////////
+            ///
+
+            if (user == Domain.Enums.Perfil.Solicitante && DataPrevistaInicio > dataPrazoPosteriorSolicitante)
+            {
+                //return new ValidationResult($"A data de {DataPrevistaInicio.ToString()} deve ser maior ou igual à {dataAtual.ToShortDateString()} .");
+                //return new ValidationResult("true");
+                return new ValidationResult("Não foi possível salvar/assinar o plano. Verifique a data de início, a data está muita a frente da data atual.");
+            }
+            if (user == Domain.Enums.Perfil.Dirigente && DataPrevistaInicio > dataPrazoPosteriorChefe)
+            {
+                //return new ValidationResult("true");
+                return new ValidationResult("A Data Prevista de Início deve ter no máximo 180 dias a frente da data atual.");
             }
             return null;
         }

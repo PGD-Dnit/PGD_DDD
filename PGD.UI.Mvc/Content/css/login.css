@@ -264,11 +264,10 @@
     font-weight: bolder;
 }
 
-
 .imagem_footer_perfil {
     position: fixed;
-    bottom: 0;
-    left: 46%;
+    bottom: 25px;
+    left: 70%;
     width: 500px;
     max-width: 100%;
 }
@@ -282,25 +281,6 @@
     z-index: 1000;
 }
 
-@media(max-width: 1367px) {
-    .imagem_footer_perfil {
-        width: 500px !important;
-        max-width: 100%;
-        margin-left: -4.5%;
-        bottom: 25px;
-        /*width: 250px !important;
-        max-width: 100%;
-        margin-left: -3%;*/
-    }
-    .imagem_footer {
-        left: 49.5%;
-        width: 500px;
-        /*left: 59%;
-        width: 250px;
-        bottom: 0;*/
-    }
-}
-
 @media(max-width:1921px) {
     .selecione_perfil_main {
         //padding-left: 12%;
@@ -310,7 +290,7 @@
     .imagem_footer_perfil {
         width: 500px;
         max-width: 100%;
-        left: 58%;
+        left: 71%;
         bottom: 25px;
         /* width: 250px;
         max-width: 100%;
@@ -318,18 +298,12 @@
         bottom: 20px;*/
     }
 }
-.imagem_footer_perfil {
-    position: fixed;
-    bottom: 25px;
-    left: 55%;
-    width: 500px;
-    max-width: 100%;
-}
+
 @media (max-width: 1921px) {
     .image-footer-select-unid {
         position: fixed;
         bottom: 0;
-        left: 49%;
+        left: 71%;
         width: 500px;
         max-width: 100%;
         bottom: 25px;
@@ -339,3 +313,37 @@
     font-size: 20px;
     margin-bottom: 15px;
 }
+@media(max-width: 1440px) {
+
+    .imagem_footer {
+        position: relative;
+        /*width: 500px;*/
+        left: 100%;
+        top: 40px;
+    }
+    .perfil_body {
+        width: 100%;
+        font-size: 16px;
+    }
+    .imagem_footer_perfil {
+        width: 308px !important;
+        max-width: 100%;       
+        bottom: 25px;
+       left:73%;
+    }
+    .image-footer-select-unid {
+        width: 308px !important;
+        max-width: 100%;
+        bottom: 25px;
+        left: 73%;
+    }
+    .leftPerfil {
+        width: 52%;
+    }
+}
+/*@media(max-width: 1000px) {
+    .imagem_footer {
+        position: fixed;        
+    }
+}*/
+

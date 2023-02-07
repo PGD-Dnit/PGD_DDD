@@ -777,5 +777,24 @@ submitLink:focus {
     margin-left:150px;
 }
 
+@media(max-width: 1440px) {
+    .titulo-note {
+        font-size:20px;
+    }
+    #header {
+        height: 200px;
+    }
+    .menu-novo {
+        font-size: 13px;
+    }
+    .dados-user {
+        font-size: 13px;
+    }
+    .btn-acao {
+        width: 150px;
+    }
+}
+
+
 
 

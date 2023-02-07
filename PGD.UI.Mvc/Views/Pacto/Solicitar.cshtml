@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<h1 class="text-white"> Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
+<h1 class="text-white titulo-note"> Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
 <div class="clearfix"></div>
 
 <div class="panel-group" role="tablist">
@@ -405,14 +405,18 @@
                 dataInicio = new Date(partesData[2], partesData[1] - 1, partesData[0]);
                 console.log('DATA INICIO PRONTA:', dataInicio.getTime());
 
-                //DATA RETROATIVA DE UMA SEMANA
+                //DATA RETROATIVA DE UM MÊS
                 var dataRetro = new Date();
                 dataRetro.setDate(dataRetro.getDate() - 31);
-                console.log('DATA RETRO:', dataRetro.getTime());
+                console.log('DATA RETRO:', dataRetro.getTime()); 
+                
+                //DATA DE INICIO POSTERIOR DE 6 MESES A DATA ATUAL
+                var dataPosterior = new Date();
+                dataPosterior.setDate(dataPosterior.getDate() + 180);
+                console.log('DATA POSTERIOR:', dataPosterior.getTime());
 
-
-                if (dataRetro.getTime() > dataInicio.getTime()) {
-
+                if (dataRetro.getTime() > dataInicio.getTime() || dataPosterior.getTime() < dataInicio.getTime()) {
+                    
                     var x = event.cancelable;
                     document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano retroativo</div>';
                     $(document).scrollTop(500)
@@ -421,22 +425,13 @@
                 else {
                     document.querySelector("#advertencia").innerHTML = "";
                 }
+                
+                
 
             }
 
-            function validaDataInicioChefia(event) {
+            function validaDataInicioChefia(event) {               
 
-               // const form = document.querySelector('#form-add-produto');
-                @*const d = new Date();
-                var dataInicio = 0;
-
-                var datateste = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
-                var dataPrazo = (d.getMonth() - 2) + '/' + d.getDate() + '/' + d.getFullYear();
-                dataPrazo = new Date(dataPrazo);
-
-                dataInicio = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
-                var partesData = dataInicio.split("/");
-                dataInicio = new Date(partesData[2], partesData[1] - 1, partesData[0]);*@
                 var dataInicio = 0;
                 //DATA VINDA DO FORMULÁRIO
                 dataInicio = $("#@Html.IdFor(m => m.DataPrevistaInicio)").val();
@@ -445,13 +440,17 @@
                 dataInicio = new Date(partesData[2], partesData[1] - 1, partesData[0]);
                 console.log('DATA INICIO PRONTA:', dataInicio.getTime());
 
-                //DATA RETROATIVA DE UMA SEMANA
+                //DATA RETROATIVA DE UM ANO
                 var dataRetro = new Date();
                 dataRetro.setDate(dataRetro.getDate() - 365);
                 console.log('DATA RETRO:', dataRetro.getTime());
 
-                //if (dataPrazo.getTime() > dataInicio.getTime()) {
-                if (dataRetro.getTime() > dataInicio.getTime()) {
+                //DATA DE INICIO POSTERIOR DE 6 MESES A DATA ATUAL
+                var dataPosterior = new Date();
+                dataPosterior.setDate(dataPosterior.getDate() + 180);
+                console.log('DATA POSTERIOR:', dataPosterior.getTime());
+
+                if (dataRetro.getTime() > dataInicio.getTime() || dataPosterior.getTime() < dataInicio.getTime()) {
 
                     var x = event.cancelable;
                     document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano retroativo</div>';
@@ -461,6 +460,7 @@
                 else {
                     document.querySelector("#advertencia").innerHTML = "";
                 }
+                                
 
             }
 

@@ -155,6 +155,8 @@ namespace PGD.Domain.Enums
         //csa numero de dias retroativos
         QuantidadeDiasRetroativosPactosChefe = -365,
         QuantidadeDiasRetroativosPactosSolicitante = -30,
+        QuantidadeDiasPosteriorPactosChefe = 180 ,
+        QuantidadeDiasPosteriorPactosSolicitante = 180,
         PodeEditarDiaCronogramaChefe = 365,
         PodeEditarDiaCronogramaSolicitante = 30
 

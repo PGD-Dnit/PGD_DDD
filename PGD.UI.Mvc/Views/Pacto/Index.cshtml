@@ -18,7 +18,7 @@
     }
 }
 
-<h1 class="text-white">Consultar Plano de Trabalho</h1>
+<h1 class="text-white titulo-note">Consultar Plano de Trabalho</h1>
 
 <div class="clearfix"></div>
 @Html.Partial("_SearchPartial", Model.Searchpacto)
@@ -188,7 +188,7 @@
     </div>
 
 </div>
-@section Scripts{    
+@section Scripts{  
 
         <script src="~/Scripts/datatables.min.js"></script>
         <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
@@ -197,7 +197,7 @@
 
         function confirmarDelete(event) {
             var confirmacao = confirm('@PGD.Domain.Constantes.Mensagens.MD_002');
-            if (!confirmacao) {                
+            if (!confirmacao) {
                 var x = event.cancelable;
                 event.preventDefault();
             }

@@ -58,7 +58,8 @@ namespace PGD.UI.Mvc.Controllers
 
                 obj.PctMinimoReducao = obj.PctMinimoReducao;
             }
-            ViewBag.ListaUsuarios = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(_usuarioAppService.ObterTodos(obj.Usuario.Unidade).Select(a => a.Nome).ToList());
+            //csa comentei a linha abaixo pq está dando erro e não abria a view
+            //ViewBag.ListaUsuarios = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(_usuarioAppService.ObterTodos(obj.Usuario.Unidade).Select(a => a.Nome).ToList());
 
             return View(obj);
         }
