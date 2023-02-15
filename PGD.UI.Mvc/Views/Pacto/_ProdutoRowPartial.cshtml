@@ -125,7 +125,7 @@
                 }))
                 {
 
-                    <button id="editProd" type="submit" class="btn btn-xs btn-primary addPdt" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")><span class="glyphicon glyphicon-pencil text-white" aria-hidden="true"></span></button>
+                    <button id="editProd" type="submit" title="Editar" class="btn btn-xs btn-default addPdt" @(!Model.PodeEditar && !Model.PodeEditarAndamento ? "disabled" : "")><span class="glyphicon glyphicon-edit text-darkgray" aria-hidden="true"></span></button>
                 }
             </div>
 
@@ -137,7 +137,7 @@
                         OnSuccess = "excluirProdutoSucesso(data)"
                     }))
                 {
-                    <button type="submit" class="btn btn-xs btn-danger remPdt" @((!Model.PodeEditar && !Model.PodeEditarAndamento) ? "disabled" : "")><span class="glyphicon glyphicon-remove text-white" aria-hidden="true"></span></button>
+                    <button type="submit" title="Deletar" class="btn btn-xs btn-default remPdt" @((!Model.PodeEditar && !Model.PodeEditarAndamento) ? "disabled" : "")><span class="glyphicon glyphicon-trash text-red" aria-hidden="true"></span></button>
                 }
             </div>
 

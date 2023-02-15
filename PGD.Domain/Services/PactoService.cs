@@ -1042,7 +1042,7 @@ namespace PGD.Domain.Services
             if (user == Domain.Enums.Perfil.Dirigente && DataPrevistaInicio < dataPrazoRetroativoChefe)
             {
                 //return new ValidationResult("true");
-                return new ValidationResult("A Data Prevista de Início deve ter no máximo 90 dias retrotivos.");
+                return new ValidationResult("A Data Prevista de Início deve ter no máximo 90 dias retroativos.");
             }
 
             ////////////////
@@ -1051,13 +1051,13 @@ namespace PGD.Domain.Services
             if (user == Domain.Enums.Perfil.Solicitante && DataPrevistaInicio > dataPrazoPosteriorSolicitante)
             {
                 //return new ValidationResult($"A data de {DataPrevistaInicio.ToString()} deve ser maior ou igual à {dataAtual.ToShortDateString()} .");
-                //return new ValidationResult("true");
-                return new ValidationResult("Não foi possível salvar/assinar o plano. Verifique a data de início, a data está muita a frente da data atual.");
+                //return new ValidationResult("true");                
+                return new ValidationResult("Não foi possível salvar/assinar o plano. Verifique a data de início.");
             }
             if (user == Domain.Enums.Perfil.Dirigente && DataPrevistaInicio > dataPrazoPosteriorChefe)
             {
                 //return new ValidationResult("true");
-                return new ValidationResult("A Data Prevista de Início deve ter no máximo 180 dias a frente da data atual.");
+                return new ValidationResult("A Data Prevista de Início deve ter no máximo 180 dias à frente da data atual.");
             }
             return null;
         }

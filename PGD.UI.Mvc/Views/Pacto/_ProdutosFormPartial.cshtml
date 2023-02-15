@@ -73,7 +73,7 @@
 
         <div class="row ">
             <div class="col-md-6">
-                <label class="text-vertical-line">Nível de Complexidade Esforço:</label>
+                <label class="text-vertical-line">Nível de Complexidade/Esforço:</label>
                 @(Html.DropDownListCGUFor(m => m.IdTipoAtividade, new SelectList(string.Empty, "Value", "Text"), new Dictionary<string, object> { { "class", "form-control" } })
         .OnChangeAtualizaExecutaCallback("Pacto", "GetFaixaValor",
             new Dictionary<string, string>()

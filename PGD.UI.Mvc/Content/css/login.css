@@ -101,9 +101,9 @@
 
 .imagem_footer {
     position: fixed;
-    bottom: 25px;
-    width: 500px;
-    max-width: 100%;
+    bottom: 5px;
+    width: 700px;
+   
     right: 3%;
     /*left: 49.5%;
     /*position: fixed;
@@ -266,9 +266,9 @@
 
 .imagem_footer_perfil {
     position: fixed;
-    bottom: 25px;
-    left: 70%;
-    width: 500px;
+    bottom: 5px;
+    left: 60%;
+    width: 700px;
     max-width: 100%;
 }
 
@@ -288,10 +288,10 @@
     }
 
     .imagem_footer_perfil {
-        width: 500px;
+        width: 700px;
         max-width: 100%;
-        left: 71%;
-        bottom: 25px;
+        left: 60.5%;
+        bottom: 5px;
         /* width: 250px;
         max-width: 100%;
         left: 62%;
@@ -301,12 +301,11 @@
 
 @media (max-width: 1921px) {
     .image-footer-select-unid {
-        position: fixed;
-        bottom: 0;
-        left: 71%;
-        width: 500px;
+        position: fixed;       
+        left: 60.5%;
+        width: 700px;
         max-width: 100%;
-        bottom: 25px;
+        bottom: 5px;
     }
 }
 .title-select-unid {
@@ -317,9 +316,9 @@
 
     .imagem_footer {
         position: relative;
-        /*width: 500px;*/
-        left: 100%;
-        top: 40px;
+        width: 308px;
+        left: 109%;
+        bottom: -60px;
     }
     .perfil_body {
         width: 100%;

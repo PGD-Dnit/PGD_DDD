@@ -21,7 +21,7 @@ else if (ViewData["Message"] != null && ViewData["Message"].ToString() != "")
 else if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
 {
     <div id="page-content-wrapper" class="body-content">
-        <div id="divAlerta" class="row alert alert-danger fade in">
+        <div id="divAlerta" class="row alert alert-danger fade in"><!--bbbb-->
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                 &times;
             </button>
@@ -42,7 +42,7 @@ else if (!ViewData.ModelState.IsValid && ViewData.ModelState["eSistuacao"] == nu
     @if (messageViewModel != null)
     {
         <div id="page-content-wrapper" class="body-content">
-            <div id="divAlerta" class="row alert alert-@messageViewModel.Tipo.ToString() fade in">
+            <div id="divAlerta" class="row alert alert-@messageViewModel.Tipo.ToString() fade in"><!--cccc-->
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>

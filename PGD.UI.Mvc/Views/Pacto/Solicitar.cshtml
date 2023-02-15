@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<h1 class="text-white titulo-note"> Propor Plano de Trabalho (@Model.TipoPacto.DescTipoPacto)</h1>
+<h1 class="text-white titulo-note"> Criar Plano de Trabalho</h1>
 <div class="clearfix"></div>
 
 <div class="panel-group" role="tablist">
@@ -95,7 +95,7 @@
         <div class="panel panel-default" id="dvDescricao">
             <div class="panel-heading bg-lightgray" role="tab" id="pacto_identificacao">
                 <h4 class="panel-title text-gray">
-                    2. DESCRIÇÃO PLANEJAMENTO
+                    2. DESCRIÇÃO
                 </h4>
             </div>
             <div role="tabpanel" id="conteudoIdentificacao">
@@ -207,7 +207,7 @@
                 </h4>
                 -->
                 <h4 class="panel-title text-gray">
-                    3. CADASTRAMENTO ATUALIZAÇÃO  DAS ATIVIDADES DO PLANO DE TRABALHO
+                    3. ATIVIDADES DO PLANO DE TRABALHO
                 </h4>
             </div>
             <div class="panel panel-body">
@@ -291,7 +291,7 @@
                 {
                     <div class="form-group col-md-2 text-left btn-group pull-right" role="group" aria-label="...">
                         <input type="button"
-                               class="btn btn-primary btn-block"
+                               class="btn btn-primary btn-block pull-right text-white btn-bold" style="box-shadow: 3px 3px 16px #ccc; width: 230px;"
                                value="Ver Avaliações"
                                onclick="location.href='@Url.Action("AvaliarProduto", "Pacto", new { idPacto = Model.IdPacto, idOrigemAcao=(int)PGD.Domain.Enums.eOrigem.SolicitacaoPacto})'" />
                     </div>
@@ -418,7 +418,7 @@
                 if (dataRetro.getTime() > dataInicio.getTime() || dataPosterior.getTime() < dataInicio.getTime()) {
                     
                     var x = event.cancelable;
-                    document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano retroativo</div>';
+                    document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano</div>';
                     $(document).scrollTop(500)
                     event.preventDefault();
                 }
@@ -453,7 +453,7 @@
                 if (dataRetro.getTime() > dataInicio.getTime() || dataPosterior.getTime() < dataInicio.getTime()) {
 
                     var x = event.cancelable;
-                    document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano retroativo</div>';
+                    document.querySelector("#advertencia").innerHTML = '<div class="alert alert-danger" role="alert">Você excedeu o limite de dias para inserir um plano</div>';
                     $(document).scrollTop(500)
                     event.preventDefault();
                 }
