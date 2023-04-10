@@ -11,6 +11,8 @@ using PGD.Domain.Constantes;
 using PGD.Domain.Validations.Pactos;
 using PGD.Domain.Entities.Usuario;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
+using System.Data.SqlTypes;
 
 namespace PGD.Domain.Services
 {
@@ -1044,15 +1046,14 @@ namespace PGD.Domain.Services
                 //return new ValidationResult("true");
                 return new ValidationResult("A Data Prevista de Início deve ter no máximo 90 dias retroativos.");
             }
-
-            ////////////////
-            ///
+                       
 
             if (user == Domain.Enums.Perfil.Solicitante && DataPrevistaInicio > dataPrazoPosteriorSolicitante)
-            {
+            { 
                 //return new ValidationResult($"A data de {DataPrevistaInicio.ToString()} deve ser maior ou igual à {dataAtual.ToShortDateString()} .");
                 //return new ValidationResult("true");                
-                return new ValidationResult("Não foi possível salvar/assinar o plano. Verifique a data de início.");
+                return new ValidationResult("Não foi possível salvar/assinar o plano. Verifique a data de início.");  
+                
             }
             if (user == Domain.Enums.Perfil.Dirigente && DataPrevistaInicio > dataPrazoPosteriorChefe)
             {

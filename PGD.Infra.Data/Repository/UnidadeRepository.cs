@@ -8,11 +8,17 @@ using PGD.Infra.Data.Util;
 using System.Linq;
 using PGD.Domain.Entities;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System;
+using System.Configuration;
+
 
 namespace PGD.Infra.Data.Repository
 {
     public class UnidadeRepository : Repository<Unidade>, IUnidadeRepository
     {
+
         public UnidadeRepository(PGDDbContext context)
             : base(context)
         {
@@ -95,14 +101,13 @@ namespace PGD.Infra.Data.Repository
         public IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai)
         {
             var a = from u in Db.Set<Unidade>()
-                    where u.IdUnidadeSuperior == idUnidadePai
+                    where u.IdUnidadeSuperior == idUnidadePai                    
                     //csa acrescentei a propria unidade
-                    || u.IdUnidade == idUnidadePai
+                    || u.IdUnidade == idUnidadePai                                       
                     select u;
 
             var unidadesSubordinadas = RetornaUnidadesSubordinadas(a);
-            return unidadesSubordinadas;
-
+            return unidadesSubordinadas;              
         }
 
         private IQueryable<Unidade> RetornaUnidadesSubordinadas(IQueryable<Unidade> lista, bool forcarParada = false)
@@ -113,7 +118,7 @@ namespace PGD.Infra.Data.Repository
             var lista2 = lista;
 
             var lista3 = Db.Set<Unidade>()
-                .Where(x => lista2.All(y => y.IdUnidade != x.IdUnidade) && lista2.Any(y => y.IdUnidade == x.IdUnidadeSuperior));
+                 .Where(x => lista2.All(y => y.IdUnidade != x.IdUnidade) && lista2.Any(y => y.IdUnidade == x.IdUnidadeSuperior));
 
             forcarParada = !lista3.Any();
 
@@ -128,10 +133,53 @@ namespace PGD.Infra.Data.Repository
                            join upu in Db.Set<UsuarioPerfilUnidade>()
                            on u.IdUnidade equals upu.IdUnidade
                            where upu.IdUsuario == idUsuario && upu.IdPerfil == idPerfil && upu.Excluido == false
+                           //ver onde e usada p analisar se e necessaria a alteração abaixo
+                           //where u.Excluido == false && upu.IdUsuario == idUsuario && upu.IdPerfil == idPerfil && upu.Excluido == false
                            select u;
 
             return unidades;
 
+        }
+
+        //csa função criada p selecionar as unidades subordinadas Inativo = 0 
+        public IEnumerable<Unidade> ObterUnidadesSubordinadasProcedure(int idUnidadePai)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["PGDConnectionString"].ConnectionString;           
+                      
+            SqlConnection conexao = new SqlConnection(connectionString);
+            conexao.Open();
+            List<Unidade> resultList = new List<Unidade>();
+            var procedureName = "GetUnidSubordinadas";
+
+
+            using (SqlCommand command = new SqlCommand(procedureName, conexao))
+            {
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@IdUnidadeSuperior", idUnidadePai);                
+
+                // Executa o comando e obtém o resultado
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int idUnidade = reader.GetInt32(0);
+                        string nomeUnidade = reader.GetString(1);
+                        //string siglaUnidade = reader.GetString(2);
+                        
+                        Unidade unidade = new Unidade
+                        {
+                            IdUnidade = idUnidade,
+                            Nome = nomeUnidade,
+                            //Sigla = siglaUnidade
+                        };
+
+                        resultList.Add(unidade);
+                    }
+                }
+            }
+            conexao.Close();
+            return resultList;
+            
         }
     }
 }

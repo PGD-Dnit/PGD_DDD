@@ -12,5 +12,7 @@ namespace PGD.Domain.Interfaces.Repository
         IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai);
         //csa
         IEnumerable<Unidade> ObterUnidadesParticipante(int idUsuario, int idPerfil);
+        //csa
+        IEnumerable<Unidade> ObterUnidadesSubordinadasProcedure(int idUnidadePai);
     }
 }

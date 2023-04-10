@@ -66,6 +66,8 @@ namespace PGD.Application
                     IdPacto = r.IdPacto,
                     IdSituacaoPacto = r.IdSituacaoPacto,
                     IdTipoPacto = r.IdTipoPacto,
+                //csa
+                    IdOrdemServico = r.IdOrdemServico,
                     DataPrevistaInicio = r.DataPrevistaInicio,
                     DataPrevistaTermino = r.DataPrevistaTermino,
                     DataInterrupcao = r.DataInterrupcao,

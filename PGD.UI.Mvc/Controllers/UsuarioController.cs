@@ -29,6 +29,7 @@ namespace PGD.UI.Mvc.Controllers
             var filtro = new UsuarioFiltroViewModel
             {
                 Nome = model.NomeUsuario, Matricula = model.MatriculaUsuario, IdUnidade = model.IdUnidade, IncludeUnidadesPerfis = true,
+                Inativo = 0,
                 Take = model.Take, Skip = model.Skip
             };
             var usuarios = _usuarioAppService.Buscar(filtro);
