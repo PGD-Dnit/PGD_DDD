@@ -39,10 +39,22 @@ else if (!ViewData.ModelState.IsValid && ViewData.ModelState["eSistuacao"] == nu
     </div>
 }
 <div>
-    @if (messageViewModel != null)
+    @if (messageViewModel != null && TempData["ValidarDataPrevistaInicio"] != null)
+    {
+        messageViewModel.Tipo = (TipoMessage)TempData["ValidarDataPrevistaInicio"];
+        <div id="page-content-wrapper" class="body-content">
+            <div id="divAlerta" class="row alert alert-@messageViewModel.Tipo.ToString() fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                    &times;
+                </button>
+                @messageViewModel.Mensagem
+            </div>
+        </div>
+    }
+    else if (messageViewModel != null)
     {
         <div id="page-content-wrapper" class="body-content">
-            <div id="divAlerta" class="row alert alert-@messageViewModel.Tipo.ToString() fade in"><!--cccc-->
+            <div id="divAlerta" class="row alert alert-@messageViewModel.Tipo.ToString() fade in">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                     &times;
                 </button>

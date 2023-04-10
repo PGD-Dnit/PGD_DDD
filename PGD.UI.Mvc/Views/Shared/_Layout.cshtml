@@ -395,9 +395,9 @@
                 window.onload = function () {
 
                     var urlAtual = window.location.href;
-                    var urlConsultar = window.location.protocol + "//" + window.location.host + "/" + "Pacto";
-                    var urlPropor = window.location.protocol + "//" + window.location.host + "/" + "Pacto";
-                    if (urlAtual == urlConsultar) {
+                    var urlConsultar = window.location.protocol + "//" + window.location.host + "/pgd/" + "Pacto";
+                    var urlConsultarHomologacao = window.location.protocol + "//" + window.location.host + "/" + "Pacto";
+                    if (urlAtual == urlConsultar || urlAtual == urlConsultarHomologacao) {
                         var adicionar = document.getElementById("menuConsultarPactos");
                         adicionar.classList.add("menu-sublinhado");
                     } else {                       

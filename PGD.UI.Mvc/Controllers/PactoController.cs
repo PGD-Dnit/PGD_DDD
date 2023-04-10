@@ -221,12 +221,35 @@ namespace PGD.UI.Mvc.Controllers
                 //VER AQUI COMO FAZER UM SELECT P PEGAR A COORDENAÇÃO E E SUAS SUBORDINADAS VER SELECT EM PACTOREPOSITORY LINHA 99
                 //unidades = _unidadeService.ObterUnidades().Where(x => x.IdUnidade == IdUnidade).ToList();         
                 //csa
-                var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadas(IdUnidadeSuperior).ToList();                
-                unidades = unidadesSubordinadas;
+                var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadasProcedure(IdUnidadeSuperior).ToList();                
+                //unidades = (List<Unidade>)unidadesSubordinadas;
+
+               // List<string> listaDeStrings = ObterListaDeStrings();
+                List<Unidade> listaDeUnidades = new List<Unidade>();
+
+                foreach (var unid in unidadesSubordinadas)
+                {
+                    Unidade unidade = new Unidade
+                    {
+                        IdUnidade = unid.IdUnidade, // Atribua o valor da string à propriedade correspondente da classe Unidade
+                        Nome = unid.Nome,
+                        //Sigla = unid.Sigla
+                };
+
+                    listaDeUnidades.Add(unidade); // Adicione o objeto Unidade à lista de Unidades
+                }
+                unidades = listaDeUnidades;
+
+
+
             }
             else
             {
                 unidades = _unidadeService.ObterUnidades().ToList();
+                unidades = _unidadeService.Buscar(new UnidadeFiltro
+                {
+                   // IdUsuario = user.IdUsuario
+                }).Lista ?? new List<Unidade>();
 
             }
 
@@ -259,22 +282,25 @@ namespace PGD.UI.Mvc.Controllers
             if (user.IsSolicitante)
             {
                 PactoCompleto.Searchpacto.NomeServidor = user.Nome;
-                //csa aqui tenho que melhorar a consulta p obter pactos por cpf e não obter todos e usar o where p filtar depois 
+                //csa 
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(50).ToList();
+                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
 
                 //PAREI AQUI                
                 //var pac = new PactoViewModel();
-                //foreach (var pacto in retorno)
-                //{
-                   
-                //    if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar && pacto.DataPrevistaInicio <= DateTime.Now)
-                //    {
+                foreach (var pacto in retorno)
+                {
+
+                    if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar && pacto.DataPrevistaInicio <= DateTime.Now)
+                    {
                 //        pac = _Pactoservice.AtualizarPactosAiniciar(pacto);
-                //    }                  
-                    
-                //}
-                
+                        var pactoRetorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Iniciando);
+                        retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                        .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
+                    }                  
+
+                }
+
             }
             else if (user.IsDirigente)
             {
@@ -328,6 +354,11 @@ namespace PGD.UI.Mvc.Controllers
                 pacto = pactoRetorno;
                 if (pactoRetorno.ValidationResult.IsValid)
                     return setMessageAndRedirect("Plano de Trabalho excluído com sucesso!", "Index");
+                //if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, oper))
+                //{
+                //    var mensagem = "Plano de trabalho suspenso com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                //    setMessage(mensagem);
+                //}
             }
 
             return setMessageAndRedirect(pacto.ValidationResult.Erros, "Index");
@@ -833,28 +864,30 @@ namespace PGD.UI.Mvc.Controllers
 
             var user = getUserLogado();
             //csa validação data prevista de inicio, não permitir ao solicitante criar planos com datas retorativas 
-            //if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null && pactoViewModel.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura) {
-            
-
+            //if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null && pactoViewModel.IdSituacaoPacto == (int)eSituacaoPacto.PendenteDeAssinatura) {                       
             if (user.IsSolicitante && pactoViewModel.CpfUsuarioDirigente == null) {
-
-                var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio, Domain.Enums.Perfil.Solicitante);
+                
+                var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio, Domain.Enums.Perfil.Solicitante); 
+                
                 if (resultadoValidarDataPrevistaInicio != null)
                 {                    
+                    TempData["ValidarDataPrevistaInicio"] = TipoMessage.danger;                    
+
                     return setMessageAndRedirect($"{resultadoValidarDataPrevistaInicio}",
-                  "Solicitar",
-                   new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
-                   });
+                        "Solicitar",
+                        new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
+                        });  
+                    
                 }
-            }
-            //csa PAREI AQUI
+            }            
             if (user.IsDirigente) {
 
                 var resultadoValidarDataPrevistaInicio = _Pactoservice.ValidarDataPrevistaInicio(pactoViewModel.DataPrevistaInicio, Domain.Enums.Perfil.Dirigente);
 
-
                 if (resultadoValidarDataPrevistaInicio != null)
                 {
+                    TempData["teste"] = TipoMessage.danger;
+
                     return setMessageAndRedirect($"{resultadoValidarDataPrevistaInicio}",
                   "Solicitar",
                    new RouteValueDictionary { { "id", pactoViewModel.IdPacto }, { "idTipoPacto", pactoViewModel.IdTipoPacto.ToString()}
