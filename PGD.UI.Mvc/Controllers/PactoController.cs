@@ -296,7 +296,8 @@ namespace PGD.UI.Mvc.Controllers
                 //        pac = _Pactoservice.AtualizarPactosAiniciar(pacto);
                         var pactoRetorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Iniciando);
                         retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                        .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
+                        .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).ToList();
+                        //.Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
                     }                  
 
                 }
@@ -309,12 +310,14 @@ namespace PGD.UI.Mvc.Controllers
                 pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
                 pactoViewModel.CpfUsuario = user.CPF;
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .OrderByDescending(s => s.IdPacto).Take(50).ToList();
+                    .OrderByDescending(s => s.IdPacto).ToList();
+                    //.OrderByDescending(s => s.IdPacto).Take(100).ToList();
             }
             else
             {
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .OrderByDescending(s => s.IdPacto).Take(50).ToList();
+                    .OrderByDescending(s => s.IdPacto).ToList();
+                    //.OrderByDescending(s => s.IdPacto).Take(100).ToList();
 
             }
             dirigente = user.IsDirigente;
