@@ -9,6 +9,7 @@ namespace PGD.Domain.Enums
         Dirigente = 2,
         Administrador = 3,
         Consulta = 4,
+        AdminPessoas = 5,
     }
 
     #region CSU008_RN051
@@ -152,12 +153,15 @@ namespace PGD.Domain.Enums
         QuantidadesDiaConclusaoAntecipada = 9,
         //csa add p/ implementar a compensação horas de 8 ou 10 horas
         QuantidadeHorasDiarias = 10,
-        //csa numero de dias retroativos
-        QuantidadeDiasRetroativosPactosChefe = -365,
+        //csa numero de dias retroativos Chefia
+        QuantidadeDiasRetroativosPactosChefe = -730,
+        //csa numero de dias retroativos Solicitante
         QuantidadeDiasRetroativosPactosSolicitante = -30,
+        //csa numero de dias a frente da data atual
         QuantidadeDiasPosteriorPactosChefe = 180 ,
         QuantidadeDiasPosteriorPactosSolicitante = 180,
-        PodeEditarDiaCronogramaChefe = 365,
+        //csa numero de dias p/ editar cronogramas retroativos
+        PodeEditarDiaCronogramaChefe = 730,
         PodeEditarDiaCronogramaSolicitante = 30
 
 
