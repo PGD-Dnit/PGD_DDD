@@ -40,7 +40,9 @@ namespace PGD.Application
             {
                 if (oper.Equals(Domain.Enums.Operacao.Inclusão.ToString()))
                 {
-                    MontarEEnviarNotificacaoInclusaoPacto(pactoBuscado);
+                    //csa //csa   Codigo comentado para satisfazer a mudança de requisito de não enviar notificação quando inclusão de plano pelo participante 
+                    //MontarEEnviarNotificacaoInclusaoPacto(pactoBuscado);
+                    return false;
                 }
                 else if (oper.Equals(Domain.Enums.Operacao.Inclusão_Pela_Chefia.ToString()))
                 {
@@ -83,7 +85,9 @@ namespace PGD.Application
                 }
                 else if (oper.Equals(Domain.Enums.Operacao.AvaliacaoParcial.ToString()))
                 {
-                    MontarEEnviarNotificacaoAvaliacaoParcialPactoPelaChefia(pactoBuscado, usuarioLogado, apvm);
+                    //csa   Codigo comentado para satisfazer a mudança de requisito de não enviar notificação no status avaliado pacialmente                  
+                    //MontarEEnviarNotificacaoAvaliacaoParcialPactoPelaChefia(pactoBuscado, usuarioLogado, apvm);
+                    return false;
                 }
                 else if (oper.Equals(Domain.Enums.Operacao.VoltandoSuspensão.ToString()))
                 {
@@ -96,6 +100,11 @@ namespace PGD.Application
                         EnviarEmailNotificacaoFinalizacaoPacto(pactoBuscado);
                     }
 
+                }
+                //csa
+                else if (oper.Equals(Domain.Enums.Operacao.Exclusão.ToString()))
+                {
+                    MontarEEnviarNotificacaoExclusaoPacto(pactoBuscado, usuarioLogado);
                 }
 
                 return true;
@@ -148,6 +157,65 @@ namespace PGD.Application
                     assunto = String.Format(PGD.Infra.CrossCutting.Util.Properties.Resources.ASSUNTO_EMAIL_NOTIFICACAO_INCLUSAO_PACTO,
                                                         nomeServidor,
                                                         numeroPacto
+                                                        );
+                    destinatario = u.Email;
+                }
+                catch (Exception ex)
+                {
+                    //LogManagerComum.LogarErro(ex, null, " Erro ao montar email de inclusão do pacto = " + numeroPacto);
+                    montouMensagem = false;
+                }
+
+                EnviarEmail(assunto, mensagem, destinatario, montouMensagem);
+            });
+
+        }
+        //csa
+        private void MontarEEnviarNotificacaoExclusaoPacto(PactoViewModel p, UsuarioViewModel usuarioLogado)
+        {
+            String assunto = "";
+            String mensagem = "";
+            String destinatario = "";
+
+            String tabelaProdutos = MontarTextoTabelaProdutos(p);
+            String linkPacto = System.Configuration.ConfigurationManager.AppSettings["URL_PGD"].ToString() + "Pacto/Solicitar/" + p.IdPacto;
+
+            var dirigentes = _usuarioService.ObterDirigentesUnidade(Convert.ToInt32(p.UnidadeExercicio)).ToList();
+
+            // Destinatários dos emails:
+            // 1) Dirigentes 
+            // 2) Próprio solicitante
+
+            var lstDestinatarios = dirigentes;
+            lstDestinatarios.Add(Mapper.Map<UsuarioViewModel, Usuario>(_usuarioAppService.ObterPorCPF(p.CpfUsuario)));
+
+            lstDestinatarios.ForEach(u =>
+            {
+                bool montouMensagem = true;
+
+                
+                String nomeServidor = p.Nome;
+                String numeroPacto = p.IdPacto.ToString();
+                String dataInicioPacto = p.DataPrevistaInicio.ToString("dd/MM/yyyy");
+                String dataTerminoPacto = p.DataPrevistaTermino?.ToString("dd/MM/yyyy");
+                Usuario pessoaQueExcluiu = Mapper.Map<UsuarioViewModel, Usuario>(usuarioLogado);
+
+                try
+                {
+                    mensagem = String.Format(PGD.Infra.CrossCutting.Util.Properties.Resources.CORPO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO,
+                                                                nomeServidor,
+                                                                "<a href='" + linkPacto + "'>" + numeroPacto + "</a>",
+                                                                dataInicioPacto,
+                                                                dataTerminoPacto,
+                                                                tabelaProdutos,
+                                                                "<a href='" + linkPacto + "'> aqui </a>",
+                                                                pessoaQueExcluiu.Nome
+                                                              );
+
+                    assunto = String.Format(PGD.Infra.CrossCutting.Util.Properties.Resources.ASSUNTO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO,
+                                                        nomeServidor,
+                                                        numeroPacto,
+                                                        pessoaQueExcluiu.Nome
                                                         );
                     destinatario = u.Email;
                 }

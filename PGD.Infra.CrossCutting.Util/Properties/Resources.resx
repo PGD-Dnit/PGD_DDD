@@ -129,6 +129,9 @@
   <data name="ASSUNTO_EMAIL_NOTIFICACAO_AVALIACAO_PARCIAL_PACTO_PELA_CHEFIA" xml:space="preserve">
     <value>[PGD] O plano de trabalho PGD {0} do servidor {1} foi avaliado parcialmente por {2}.</value>
   </data>
+  <data name="ASSUNTO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO" xml:space="preserve">
+    <value>[PGD] O plano de trabalho PGD {1} do servidor {0} foi excluído por {2} .</value>
+  </data>
   <data name="ASSUNTO_EMAIL_NOTIFICACAO_FIM_PACTO" xml:space="preserve">
     <value>[PGD] O plano de trabalho PGD {0} do servidor {1} encerrou e requer avaliação</value>
   </data>
@@ -294,6 +297,32 @@ Para acessar o plano de trabalho clique {10}
 
 Obrigado!
 &lt;br&gt;&lt;br&gt;
+
+Sistema PGD</value>
+  </data>
+  <data name="CORPO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO" xml:space="preserve">
+    <value>&lt;b&gt;NOTIFICAÇÃO DO SISTEMA PGD&lt;/b&gt;
+
+&lt;br/&gt;&lt;br/&gt;
+
+O plano de trabalho {1} do servidor {0} foi excluido por {6} .
+
+&lt;br/&gt;&lt;br/&gt;
+
+Período do plano de trabalho: {2} a {3}
+
+&lt;br/&gt;&lt;br/&gt;
+
+Atividades:
+{4}
+
+&lt;br/&gt;&lt;br/&gt;
+
+Para acessar o plano de trabalho clique {5}.
+
+&lt;br/&gt;&lt;br/&gt;
+
+Obrigado!
 
 Sistema PGD</value>
   </data>

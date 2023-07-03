@@ -97,6 +97,15 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a [PGD] O plano de trabalho PGD {1} do servidor {0} foi excluído por {2} ..
+        /// </summary>
+        public static string ASSUNTO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO {
+            get {
+                return ResourceManager.GetString("ASSUNTO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a [PGD] O plano de trabalho PGD {0} do servidor {1} encerrou e requer avaliação.
         /// </summary>
         public static string ASSUNTO_EMAIL_NOTIFICACAO_FIM_PACTO {
@@ -333,6 +342,38 @@ namespace PGD.Infra.CrossCutting.Util.Properties {
         public static string CORPO_EMAIL_NOTIFICACAO_AVALIACAO_PARCIAL_PACTO_PELA_CHEFIA {
             get {
                 return ResourceManager.GetString("CORPO_EMAIL_NOTIFICACAO_AVALIACAO_PARCIAL_PACTO_PELA_CHEFIA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a &lt;b&gt;NOTIFICAÇÃO DO SISTEMA PGD&lt;/b&gt;
+        ///
+        ///&lt;br/&gt;&lt;br/&gt;
+        ///
+        ///O plano de trabalho {1} do servidor {0} foi excluido por {6} .
+        ///
+        ///&lt;br/&gt;&lt;br/&gt;
+        ///
+        ///Período do plano de trabalho: {2} a {3}
+        ///
+        ///&lt;br/&gt;&lt;br/&gt;
+        ///
+        ///Atividades:
+        ///{4}
+        ///
+        ///&lt;br/&gt;&lt;br/&gt;
+        ///
+        ///Para acessar o plano de trabalho clique {5}.
+        ///
+        ///&lt;br/&gt;&lt;br/&gt;
+        ///
+        ///Obrigado!
+        ///
+        ///Sistema PGD.
+        /// </summary>
+        public static string CORPO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO {
+            get {
+                return ResourceManager.GetString("CORPO_EMAIL_NOTIFICACAO_EXCLUSAO_PACTO", resourceCulture);
             }
         }
         
