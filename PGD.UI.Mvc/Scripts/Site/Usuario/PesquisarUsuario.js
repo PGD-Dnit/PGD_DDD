@@ -141,6 +141,8 @@ function retornarInicialPerfil(nomePerfil) {
             return 'D';
         case 'administrador':
             return 'A';
+        case 'adminpessoas': 
+            return 'AP';
         default:
             return '';
     }

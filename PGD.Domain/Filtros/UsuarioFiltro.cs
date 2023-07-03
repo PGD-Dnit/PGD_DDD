@@ -1,4 +1,6 @@
-﻿using PGD.Domain.Enums;
+﻿using PGD.Domain.Entities.RH;
+using System.Collections.Generic;
+using PGD.Domain.Enums;
 using PGD.Domain.Filtros.Base;
 
 namespace PGD.Domain.Filtros
@@ -14,5 +16,9 @@ namespace PGD.Domain.Filtros
         public bool IncludeUnidadesPerfis { get; set; }
         //csa
         public int? Inativo { get; set; }
+        //csa
+        public int? IdUnidadeSub { get; set; }
+        //csa
+        public List<Unidade> ListaUnidade { get; set; }
     }
 }

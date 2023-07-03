@@ -97,7 +97,89 @@ namespace PGD.Infra.Data.Repository
 
             return retorno;
         }
+        //csa
+        public Paginacao<Unidade> BuscarUnidadesAdminPessoas(UnidadeFiltro filtro, List<Unidade> unidades)
+        {
 
+            var resultado = new Paginacao<Unidade>();
+            var resultados = new List<Paginacao<Unidade>>();
+
+            foreach (var unid in unidades)
+            {
+                var retorno = new Paginacao<Unidade>();
+                var query = DbSet.AsQueryable();
+
+                if (filtro.IncludeUnidadeSuperior)
+                    query.Include("UnidadeSuperior");
+
+                if (filtro.IncludeUnidadePerfisUnidades)
+                    query.Include("UsuariosPerfisUnidades");
+
+                if (filtro.IncludeUnidadesFilhas)
+                    query.Include("Unidades");
+
+                if (filtro.IncludeUnidadeTiposPactos)
+                    query.Include("UnidadesTiposPactos");
+
+
+                if (!string.IsNullOrWhiteSpace(filtro.Sigla))
+                    query = query.Where(x => x.Sigla.ToLower().Contains(filtro.Sigla.ToLower()));
+
+                if (!string.IsNullOrWhiteSpace(filtro.Nome))
+                    query = query.Where(x => x.Nome.ToLower().Contains(filtro.Nome.ToLower()));
+
+                if (!string.IsNullOrWhiteSpace(filtro.NomeOuSigla))
+                    query = query.Where(x => x.Nome.ToLower().Contains(filtro.NomeOuSigla.ToLower())
+                                             || x.Sigla.ToLower().Contains(filtro.NomeOuSigla.ToLower()));
+
+                if (filtro.IdUnidadeSuperior.HasValue)
+                    query = query.Where(x => x.IdUnidadeSuperior == filtro.IdUnidadeSuperior);
+
+                if (filtro.Id.HasValue)
+                    query = query.Where(x => x.IdUnidade == filtro.Id);
+
+                if (filtro.IdUsuario.HasValue)
+                    query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => !y.Excluido && y.IdUsuario == filtro.IdUsuario));
+                
+
+                if (filtro.IdTipoPacto.HasValue)
+                    query = query.Where(x => x.UnidadesTiposPactos.Any(y => y.IdTipoPacto == filtro.IdTipoPacto));
+
+                if (!filtro.BuscarExcluidos)
+                    query = query.Where(x => !x.Excluido);
+
+
+                if (filtro.IdsPactos != null && filtro.IdsPactos.Any())
+                {
+                    var idsUnidades = Db.Set<Pacto>().Where(y => filtro.IdsPactos.Contains(y.IdPacto))
+                        .Select(y => y.UnidadeExercicio).Distinct();
+
+                    query = query.Where(x => idsUnidades.Contains(x.IdUnidade));
+                }
+                query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == unid.IdUnidade && y.Excluido == false));
+                retorno.QtRegistros = query.Count();
+                if (query.Count() != 0)
+                {
+                    if (filtro.Skip.HasValue && filtro.Take.HasValue)
+                    {
+                        retorno.Lista = filtro.OrdenarDescendente
+                            ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
+                            : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
+                    }
+                    else
+                    {
+                        retorno.Lista = query.ToList();
+                    }
+                    resultados.Add(retorno);
+                }
+               
+            }
+
+            resultado.Lista = resultados.SelectMany(r => r.Lista).Distinct().OrderBy(z => z.Nome).ToList();
+            resultado.QtRegistros = resultado.Lista.Count();
+            return resultado;
+
+        }
         public IEnumerable<Unidade> ObterUnidadesSubordinadas(int idUnidadePai)
         {
             var a = from u in Db.Set<Unidade>()

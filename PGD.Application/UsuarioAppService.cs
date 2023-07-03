@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PGD.Application.Util;
 using PGD.Domain.Paginacao;
+using PGD.Domain.Entities.RH;
 
 namespace PGD.Application
 {
@@ -81,6 +82,12 @@ namespace PGD.Application
             var retorno = Mapper.Map<PaginacaoViewModel<UsuarioViewModel>>(_usuarioService.Buscar(Mapper.Map<UsuarioFiltro>(model)));
             return retorno;
         }
+        // csa 
+        public PaginacaoViewModel<UsuarioViewModel> BuscarAdminPessoas(UsuarioFiltroViewModel model, List<Unidade> unidades)
+        {
+            var retorno = Mapper.Map<PaginacaoViewModel<UsuarioViewModel>>(_usuarioService.BuscarAdminPessoas(Mapper.Map<UsuarioFiltro>(model), unidades));
+            return retorno;
+        }
         //csa        
         public IEnumerable<UsuarioViewModel> BuscarServidores(int idUnidade, int idPerfil, string CPF)
         {
@@ -103,7 +110,23 @@ namespace PGD.Application
                 }).ToList()
             };
         }
-
+        //csa
+        public PaginacaoViewModel<UnidadeViewModel> BuscarUnidadesAdimPessoas(UnidadeFiltroViewModel filtro, List<Unidade> unidades)
+        {
+            var retorno = _unidadeService.BuscarUnidadesAdminPessoas(Mapper.Map<UnidadeFiltro>(filtro), unidades);
+            return new PaginacaoViewModel<UnidadeViewModel>
+            {
+                QtRegistros = retorno.QtRegistros,
+                Lista = retorno.Lista.Select(x => new UnidadeViewModel
+                {
+                    IdUnidade = x.IdUnidade,
+                    Nome = x.Nome,
+                    Sigla = x.Sigla,
+                    Excluido = x.Excluido,
+                    IdUnidadeSuperior = x.IdUnidadeSuperior
+            }).ToList()
+            };
+        }
         public ICollection<PermissaoViewModel> BuscarPermissoes(int? idPerfil)
         {
             if (!idPerfil.HasValue || idPerfil == 0) return new List<PermissaoViewModel>();

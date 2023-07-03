@@ -333,8 +333,10 @@ namespace PGD.UI.Mvc.Controllers
             var controller = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
 
             var userLogado = getUserLogado();
-            if (controller == "Usuario" && (userLogado == null || !userLogado.IsAdmin))
-                filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
+            //csa
+            //if (controller == "Usuario" && (userLogado == null || !userLogado.IsAdmin))
+            if (controller == "Usuario" && (userLogado == null || !userLogado.IsAdmin && !userLogado.IsAdminPessoas))
+                    filterContext.Result = RedirectToRoute(new RouteValueDictionary(new { controller = "Home", action = "Index" }));
         }
 
         private string[] ActionsNaoValidarRota() {

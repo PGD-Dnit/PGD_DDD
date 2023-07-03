@@ -28,6 +28,10 @@
                                 {
                                     @Html.Label("Chefia")
                                 }
+                                else if (item.ToString() == "AdminPessoas")
+                                {
+                                    @Html.Label("Admin/Pessoas")
+                                }
                                 else
                                 {
                                     @Html.Label(item.ToString(), new { @for = "perfil" + item.ToString() })

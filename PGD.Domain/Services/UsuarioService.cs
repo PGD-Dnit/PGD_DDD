@@ -8,6 +8,7 @@ using System.Linq;
 using PGD.Domain.Enums;
 using PGD.Domain.Filtros;
 using PGD.Domain.Paginacao;
+using PGD.Domain.Entities.RH;
 
 namespace PGD.Domain.Services
 {
@@ -99,6 +100,11 @@ namespace PGD.Domain.Services
         public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)
         {
             return _usuarioRepository.Buscar(filtro);
+        }
+        //csa BuscarAdminPessoas
+        public Paginacao<Usuario> BuscarAdminPessoas(UsuarioFiltro filtro, List<Unidade> unidade)
+        {
+            return _usuarioRepository.BuscarAdminPessoas(filtro, unidade);
         }
         //csa
         public IEnumerable<Usuario> BuscarServidores(int idUnidade, int idPerfil, string CPF)

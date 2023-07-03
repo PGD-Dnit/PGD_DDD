@@ -70,6 +70,11 @@ namespace PGD.Domain.Services
         {
             return _unidadeRepository.Buscar(filtro);
         }
+        //csa
+        public Paginacao<Unidade> BuscarUnidadesAdminPessoas(UnidadeFiltro filtro, List<Unidade> unidades)
+        {
+            return _unidadeRepository.BuscarUnidadesAdminPessoas(filtro, unidades);
+        }
 
         public Unidade Adicionar(Unidade obj)
         {

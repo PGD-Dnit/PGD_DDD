@@ -51,11 +51,15 @@ namespace PGD.Application.ViewModels
 
         public ICollection<UsuarioPerfilUnidadeViewModel> PerfisUnidades { get; set; }
 
-        public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(IsAdmin ? " / Administrador" : "")}";
+        //public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(IsAdmin ? " / Administrador" : "")}";
+        //csa
+        public string DescricaoPerfil => $"{PerfilSelecionado.ToString()}{(IsAdminPessoas ? " / Administrador" : "")}";
 
         public bool IsDirigente => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Dirigente;
         public bool IsAdmin => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Administrador;
         public bool IsSolicitante => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.Solicitante;
+        //csa
+        public bool IsAdminPessoas => PerfilSelecionado.HasValue && PerfilSelecionado == Perfil.AdminPessoas;
 
         public Perfil? PerfilSelecionado { get; private set; }
         public IEnumerable<PermissaoViewModel> Permissoes { get; private set; }
@@ -108,6 +112,17 @@ namespace PGD.Application.ViewModels
                     AlterarUnidadeSelecionada(unidade.IdUnidade);
             }
         }
+        //csa
+      /*  public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            UsuarioViewModel other = (UsuarioViewModel)obj;
+            return (this.IdUsuario == other.IdUsuario) && (this.Nome == other.Nome) && (this.Matricula == other.Matricula);
+        }*/
     }
 
 

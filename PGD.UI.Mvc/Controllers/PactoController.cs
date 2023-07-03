@@ -234,13 +234,51 @@ namespace PGD.UI.Mvc.Controllers
                         IdUnidade = unid.IdUnidade, // Atribua o valor da string à propriedade correspondente da classe Unidade
                         Nome = unid.Nome,
                         //Sigla = unid.Sigla
-                };
+                    };
 
                     listaDeUnidades.Add(unidade); // Adicione o objeto Unidade à lista de Unidades
                 }
                 unidades = listaDeUnidades;
 
 
+
+            }
+            else if (user.IsAdminPessoas)
+            {
+
+                var idUsuarioPerfilUnidade = _UsuarioPerfilUnidadeService.Buscar(new UsuarioPerfilUnidadeFiltro
+                {
+                    IdUsuario = user.IdUsuario
+                }).Lista ?? new List<UsuarioPerfilUnidade>();
+
+                foreach (var item in idUsuarioPerfilUnidade)
+                {
+                    //perfil AdminPessoas = 5
+                    if (item.IdPerfil == (int)Domain.Enums.Perfil.AdminPessoas)
+                    {
+                        IdUnidade = item.IdUnidade;
+                    }
+
+                }               
+                //csa
+                var IdUnidadeSuperior = UnidadeSelecionada;
+               
+                var unidadesSubordinadas = _unidadeService.ObterUnidadesSubordinadasProcedure(IdUnidadeSuperior).ToList();
+                
+                List<Unidade> listaDeUnidades = new List<Unidade>();
+
+                foreach (var unid in unidadesSubordinadas)
+                {
+                    Unidade unidade = new Unidade
+                    {
+                        IdUnidade = unid.IdUnidade, // Atribua o valor da string à propriedade correspondente da classe Unidade
+                        Nome = unid.Nome,
+                        //Sigla = unid.Sigla
+                    };
+
+                    listaDeUnidades.Add(unidade); // Adicione o objeto Unidade à lista de Unidades
+                }
+                unidades = listaDeUnidades;
 
             }
             else
@@ -275,7 +313,7 @@ namespace PGD.UI.Mvc.Controllers
                 }
             }
 
-            //IEnumerable<PactoViewModel> retorno = null;
+            
             IEnumerable<PactoViewModel> retorno = null;
             //csa
             //consulta responsavel pela tabela da tela consultar PGD
@@ -284,22 +322,19 @@ namespace PGD.UI.Mvc.Controllers
                 PactoCompleto.Searchpacto.NomeServidor = user.Nome;
                 //csa 
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
-
+                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
                 //PAREI AQUI                
                 //var pac = new PactoViewModel();
                 foreach (var pacto in retorno)
                 {
-
                     if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar && pacto.DataPrevistaInicio <= DateTime.Now)
                     {
                 //        pac = _Pactoservice.AtualizarPactosAiniciar(pacto);
                         var pactoRetorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Iniciando);
                         retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                        .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).ToList();
-                        //.Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
-                    }                  
-
+                        //.Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).ToList();
+                        .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    }                 
                 }
 
             }
@@ -310,14 +345,26 @@ namespace PGD.UI.Mvc.Controllers
                 pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
                 pactoViewModel.CpfUsuario = user.CPF;
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .OrderByDescending(s => s.IdPacto).ToList();
-                    //.OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    //.OrderByDescending(s => s.IdPacto).ToList();
+                    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
+            }
+            else if (user.IsAdminPessoas)
+            {
+                //pactoViewModel.UnidadeExercicio = IdUnidade;
+                //csa alterado p pegar a unidade que foi escolhida pelo usuario no momento do login, caso esteja em mais de uma unidade como chefia
+                pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
+                pactoViewModel.CpfUsuario = user.CPF;
+                //csa usei p/ trazer as unidades subordinadas user.IsAdminPessoas = true
+                obj.ObterPactosUnidadesSubordinadas = user.IsAdminPessoas;
+                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                    //.OrderByDescending(s => s.IdPacto).ToList();
+                    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
             }
             else
             {
                 retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .OrderByDescending(s => s.IdPacto).ToList();
-                    //.OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    //.OrderByDescending(s => s.IdPacto).ToList();
+                    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
 
             }
             dirigente = user.IsDirigente;
@@ -354,13 +401,28 @@ namespace PGD.UI.Mvc.Controllers
             if (pacto != null)
             {
                 var pactoRetorno = _Pactoservice.AtualizarStatus(pacto, user, eAcaoPacto.Excluindo);
-                pacto = pactoRetorno;
-                if (pactoRetorno.ValidationResult.IsValid)
+                //pacto = pactoRetorno;
+                pacto = _Pactoservice.BuscarPorId(pactoid.Value);
+                if (pactoRetorno.ValidationResult.IsValid) 
+                {
+                    
+                    if (!_notificadorAppService.TratarNotificacaoPacto(pacto, user, Domain.Enums.Operacao.Exclusão.ToString()))
+                    {
+                        //pactoRetorno.ValidationResult.Message = "Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
+                        return setMessageAndRedirect("Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.", "Index");
+                    }
                     return setMessageAndRedirect("Plano de Trabalho excluído com sucesso!", "Index");
+
+                }
+                    
                 //if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, oper))
                 //{
                 //    var mensagem = "Plano de trabalho suspenso com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                 //    setMessage(mensagem);
+                //}
+                //if (!_notificadorAppService.TratarNotificacaoPacto(pactoBuscado, user, Domain.Enums.Operacao.Alteração.ToString()))
+                //{
+                //    pactoViewModel.ValidationResult.Message = "Plano de Trabalho alterado com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.";
                 //}
             }
 
@@ -687,7 +749,7 @@ namespace PGD.UI.Mvc.Controllers
                 
                 var unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
                 var usuarios = new List<UsuarioViewModel>();
-                var usuarios2 = new List<UsuarioViewModel>();
+                //var usuarios2 = new List<UsuarioViewModel>();
                 var listUsuario = new List<UsuarioViewModel>();
                 foreach (var unid in unidades)
                 {
@@ -717,7 +779,20 @@ namespace PGD.UI.Mvc.Controllers
             }
             //csa antes era só essa linha abaixo --> _usuarioAppService.ObterTodos();
             //TempData["NomesSubordinados"] = _usuarioAppService.ObterTodos();
-            
+            else if (userLogado.IsAdminPessoas)
+            {
+                var unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
+                var usuarios = new List<UsuarioViewModel>();                
+                var listUsuario = new List<UsuarioViewModel>();
+                foreach (var unid in unidades)
+                {                    
+                    usuarios = _usuarioAppService.BuscarServidores(unid.IdUnidade, (int)Domain.Enums.Perfil.Solicitante, userLogado.CPF).ToList();                    
+                    listUsuario.AddRange(usuarios);
+                }
+                usuarios = listUsuario;
+                TempData["NomesSubordinados"] = usuarios;
+
+            }
         }
 
         private List<IniciativaPlanoOperacionalViewModel> ConfigurarIniciativasPlanoOperacional()
@@ -840,6 +915,20 @@ namespace PGD.UI.Mvc.Controllers
                 _pactoVM.podeEditarAndamento = true;
                 _pactoVM.podeVisualizarPactuadoAvaliado = true;
             }
+            //csa
+            else if (user.IsAdminPessoas)
+            {
+                _pactoVM.podeAssinar = false;
+                _pactoVM.podeAvaliar = false;
+                _pactoVM.podeDeletar = false;
+                _pactoVM.podeEditar = false;
+                _pactoVM.podeInterromper = false;
+                _pactoVM.podeNegar = false;
+                _pactoVM.podeSuspender = false;
+                _pactoVM.podeEditarAndamento = false;
+                _pactoVM.podeVisualizarPactuadoAvaliado = false;
+            }
+
             _pactoVM.podeVoltarSuspensao = _Pactoservice.PodeVoltarSuspensao(_pactoVM, user, isDirigente, unidadePactoESubordinadaUnidadeUsuario);
             // csa ver esse so posso restringir visibilidade se chefe pertencer a msm unidade ta errado, unidades subordinadas deve tb ACREDITO
             _pactoVM.podeRestringirVisibilidadePacto = user.IsDirigente && user.IdUnidadeSelecionada == _pactoVM.UnidadeExercicio;
@@ -1113,8 +1202,9 @@ namespace PGD.UI.Mvc.Controllers
                     if (pactoViewModel.ValidationResult.IsValid && pactoViewModel.IdPacto != 0)
                     {
                         pactoBuscado = _Pactoservice.BuscarPorId(pactoViewModel.IdPacto);
-
-                        String operEmail = perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante ?
+                        //csa
+                        //String operEmail = perfil != null && perfil.Value == Domain.Enums.Perfil.Solicitante ?
+                        String operEmail = perfil != null && user.IsSolicitante ?
                             Domain.Enums.Operacao.Inclusão.ToString() :
                             Domain.Enums.Operacao.Inclusão_Pela_Chefia.ToString();
 
@@ -1521,7 +1611,10 @@ namespace PGD.UI.Mvc.Controllers
                 }
                 else
                 {
-                    setMessage("Plano de trabalho avaliado parcialmente com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
+                    //csa Codigo comentado para satisfazer a mudança de requisito de não enviar notificação no status avaliado pacialmente
+                    //referencia: NotificadorAppService linha 86
+                    //setMessage("Plano de trabalho avaliado parcialmente com sucesso, mas não foi possível enviar e-mail para um ou mais interessados.");
+                    setMessage("Plano de trabalho avaliado parcialmente com sucesso.");
                 }
 
             }

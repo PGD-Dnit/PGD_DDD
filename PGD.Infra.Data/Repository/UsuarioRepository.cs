@@ -11,7 +11,7 @@ using System.Linq;
 using System.Collections.Generic;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Entities;
-
+using System.Security.Cryptography.X509Certificates;
 
 namespace PGD.Infra.Data.Repository
 {
@@ -106,8 +106,8 @@ namespace PGD.Infra.Data.Repository
         public Paginacao<Usuario> Buscar(UsuarioFiltro filtro)
         {
             var retorno = new Paginacao<Usuario>();
-            var query = DbSet.AsQueryable();
-
+            var query = DbSet.AsQueryable();    
+            
             if (filtro.IncludeUnidadesPerfis)
                 query.Include("UsuariosPerfisUnidades")
                     .Include("UsuariosPerfisUnidades.Perfil")
@@ -117,7 +117,7 @@ namespace PGD.Infra.Data.Repository
             query = !string.IsNullOrWhiteSpace(filtro.Cpf) ? query.Where(x => x.Cpf == filtro.Cpf) : query;
             query = !string.IsNullOrWhiteSpace(filtro.Sigla) ? query.Where(x => x.Sigla == filtro.Sigla) : query;
             query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
-            query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;
+            query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade)) : query;            
             query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
 
             query = filtro.Perfil.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == (int)filtro.Perfil)) : query;
@@ -140,6 +140,77 @@ namespace PGD.Infra.Data.Repository
 
 
             return retorno;
+        }
+        //csa
+        public Paginacao<Usuario> BuscarAdminPessoas(UsuarioFiltro filtro, List<Unidade> unidades)
+        {
+            var resultado = new Paginacao<Usuario>();                       
+            var resultados = new List<Paginacao<Usuario>>();
+            
+            foreach (var unid in unidades)
+            {
+                var retorno = new Paginacao<Usuario>();
+                var query = DbSet.AsQueryable();
+                if (filtro.IncludeUnidadesPerfis)
+                    query.Include("UsuariosPerfisUnidades")
+                        .Include("UsuariosPerfisUnidades.Perfil")
+                        .Include("UsuariosPerfisUnidades.Unidade");
+                
+
+                query = !string.IsNullOrWhiteSpace(filtro.Nome) ? query.Where(x => x.Nome.ToLower().Contains(filtro.Nome.ToLower())) : query;
+                query = !string.IsNullOrWhiteSpace(filtro.Cpf) ? query.Where(x => x.Cpf == filtro.Cpf) : query;
+                query = !string.IsNullOrWhiteSpace(filtro.Sigla) ? query.Where(x => x.Sigla == filtro.Sigla) : query;
+                query = !string.IsNullOrWhiteSpace(filtro.Matricula) ? query.Where(x => x.Matricula.ToLower().Contains(filtro.Matricula.ToLower())) : query;
+                query = filtro.IdUnidade.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade && y.Excluido == false)) : query;
+                //csa
+                // query = filtro.IdUnidadeSub.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidadeSub)) : query;
+                query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
+
+                query = filtro.Perfil.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == (int)filtro.Perfil)) : query;
+                
+                //csa
+                if (filtro.Inativo.HasValue)
+                    query = query.Where(x => x.Inativo == false);
+                //csa
+                /*if (filtro.Inativo.HasValue)
+                    query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.Excluido == false));*/
+                //csa
+                query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == unid.IdUnidade && y.Excluido == false));
+
+                if (query.Count() != 0)
+                {                   
+                    
+                    if (filtro.Skip.HasValue && filtro.Take.HasValue)
+                    {
+                        retorno.Lista = filtro.OrdenarDescendente
+                            ? query.OrderByDescending(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList()
+                            : query.OrderBy(filtro.OrdenarPor).Skip(filtro.Skip.Value).Take(filtro.Take.Value).ToList();
+                    }
+                    else
+                    {
+                        retorno.Lista = query.ToList();
+                    }
+
+                    resultados.Add(retorno);
+                    
+                }
+
+            }
+            
+            resultado.Lista = resultados.SelectMany(r => r.Lista).Distinct().OrderBy(z => z.Nome).ToList();
+            resultado.QtRegistros = resultado.Lista.Count();
+            return resultado;
+        }
+        //csa
+        public IEnumerable<Usuario> BuscarServidoresAdminPessoas(int idUnidade, UsuarioFiltro filtro)
+        {
+            var unidades = from u in Db.Set<Usuario>()
+                           join upu in Db.Set<UsuarioPerfilUnidade>()
+                           on u.IdUsuario equals upu.IdUsuario
+                           where u.Nome.ToLower().Contains(filtro.Nome.ToLower()) || u.Matricula.ToLower().Contains(filtro.Matricula.ToLower()) && upu.IdUnidade == filtro.IdUnidade || u.Inativo == false && upu.IdUnidade == idUnidade && upu.Excluido == false
+                           select u;
+            //u.Nome.ToLower().Contains(filtro.Nome.ToLower())
+            return unidades;
         }
         //csa
         public IEnumerable<Usuario> BuscarServidores(int idUnidade, int idPerfil, string CPF)

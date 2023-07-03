@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using PGD.Domain.Filtros;
 using PGD.Domain.Paginacao;
+using PGD.Domain.Entities.RH;
 
 namespace PGD.Domain.Interfaces.Service
 {
@@ -15,6 +16,8 @@ namespace PGD.Domain.Interfaces.Service
         IEnumerable<Usuario> ObterTodosDaBase();
         IEnumerable<Usuario> ObterDirigentesUnidade(int idUnidade);
         Paginacao<Usuario> Buscar(UsuarioFiltro filtro);
+        //csa
+        Paginacao<Usuario> BuscarAdminPessoas(UsuarioFiltro filtro, List<Unidade> unidade);
         //csa
         IEnumerable<Usuario> BuscarServidores(int idUnidade, int idPerfil, string CPF);
         

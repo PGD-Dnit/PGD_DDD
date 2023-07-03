@@ -1,6 +1,7 @@
 ﻿using PGD.Application.ViewModels;
 using PGD.Application.ViewModels.Filtros;
 using PGD.Application.ViewModels.Paginacao;
+using PGD.Domain.Entities.RH;
 using System.Collections.Generic;
 
 namespace PGD.Application.Interfaces
@@ -26,8 +27,13 @@ namespace PGD.Application.Interfaces
         bool PodeSelecionarUnidade(UsuarioViewModel usuario);
         PaginacaoViewModel<UsuarioViewModel> Buscar(UsuarioFiltroViewModel model);
         //csa
+        PaginacaoViewModel<UsuarioViewModel> BuscarAdminPessoas(UsuarioFiltroViewModel model, List<Unidade> unidades);
+        //csa
         IEnumerable<UsuarioViewModel> BuscarServidores(int idUnidade, int idPerfil, string CPF);
         PaginacaoViewModel<UnidadeViewModel> BuscarUnidades(UnidadeFiltroViewModel filtro);
+        
+        //csa
+        PaginacaoViewModel<UnidadeViewModel> BuscarUnidadesAdimPessoas(UnidadeFiltroViewModel filtro, List<Unidade> unidades);
         PaginacaoViewModel<UsuarioPerfilUnidadeViewModel> BuscarPerfilUnidade(UsuarioPerfilUnidadeFiltroViewModel filtro);
         VincularPerfilUsuarioViewModel VincularUnidadePerfil(VincularPerfilUsuarioViewModel model, string cpfUsuarioLogado);
         VincularPerfilUsuarioViewModel RemoverVinculoUnidadePerfil(long idUsuarioPerfilUnidade, string cpfUsuarioLogado);

@@ -1,4 +1,6 @@
-﻿using PGD.Application.ViewModels.Filtros.Base;
+﻿using System.Collections.Generic;
+using PGD.Application.ViewModels.Filtros.Base;
+using PGD.Domain.Entities.RH;
 using PGD.Domain.Enums;
 
 namespace PGD.Application.ViewModels.Filtros
@@ -20,6 +22,12 @@ namespace PGD.Application.ViewModels.Filtros
         public bool IncludeUnidadesPerfis { get; set; }
         //csa
         public int? Inativo { get; set; }
+        //csa
+        public int? UserIdUnidade { get; set; }
+        //csa
+        public int? IdUnidadeSub { get; set; }
+        //csa
+        public List<Unidade> ListaUnidade { get; set; }
 
     }
 }

@@ -12,6 +12,8 @@ namespace PGD.Domain.Interfaces.Service
         Unidade ObterUnidade(int idUnidade);
         Paginacao<Unidade> Buscar(UnidadeFiltro filtro);
         //csa
+        Paginacao<Unidade> BuscarUnidadesAdminPessoas(UnidadeFiltro filtro, List<Unidade> unidades);        
+        //csa
         IEnumerable<Unidade> ObterUnidadesParticipante(int idUsuario, int idPerfil);
         //csa
         IEnumerable<Unidade> ObterUnidadesSubordinadasProcedure(int idUnidadePai);

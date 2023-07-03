@@ -1,4 +1,5 @@
-﻿using PGD.Domain.Entities.Usuario;
+﻿using PGD.Domain.Entities.RH;
+using PGD.Domain.Entities.Usuario;
 using PGD.Domain.Filtros;
 using PGD.Domain.Paginacao;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace PGD.Domain.Interfaces.Repository
         Usuario ObterPorCPF(string cpf);
         Usuario ObterPorEmail(string email);
         Paginacao<Usuario> Buscar(UsuarioFiltro filtro);
+        //csa
+        Paginacao<Usuario> BuscarAdminPessoas(UsuarioFiltro filtro, List<Unidade> unidades);
         //csa
         IEnumerable<Usuario> ObterTodosPorUnidade(int idUnidade, bool incluirSubordinados = false);
         //csa
