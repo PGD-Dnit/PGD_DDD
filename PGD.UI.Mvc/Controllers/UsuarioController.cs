@@ -8,13 +8,23 @@ using System.Linq;
 using System.Web.Mvc;
 using PGD.Domain.Enums;
 using PGD.Domain.Entities;
+using PGD.Domain.Entities.Usuario;
+using PGD.Domain.Paginacao;
+using CGU.Util;
+using PGD.Application.ViewModels.Paginacao;
+using CGU.Util.ServicoCorreios;
+using PGD.Domain.Entities.RH;
+using PGD.Domain.Interfaces.Service;
+using CsQuery.ExtensionMethods.Internal;
+using iTextSharp.text;
 
 namespace PGD.UI.Mvc.Controllers
 {
     public class UsuarioController : BaseController
     {
-        public UsuarioController(IUsuarioAppService usuarioAppService) : base(usuarioAppService)
+        public UsuarioController(IUsuarioAppService usuarioAppService, IUnidadeService unidadeService) : base(usuarioAppService)
         {
+            _unidadeService = unidadeService;
         }
 
         public ActionResult Index()
@@ -26,15 +36,61 @@ namespace PGD.UI.Mvc.Controllers
         public ActionResult Index(SearchUsuarioViewModel model)
         {
             if (!ModelState.IsValid) return Json(new { camposNaoPreenchidos = RetornaErrosModelState() });
-            var filtro = new UsuarioFiltroViewModel
+            
+            var userLogado = getUserLogado();
+            var  unidades = new List<Domain.Entities.RH.Unidade>();
+            if (userLogado.IsAdminPessoas)
             {
-                Nome = model.NomeUsuario, Matricula = model.MatriculaUsuario, IdUnidade = model.IdUnidade, IncludeUnidadesPerfis = true,
-                Inativo = 0,
-                Take = model.Take, Skip = model.Skip
-            };
-            var usuarios = _usuarioAppService.Buscar(filtro);
-            usuarios.Lista.ForEach(x => x.CPF = x.CPF.MaskCpfCpnj());
-            return Json(usuarios);
+                //ver erro aqui Exceção gerada: 'System.NullReferenceException' em PGD.UI.Mvc.dll
+                //Referência de objeto não definida para uma instância de um objeto.
+                 unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
+                var usuarios = new PaginacaoViewModel<UsuarioViewModel>();
+                //var usuariosLista = new List<UsuarioViewModel>();
+
+                var listaDeUsuarios = new PaginacaoViewModel<UsuarioViewModel>();
+                //List<UsuarioViewModel> listaDeUsuarios = new List<UsuarioViewModel>();
+              
+                    var filtro = new UsuarioFiltroViewModel
+                    {
+                        Nome = model.NomeUsuario,
+                        Matricula = model.MatriculaUsuario,
+                        IdUnidade = model.IdUnidade,                       
+                        IncludeUnidadesPerfis = true,
+                        Inativo = 0,
+                        Take = model.Take,
+                        Skip = model.Skip,
+                        //csa
+                        //UserIdUnidade = user.IdUnidadeSelecionada                       
+                    };
+                                    
+                usuarios = _usuarioAppService.BuscarAdminPessoas(filtro, unidades);
+                usuarios.Lista.ForEach(x => x.CPF = x.CPF.MaskCpfCpnj());
+                return Json(usuarios);
+
+
+            }
+            else 
+            {
+                var filtro = new UsuarioFiltroViewModel
+                {
+                    Nome = model.NomeUsuario,
+                    Matricula = model.MatriculaUsuario,
+                    IdUnidade = model.IdUnidade,
+                    IncludeUnidadesPerfis = true,
+                    Inativo = 0,
+                    Take = model.Take,
+                    Skip = model.Skip,
+                    //csa
+                    //UserIdUnidade = user.IdUnidadeSelecionada
+                };
+                var usuarios = _usuarioAppService.Buscar(filtro);
+                usuarios.Lista.ForEach(x => x.CPF = x.CPF.MaskCpfCpnj());
+                return Json(usuarios);
+
+            }
+            
+            
+            
         }
 
         [HttpGet]
@@ -89,18 +145,56 @@ namespace PGD.UI.Mvc.Controllers
 
         public ActionResult BuscarUnidadesPorNomeOuSigla(string query)
         {
-            var retorno = _usuarioAppService.BuscarUnidades(new UnidadeFiltroViewModel {NomeOuSigla = query});
-            return Json(retorno, JsonRequestBehavior.AllowGet);
+            //csa
+            var userLogado = getUserLogado();
+            var unidades = new List<Domain.Entities.RH.Unidade>();
+            if (userLogado.IsAdminPessoas)
+            {
+                
+                unidades = _unidadeService.ObterUnidadesSubordinadas((int)userLogado.IdUnidadeSelecionada).ToList();
+                
+
+                var retorno = _usuarioAppService.BuscarUnidadesAdimPessoas(new UnidadeFiltroViewModel { NomeOuSigla = query }, unidades);
+                return Json(retorno, JsonRequestBehavior.AllowGet);
+
+
+
+            }
+            else
+            {
+                var retorno = _usuarioAppService.BuscarUnidades(new UnidadeFiltroViewModel { NomeOuSigla = query });
+                return Json(retorno, JsonRequestBehavior.AllowGet);
+            }
         }
 
         private void PrepararTempDataPerfis()
         {
-            var lista = new List<PerfilViewModel>
+            var userLogado = getUserLogado();
+            var lista = new List<PerfilViewModel>();
+            if (userLogado.IsAdminPessoas)
             {
-                new PerfilViewModel { Nome = Domain.Enums.Perfil.Administrador.ToString(), IdPerfil = Domain.Enums.Perfil.Administrador.GetHashCode() },
+                 lista = new List<PerfilViewModel>
+            {                
                 new PerfilViewModel { Nome = Domain.Enums.Perfil.Dirigente.ToString(), IdPerfil = Domain.Enums.Perfil.Dirigente.GetHashCode() },
                 new PerfilViewModel { Nome = Domain.Enums.Perfil.Solicitante.ToString(), IdPerfil = Domain.Enums.Perfil.Solicitante.GetHashCode() }
+
             };
+
+            }
+            else {
+
+                 lista = new List<PerfilViewModel>
+                {
+
+                    new PerfilViewModel { Nome = Domain.Enums.Perfil.Administrador.ToString(), IdPerfil = Domain.Enums.Perfil.Administrador.GetHashCode() },
+                    new PerfilViewModel { Nome = Domain.Enums.Perfil.AdminPessoas.ToString(), IdPerfil = Domain.Enums.Perfil.AdminPessoas.GetHashCode() },
+                    new PerfilViewModel { Nome = Domain.Enums.Perfil.Dirigente.ToString(), IdPerfil = Domain.Enums.Perfil.Dirigente.GetHashCode() },
+                    new PerfilViewModel { Nome = Domain.Enums.Perfil.Solicitante.ToString(), IdPerfil = Domain.Enums.Perfil.Solicitante.GetHashCode() }
+
+                };
+
+            }
+             
             TempData["lstPerfil"] = lista;
         }
     }

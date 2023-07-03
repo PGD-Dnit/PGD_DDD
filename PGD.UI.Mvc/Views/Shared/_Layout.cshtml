@@ -70,7 +70,7 @@
             padding: 30px 30px 30px 30px;
             /* background: #B1B9BF; */
             background: white;
-            opacity: .8 !important;
+            /*opacity: .8 !important;*/
             overflow: hidden;
             position: fixed;
             bottom: 30px;
@@ -108,12 +108,12 @@
                 display: inline-block;
                 font-family: OpenSans,arial,sans-serif;
                 color: #fff;
-                font-size: 14px;
+                font-size: 12px;
                 font-weight: 700;
-                margin-top: 14px;
-                background: #000;
+                margin-top: 670px;
+                background: #00A3FE;
                 box-sizing: border-box;
-                padding: 15px 24px;
+                /* padding: 15px 24px;*/
                 text-align: center;
                 transition: background .3s
             }
@@ -170,7 +170,7 @@
                                         <li role="presentation" class="menu-novo-right">
                                             <a href="@Url.Action("Index", "Pacto")" onclick="showLoading()" id="menuConsultarPactos"><span class="text-white glyphicon glyphicon-search" style="margin-top:8px;"></span> Consultar Plano de Trabalho </a>
                                         </li>
-                                        @if (user != null && !user.IsAdmin)
+                                        @if (user != null && !user.IsAdmin && !user.IsAdminPessoas)
                                         {
                                             <li role="presentation" class="menu-novo-left">
 
@@ -197,6 +197,15 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                        }
+                                        @if (user != null && user.IsAdminPessoas)
+                                        {
+                                            <li role="presentation" class="menu-novo-left">
+
+                                                <a href="@Url.Action("Index", "Usuario")" onclick="showLoading()" id="menuId"><span class="text-blck glyphicon glyphicon-user" style="margin-top:8px;"></span> Gerenciar Perfil</a>
+                                                
+                                            </li>                                               
+                                            
                                         }
 
                                     </ul>
