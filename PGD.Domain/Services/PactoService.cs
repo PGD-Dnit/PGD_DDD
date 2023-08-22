@@ -306,7 +306,7 @@ namespace PGD.Domain.Services
 
                 TratarInclusaoHistoricoAtualizacaoStatus(pacto, eAcao);
             }
-
+            //##
             AtualizaEstadoEntidadesRelacionadas(pacto);
 
             pacto.ValidationResult.Message = Mensagens.MS_004;
@@ -320,8 +320,28 @@ namespace PGD.Domain.Services
                 return pacto;
             }
         }
+        //csa
+        public Pacto AtualizarPactosAiniciar(Pacto pacto)
+        {
+            var commit = true;
+            ValidarPacto(pacto);
+            if (pacto.IdSituacaoPacto != (int)eSituacaoPacto.EmAndamento)
+            {
+                commit = false;
+                return pacto;
+            }
 
-        private void TratarInclusaoHistoricoAtualizacaoStatus(Pacto pacto, eAcaoPacto acao)
+            if (commit)
+            {
+                return _classRepository.Atualizar(pacto, pacto.IdPacto);
+            }
+            else
+            {
+                return pacto;
+            }
+        }
+
+            private void TratarInclusaoHistoricoAtualizacaoStatus(Pacto pacto, eAcaoPacto acao)
         {
             if (acao ==  eAcaoPacto.ReativandoAutomaticamente)
             {

@@ -65,13 +65,14 @@ namespace PGD.UI.Mvc.Controllers
                 //Aplicação publicada como "Homologacao"
                 //
                 //if usado p o ambiente de homologação
-                if (ConfigurationManager.AppSettings["ambiente"] != "Homologacao")
+                //if (ConfigurationManager.AppSettings["ambiente"] != "Homologacao")
 
                 //if usado p o ambiente de produção
-                //if (ConfigurationManager.AppSettings["ambiente"] != "Desenvolvimento")
+                if (ConfigurationManager.AppSettings["ambiente"] != "Desenvolvimento")
                 {
                     AutenticarLDAP(loginViewModel);
                 }
+               
 
                 var usuario = BuscarUsuario(loginViewModel);
 

@@ -90,7 +90,11 @@ namespace PGD.Domain.Services
                 new UsuarioFiltro
                 {
                     IdUnidade = idUnidade,
-                    Perfil = Perfil.Dirigente
+                    Perfil = Perfil.Dirigente,
+                    //csa
+                    Inativo = 0,
+                    //csa
+                    Excluido = 0
                 }
             );
 

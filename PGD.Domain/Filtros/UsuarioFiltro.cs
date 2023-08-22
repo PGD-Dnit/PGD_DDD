@@ -20,5 +20,7 @@ namespace PGD.Domain.Filtros
         public int? IdUnidadeSub { get; set; }
         //csa
         public List<Unidade> ListaUnidade { get; set; }
+        //csa
+        public int? Excluido { get; set; }
     }
 }

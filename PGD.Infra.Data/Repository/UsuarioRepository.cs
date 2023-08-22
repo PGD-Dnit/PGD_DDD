@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using PGD.Domain.Entities.RH;
 using PGD.Domain.Entities;
 using System.Security.Cryptography.X509Certificates;
+using System.Runtime.Remoting.Contexts;
 
 namespace PGD.Infra.Data.Repository
 {
@@ -124,7 +125,15 @@ namespace PGD.Infra.Data.Repository
             //csa
             if (filtro.Inativo.HasValue)
                 query = query.Where(x => x.Inativo == false);
+            //csa
+            if (filtro.Excluido.HasValue)
+            {
+                
+               query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil))
+            .Select(u => u);
 
+
+            }
             retorno.QtRegistros = query.Count();
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)

@@ -205,23 +205,26 @@ namespace PGD.Application
 
         }
         //csa
-        //public PactoViewModel AtualizarPactosAiniciar(PactoViewModel pactoViewModel)
-        //{
-        //    var pacto = Mapper.Map<PactoViewModel, Pacto>(pactoViewModel);
-        //    pacto.IdSituacaoPacto = (int)eSituacaoPacto.EmAndamento;
+        public PactoViewModel AtualizarPactosAiniciar(PactoViewModel pactoViewModel, eSituacaoPacto eSituacaoPacto)
+        {
+            //pactoViewModel.Cronogramas.ForEach(x => x.IdPacto = pactoViewModel.IdPacto);
+            pactoViewModel.CargaHorariaDiaria = TimeSpan.FromHours(8);
+            BeginTransaction();
+            var pacto = Mapper.Map<PactoViewModel, Pacto>(pactoViewModel);
+            if (eSituacaoPacto == eSituacaoPacto.AIniciar)
+            {
+                pacto.IdSituacaoPacto = (int)eSituacaoPacto.EmAndamento;                
+            }
+            var pactoReturn = _pactoService.AtualizarPactosAiniciar(pacto);
+                        
+            Commit();
 
-        //    BeginTransaction();
-        //    var pactoReturn = _pactoService.Atualizar(pacto);
-        //    if (pactoReturn.ValidationResult.IsValid)
-        //    {               
-        //        Commit();
-        //    }
-        //    pactoViewModel = Mapper.Map<Pacto, PactoViewModel>(pactoReturn);
-        //    return pactoViewModel;
-            
-        //}
+            pactoViewModel = Mapper.Map<Pacto, PactoViewModel>(pactoReturn);
+            return pactoViewModel;
 
-            public PactoViewModel Adicionar(PactoViewModel pactoViewModel, bool isDirigente, UsuarioViewModel usuarioViewModel)
+        }
+
+        public PactoViewModel Adicionar(PactoViewModel pactoViewModel, bool isDirigente, UsuarioViewModel usuarioViewModel)
         {
             var pacto = Mapper.Map<PactoViewModel, Pacto>(pactoViewModel);
 
@@ -410,6 +413,11 @@ namespace PGD.Application
             {
                 strPerfil = "Dirigente";
             }
+            //csa add para ter registro da assinatura do plano pelo admin 
+            if (user.IsAdmin)
+            {
+                strPerfil = "Administrador do Sistema";
+            }
 
             return strPerfil;
         }
@@ -468,7 +476,7 @@ namespace PGD.Application
 
                 pacto.EntregueNoPrazo = 1;
             }
-
+            //#######
             pacto = _pactoService.AtualizarStatus(pacto, usr, eAcao, usuario.IsDirigente, commit);
 
             if (pacto.ValidationResult.IsValid)

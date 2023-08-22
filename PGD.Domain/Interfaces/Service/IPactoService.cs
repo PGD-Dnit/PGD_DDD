@@ -38,6 +38,8 @@ namespace PGD.Domain.Interfaces.Service
         Pacto IniciarPacto(Pacto obj);
         Pacto Atualizar(Pacto pacto, int idPacto);
         Pacto AtualizarStatus(Pacto pacto, Usuario usr, eAcaoPacto eAcao, bool isDirigente, bool commit = true);
+        //csa
+        Pacto AtualizarPactosAiniciar(Pacto pacto);
         void AtualizaEstadoEntidadesRelacionadas(Pacto pacto);
 
         ValidationResult ValidarDataHoraSuspensaoInterrupcao(Pacto pacto, DateTime dataInicioSuspensao, TimeSpan horasConsideradas, Domain.Enums.Operacao operacao);
