@@ -94,7 +94,8 @@ namespace PGD.Domain.Services
                     //csa
                     Inativo = 0,
                     //csa
-                    Excluido = 0
+                    Excluido = 0,
+                    IncludeUnidadeSuperior = true
                 }
             );
 

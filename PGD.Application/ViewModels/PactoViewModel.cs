@@ -43,8 +43,12 @@ namespace PGD.Application.ViewModels
         public bool? PossuiCargaHoraria { get; set; }
         [Required(ErrorMessage = "O campo Possui Carga Horária é de preenchimento obrigatório!")]
         public bool? PactoExecutadoNoExterior { get; set; }
+        
         public bool? UnidadeUsuarioPermitePactoExecucaoNoExterior { get; set; }
         [Display(Name = "Número do Processo SEI de autorização")]
+        //[DisplayFormat(DataFormatString = "#####.######/####-##")]
+        //[RegularExpression(@"^([0-1][0-9]|[2][0-3]):([0-5][0-9])$", ErrorMessage = "Formato invalido (HH:MM)")]
+        [RegularExpression(@"^[0-9]{5}\.[0-9]{6}\/[0-9]{4}-[0-9]{2}$", ErrorMessage = "Digite o Número do Processo SEI de autorização, no seguinte formato '12345.123456/2023-12'")]
         public String ProcessoSEI { get; set; }
 
         [Display(Name = "Data Prevista de Início")]

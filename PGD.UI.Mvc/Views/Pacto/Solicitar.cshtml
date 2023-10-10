@@ -149,9 +149,9 @@
                             <label class="text-vertical-line">Plano executado no exterior? </label>
                             <label>@Html.RadioButtonCGUFor(x => x.PactoExecutadoNoExterior, new { @required = "required", @onchange = "alternaVisibilidadeProcessoSEI(true)" }, true).SetDisabled(!Model.podeEditar).SetChecked(Model.PactoExecutadoNoExterior.GetValueOrDefault()) Sim</label>
                             <label>@Html.RadioButtonCGUFor(x => x.PactoExecutadoNoExterior, new { @required = "required", @onchange = "alternaVisibilidadeProcessoSEI(false)" }, false).SetDisabled(!Model.podeEditar).SetChecked(!Model.PactoExecutadoNoExterior.GetValueOrDefault()) Não</label>
-                            <!--
+                            
                             <p class="label label-info col-md-12" style="white-space: pre-wrap; text-align: justify">A execução de plano PGD no exterior deve ser autorizada pelo Ministro. Para assinatura do plano é necessário informar o documento SEI de autorização.</p>
-                            -->
+                           
                         </div>
                         <div class="form-group col-md-6">
                             <div id="divProcessoSEI" style="@(Model.PactoExecutadoNoExterior.GetValueOrDefault() ? "" : "display:none")">
@@ -393,6 +393,10 @@
 
     @section Scripts{
         <script type="text/javascript">
+            //csa
+            $(document).ready(function () {
+                $('#ProcessoSEI').mask('99999.999999/9999-99');
+            });
             //csa
             function validaDataInicio(event) {
 

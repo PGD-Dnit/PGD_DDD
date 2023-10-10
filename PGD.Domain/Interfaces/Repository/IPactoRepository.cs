@@ -13,5 +13,8 @@ namespace PGD.Domain.Interfaces.Repository
         Pacto Atualizar(Pacto obj, int idPacto);
         void AtualizaEstadoEntidadesRelacionadas(Pacto pacto);
         IEnumerable<Pacto> ConsultarPactos(Pacto objFiltro, bool incluirUnidadesSubordinadas = false);
+        //csa
+        IEnumerable<Pacto> ObterPactosProcedure(Pacto objFiltro, bool incluirUnidadesSubordinadas = false);
+
     }
 }

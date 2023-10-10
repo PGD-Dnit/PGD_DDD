@@ -206,7 +206,14 @@ namespace PGD.Domain.Services
         {
             return this._classRepository.ConsultarPactos(objFiltro, incluirUnidadesSubordinadas);
         }
- 
+        //csa
+        public IEnumerable<Pacto> ObterPactosProcedure(Pacto objFiltro, bool incluirUnidadesSubordinadas = false)
+        {
+            return this._classRepository.ObterPactosProcedure(objFiltro,  incluirUnidadesSubordinadas);
+        }
+
+
+
         public Pacto Remover(Pacto obj)
         {
             var pacto = ObterPorId(obj.IdPacto);

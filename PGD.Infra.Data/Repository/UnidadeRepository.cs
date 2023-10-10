@@ -60,7 +60,24 @@ namespace PGD.Infra.Data.Repository
                 query = query.Where(x => x.IdUnidade == filtro.Id);
             
             if(filtro.IdUsuario.HasValue)
-                query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => !y.Excluido && y.IdUsuario == filtro.IdUsuario));
+            {
+                if (filtro.IncludePerfil.HasValue)
+                {
+                    /*query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => !y.Excluido && y.IdUsuario == filtro.IdUsuario) ||
+                                   x.UsuariosPerfisUnidades.Any(y => y.Excluido && y.IdUsuario == filtro.IdUsuario && y.IdPerfil == (int)Domain.Enums.Perfil.Solicitante))
+                                   .Select(u => u);*/
+                    query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUsuario == filtro.IdUsuario && y.IdPerfil == filtro.IncludePerfil));
+
+                }
+                else 
+                {
+                    query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => !y.Excluido && y.IdUsuario == filtro.IdUsuario));
+                }
+                    
+
+                
+            }
+                
             //csa add um filtro p perfil
             //if (filtro.IdPerfilSelecionado.HasValue)
                 //query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == filtro.IdPerfilSelecionado));
@@ -72,7 +89,10 @@ namespace PGD.Infra.Data.Repository
 
             if (!filtro.BuscarExcluidos)
                 query = query.Where(x => !x.Excluido);
-               
+
+            /*if (filtro.UsuarioPerfilUnidadeExcluidos)
+                query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.Excluido && y.IdUsuario == filtro.IdUsuario && y.IdPerfil == (int)Domain.Enums.Perfil.Solicitante));
+            */
 
             if (filtro.IdsPactos != null && filtro.IdsPactos.Any())
             {

@@ -8,11 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PGD.Domain.Interfaces.Service
 {
     public interface IPactoService:IService<Pacto>
     {
         IEnumerable<Pacto> ConsultarPactos(Pacto objFiltro, bool incluirUnidadesSubordinadas = false);
+        //csa
+        IEnumerable<Pacto> ObterPactosProcedure(Pacto objFiltro, bool incluirUnidadesSubordinadas = false);
         IEnumerable<Pacto> ObterTodos(string include);
         IEnumerable<Pacto> ObterTodosAtrasados();
         IEnumerable<Pacto> ObterTodosAIniciarHoje();

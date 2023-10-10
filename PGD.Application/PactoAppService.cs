@@ -59,6 +59,15 @@ namespace PGD.Application
             return dest;
         }
 
+        //csa
+        public IEnumerable<PactoViewModel> ObterPactosProcedure(PactoViewModel objFiltro, bool incluirUnidadesSubordinadas = false)
+        {
+            var pacto = Mapper.Map<PactoViewModel, Pacto>(objFiltro);
+            var retorno = _pactoService.ObterPactosProcedure(pacto, incluirUnidadesSubordinadas);
+            var dest = MapeiaSemProdutos(retorno);
+            return dest;
+        }
+
         private IEnumerable<PactoViewModel> MapeiaSemProdutos(IEnumerable<Pacto> lstPactos)
         {
             var lst = lstPactos.Select(r => new PactoViewModel

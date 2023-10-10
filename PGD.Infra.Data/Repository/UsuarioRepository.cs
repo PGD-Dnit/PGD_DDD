@@ -122,18 +122,37 @@ namespace PGD.Infra.Data.Repository
             query = filtro.Id.HasValue ? query.Where(x => x.IdUsuario == filtro.Id) : query;
 
             query = filtro.Perfil.HasValue ? query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdPerfil == (int)filtro.Perfil)) : query;
+            
             //csa
             if (filtro.Inativo.HasValue)
                 query = query.Where(x => x.Inativo == false);
             //csa
+            var unidadeSuperior = BuscarUnidadeSuperior(filtro.IdUnidade).FirstOrDefault();
             if (filtro.Excluido.HasValue)
             {
-                
-               query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil))
-            .Select(u => u);
-
-
+                if (filtro.IncludeUnidadeSuperior)
+                {
+                    query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil) ||
+                                   x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == unidadeSuperior.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil))
+                            .Select(u => u);
+                }else
+                {
+                    query = query.Where(x => x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == filtro.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil))
+                            .Select(u => u);
+                }
             }
+            //csa
+            /*if (filtro.IncludeUnidadeSuperior)
+            {
+                
+                var unidadeSuperior = BuscarUnidadeSuperior(filtro.IdUnidade).FirstOrDefault();  
+                
+                query = query.Where(x =>//////////talvesz trocar unidadeSuperior.IdUnidade por filtro.IdUnidade como tinha dado certo acima
+                                    x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == unidadeSuperior.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil) ||
+                                    x.UsuariosPerfisUnidades.Any(y => y.IdUnidade == unidadeSuperior.IdUnidade && y.Excluido == false && y.IdPerfil == (int)filtro.Perfil)).Select(u => u);
+
+            }*/
+            //
             retorno.QtRegistros = query.Count();
 
             if (filtro.Skip.HasValue && filtro.Take.HasValue)
@@ -231,6 +250,15 @@ namespace PGD.Infra.Data.Repository
                            select u;
 
             return unidades;
+        }
+        //csa
+        public IEnumerable<Unidade> BuscarUnidadeSuperior(int? idUnidade)
+        {
+            var unidadesSuperiores = from u in Db.Set<Unidade>()
+                                     where u.IdUnidade == idUnidade
+                                     select u.UnidadeSuperior;
+
+            return unidadesSuperiores.ToList();
         }
     }
 }

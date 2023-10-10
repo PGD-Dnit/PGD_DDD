@@ -140,7 +140,7 @@ namespace PGD.UI.Mvc.Controllers
             var user = getUserLogado();
             var searchpacto = new SearchPactoViewModel
             {
-                ObterPactosUnidadesSubordinadas = user.IsDirigente
+                ObterPactosUnidadesSubordinadas = user.IsDirigente                
             };
 
             return Index(searchpacto);
@@ -187,18 +187,29 @@ namespace PGD.UI.Mvc.Controllers
             var IdUnidade = 0;
             //csa UnidadeSelecionada criada p/ resolver chefia em duas unidades ou mais
             int UnidadeSelecionada = (int)user.IdUnidadeSelecionada;
+            if (obj.UnidadeId > 0)
+            {
+                 UnidadeSelecionada = (int)obj.UnidadeId;
+            }
+               
             if (user.IsSolicitante)
             {
                 // List<Unidade> unidadeUsuario = _unidadeService.Buscar(new UnidadeFiltro { IdUsuario = user.IdUsuario }).Lista.FirstOrDefault()?.Nome;
                 unidades = _unidadeService.Buscar(new UnidadeFiltro
                 {
-                    IdUsuario = user.IdUsuario
+                    IdUsuario = user.IdUsuario,
+                    //UsuarioPerfilUnidadeExcluidos = true,
+                    BuscarExcluidos = true,
+                    IncludePerfil = (int)Domain.Enums.Perfil.Solicitante
                 }).Lista ?? new List<Unidade>();
+
+               /* List<Unidade> unidadesHabilitadasParticipante = _unidadeService.ObterUnidadesParticipante(userLogado.IdUsuario, (int)Domain.Enums.Perfil.Solicitante).ToList();
+                TempData[GetNomeVariavelTempData("Unidades", idPacto)] = unidadesHabilitadasParticipante.AsEnumerable();*/
             }
             else if (user.IsDirigente)
             {
-
-                var idUsuarioPerfilUnidade = _UsuarioPerfilUnidadeService.Buscar(new UsuarioPerfilUnidadeFiltro
+                //####################
+                /*var idUsuarioPerfilUnidade = _UsuarioPerfilUnidadeService.Buscar(new UsuarioPerfilUnidadeFiltro
                 {
                     IdUsuario = user.IdUsuario
                 }).Lista ?? new List<UsuarioPerfilUnidade>();
@@ -211,7 +222,8 @@ namespace PGD.UI.Mvc.Controllers
                         IdUnidade = item.IdUnidade;
                     }
 
-                }
+                }*/
+
                 //VER AQUI A POSSIBILIDADE DE UTILIZAR IDUNIDADESELECIONA QUE JÁ VEM PREENCHIDA EM USER.IDUNIDADESELECIONA, AO INVES idUsuarioPerfilUnidade E O FOREACH ACIMA
                 //var IdUnidadeSuperior = IdUnidade;
                 //csa
@@ -291,10 +303,6 @@ namespace PGD.UI.Mvc.Controllers
 
             }
 
-
-
-
-
             PactoCompleto.Searchpacto = obj;
             if (obj.DataInicial != null) pactoViewModel.DataPrevistaInicio = (DateTime)obj.DataInicial;
             pactoViewModel.DataPrevistaTermino = obj.DataFinal;
@@ -302,7 +310,7 @@ namespace PGD.UI.Mvc.Controllers
             pactoViewModel.IdSituacaoPacto = idSituacao.GetValueOrDefault();
             pactoViewModel.IdTipoPacto = obj.idTipoPacto.GetValueOrDefault();
             pactoViewModel.IdPacto = obj.IdPacto.GetValueOrDefault();
-
+            //qd e usado o filtro nome unidade o obj.unidade vem com o numero da unidade escolhida
             if (obj.UnidadeId > 0)
             {
                 retornoUnidade = unidades.FirstOrDefault(x => x.IdUnidade == obj.UnidadeId);
@@ -320,20 +328,14 @@ namespace PGD.UI.Mvc.Controllers
             if (user.IsSolicitante)
             {
                 PactoCompleto.Searchpacto.NomeServidor = user.Nome;
+                //pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
+                pactoViewModel.CpfUsuario = user.CPF;
+                pactoViewModel.Nome = null;                
                 //csa 
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                //    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
                     .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
-                
-                /*foreach (var pacto in retorno)
-                {
-                    if (pacto.IdSituacaoPacto == (int)eSituacaoPacto.AIniciar && pacto.DataPrevistaInicio <= DateTime.Now)
-                        
-                        {
-                        var pac = _Pactoservice.AtualizarPactosAiniciar(pacto, eSituacaoPacto.AIniciar);                       
-                        retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                        
-                        .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
-                    }                 
-                }*/
 
             }
             else if (user.IsDirigente)
@@ -342,8 +344,12 @@ namespace PGD.UI.Mvc.Controllers
                 //csa alterado p pegar a unidade que foi escolhida pelo usuario no momento do login, caso esteja em mais de uma unidade como chefia
                 pactoViewModel.UnidadeExercicio = UnidadeSelecionada;
                 pactoViewModel.CpfUsuario = user.CPF;
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                   
-                    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                //var UserPerfil = user.IdPerfilSelecionado;
+                //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                   
+                //  .OrderByDescending(s => s.IdPacto).ToList();
+               // obj.ObterPactosUnidadesSubordinadas = false;
+               retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                    .Where(x => x.CpfUsuario != user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
             }
             else if (user.IsAdminPessoas)
             {
@@ -353,12 +359,16 @@ namespace PGD.UI.Mvc.Controllers
                 pactoViewModel.CpfUsuario = user.CPF;
                 //csa usei p/ trazer as unidades subordinadas user.IsAdminPessoas = true
                 obj.ObterPactosUnidadesSubordinadas = user.IsAdminPessoas;
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                    
-                    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                    
+                //    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
+                    .Where(x => x.CpfUsuario != user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
             }
             else
             {
-                retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                    
+                //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                    
+                //    .OrderByDescending(s => s.IdPacto).Take(10).ToList();
+                retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
                     .OrderByDescending(s => s.IdPacto).Take(100).ToList();
             }
             dirigente = user.IsDirigente;
