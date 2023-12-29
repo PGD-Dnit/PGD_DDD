@@ -335,7 +335,7 @@ namespace PGD.UI.Mvc.Controllers
                 //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
                 //    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
                 retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    .Where(x => x.CpfUsuario == user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
 
             }
             else if (user.IsDirigente)
@@ -349,7 +349,7 @@ namespace PGD.UI.Mvc.Controllers
                 //  .OrderByDescending(s => s.IdPacto).ToList();
                // obj.ObterPactosUnidadesSubordinadas = false;
                retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .Where(x => x.CpfUsuario != user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    .Where(x => x.CpfUsuario != user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
             }
             else if (user.IsAdminPessoas)
             {
@@ -362,14 +362,14 @@ namespace PGD.UI.Mvc.Controllers
                 //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                    
                 //    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
                 retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .Where(x => x.CpfUsuario != user.CPF).OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    .Where(x => x.CpfUsuario != user.CPF).OrderByDescending(s => s.IdPacto).Take(500).ToList();
             }
             else
             {
                 //retorno = _Pactoservice.ObterTodos(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)                    
                 //    .OrderByDescending(s => s.IdPacto).Take(10).ToList();
                 retorno = _Pactoservice.ObterPactosProcedure(pactoViewModel, obj.ObterPactosUnidadesSubordinadas)
-                    .OrderByDescending(s => s.IdPacto).Take(100).ToList();
+                    .OrderByDescending(s => s.IdPacto).Take(500).ToList();
             }
             dirigente = user.IsDirigente;
 
